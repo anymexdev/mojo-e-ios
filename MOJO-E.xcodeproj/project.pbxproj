@@ -14,6 +14,9 @@
 		6B8054E21CE2E50600E3B039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B8054E01CE2E50600E3B039 /* LaunchScreen.storyboard */; };
 		6B8054ED1CE2E50600E3B039 /* MOJO_ETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8054EC1CE2E50600E3B039 /* MOJO_ETests.swift */; };
 		6B8054F81CE2E50600E3B039 /* MOJO_EUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8054F71CE2E50600E3B039 /* MOJO_EUITests.swift */; };
+		829CE1221CE30BBC00030E47 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE11F1CE30BBC00030E47 /* Config.swift */; };
+		829CE1231CE30BBC00030E47 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1201CE30BBC00030E47 /* Extension.swift */; };
+		829CE1241CE30BBC00030E47 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1211CE30BBC00030E47 /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		6B8054F31CE2E50600E3B039 /* MOJO-EUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MOJO-EUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8054F71CE2E50600E3B039 /* MOJO_EUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOJO_EUITests.swift; sourceTree = "<group>"; };
 		6B8054F91CE2E50600E3B039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		829CE11F1CE30BBC00030E47 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		829CE1201CE30BBC00030E47 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		829CE1211CE30BBC00030E47 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +104,11 @@
 			isa = PBXGroup;
 			children = (
 				6B8054D71CE2E50600E3B039 /* AppDelegate.swift */,
-				6B8054D91CE2E50600E3B039 /* ViewController.swift */,
-				6B8054DB1CE2E50600E3B039 /* Main.storyboard */,
-				6B8054DE1CE2E50600E3B039 /* Assets.xcassets */,
-				6B8054E01CE2E50600E3B039 /* LaunchScreen.storyboard */,
-				6B8054E31CE2E50600E3B039 /* Info.plist */,
+				829CE11C1CE30B6D00030E47 /* Models */,
+				829CE11B1CE30B6600030E47 /* Controllers */,
+				829CE11A1CE30B5C00030E47 /* Views */,
+				829CE11D1CE30B7A00030E47 /* Utility */,
+				829CE11E1CE30B8000030E47 /* Resources */,
 			);
 			path = "MOJO-E";
 			sourceTree = "<group>";
@@ -123,6 +129,49 @@
 				6B8054F91CE2E50600E3B039 /* Info.plist */,
 			);
 			path = "MOJO-EUITests";
+			sourceTree = "<group>";
+		};
+		829CE11A1CE30B5C00030E47 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6B8054DB1CE2E50600E3B039 /* Main.storyboard */,
+				6B8054E01CE2E50600E3B039 /* LaunchScreen.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		829CE11B1CE30B6600030E47 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6B8054D91CE2E50600E3B039 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		829CE11C1CE30B6D00030E47 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		829CE11D1CE30B7A00030E47 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				829CE11F1CE30BBC00030E47 /* Config.swift */,
+				829CE1201CE30BBC00030E47 /* Extension.swift */,
+				829CE1211CE30BBC00030E47 /* Utility.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		829CE11E1CE30B8000030E47 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6B8054E31CE2E50600E3B039 /* Info.plist */,
+				6B8054DE1CE2E50600E3B039 /* Assets.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,8 +305,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				829CE1241CE30BBC00030E47 /* Utility.swift in Sources */,
 				6B8054DA1CE2E50600E3B039 /* ViewController.swift in Sources */,
 				6B8054D81CE2E50600E3B039 /* AppDelegate.swift in Sources */,
+				829CE1221CE30BBC00030E47 /* Config.swift in Sources */,
+				829CE1231CE30BBC00030E47 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,10 +451,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gordon Chu (W4K7C7X2HN)";
 				INFOPLIST_FILE = "MOJO-E/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7c0824dd-51fd-4c0f-8c21-9bc5ddfb6cf9";
 			};
 			name = Debug;
 		};
@@ -410,10 +465,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gordon Chu (W4K7C7X2HN)";
 				INFOPLIST_FILE = "MOJO-E/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7c0824dd-51fd-4c0f-8c21-9bc5ddfb6cf9";
 			};
 			name = Release;
 		};
@@ -482,6 +540,7 @@
 				6B8054FE1CE2E50600E3B039 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6B8054FF1CE2E50600E3B039 /* Build configuration list for PBXNativeTarget "MOJO-ETests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +549,7 @@
 				6B8055011CE2E50600E3B039 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6B8055021CE2E50600E3B039 /* Build configuration list for PBXNativeTarget "MOJO-EUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +558,7 @@
 				6B8055041CE2E50600E3B039 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
