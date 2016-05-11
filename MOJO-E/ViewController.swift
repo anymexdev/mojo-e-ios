@@ -1,8 +1,7 @@
 //
-//  ViewController.swift
 //  MOJO-E
 //
-//  Created by Long Phan on 5/11/16.
+//  Created by Tam Tran on 5/11/16.
 //  Copyright © 2016 MOJO. All rights reserved.
 //
 

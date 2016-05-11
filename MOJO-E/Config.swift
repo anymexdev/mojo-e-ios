@@ -7,6 +7,13 @@
 
 import Foundation
 import UIKit
+import Firebase
+
+//Firebase
+let kFireBaseUrl = "https://sweltering-inferno-5617.firebaseio.com/"
+let kFireBaseUsersUrl = "\(kFireBaseUrl)users"
+let myRootRef = Firebase(url: kFireBaseUrl)
+let usersRef = Firebase(url: kFireBaseUsersUrl)
 
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 let areaCodes: NSDictionary =  [

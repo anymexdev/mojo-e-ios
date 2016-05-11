@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JLToast
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        JLToastView.setDefaultValue(
+            UIColor.blackColor(),
+            forAttributeName: JLToastViewBackgroundColorAttributeName,
+            userInterfaceIdiom: .Phone
+        )
         // Override point for customization after application launch.
         return true
     }

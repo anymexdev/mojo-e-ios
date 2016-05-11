@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SystemConfiguration
+import JLToast
 
 class Utility {
     
@@ -42,6 +43,10 @@ class Utility {
             alert.addAction(cancelAction)
             sender.presentViewController(alert, animated: true, completion: { () in  })
         })
+    }
+    
+    class func showToastWithMessage(mesage: String, duration: NSTimeInterval = JLToastDelay.ShortDelay) {
+        JLToast.makeText(mesage, duration: duration).show()
     }
     
     
