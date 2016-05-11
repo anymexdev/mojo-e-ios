@@ -60,6 +60,8 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     
     //MARK: Login via Email
     @IBAction func signInAction(sender: AnyObject) {
+        Utility.openAuthenticatedFlow()
+        /*
         myRootRef.authUser(emailTextField.text, password: passwordTextField.text) { (error, authData) -> Void in
             if error != nil {
                 // There was an error logging the account
@@ -93,10 +95,9 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
                         print(error.description)
                         
                 })
-              // self.setCurrentUser(authData.uid, data: newUser)
-               
             }
         }
+ */
     }
     
     @IBAction func signUpAction(sender: AnyObject) {
