@@ -21,11 +21,6 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialize()
-        //
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AuthenticationViewController.endEditing))
-        tapGesture.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tapGesture)
-        // Setup delegates
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -107,6 +102,11 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     func initialize() {
         emailTextField.text = "u2@gmail.com"
         passwordTextField.text = "u2"
+        //
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AuthenticationViewController.endEditing))
+        tapGesture.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapGesture)
+        // Setup delegates
     }
     
     func endEditing() {

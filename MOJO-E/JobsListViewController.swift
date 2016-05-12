@@ -8,13 +8,14 @@
 import UIKit
 import MGSwipeTableCell
 
-class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate {
+class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: UI Element
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: private property
     var jobs = [Job]()
+    var jobSelected: Job?
     
     //MARK: View did load
     override func viewDidLoad() {
@@ -36,6 +37,12 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     override func viewDidAppear(animated: Bool) {
         self.syncJobsWithType("Incoming")
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let vc = segue.destinationViewController as? JobViewController {
+            vc.jobSelected = jobSelected
+        }
     }
     
     //MARK: UI Action
@@ -97,13 +104,18 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         return cell
     }
     
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
     // MARK: UITableViewDelegate.
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60.0;
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
+        jobSelected = self.jobs[indexPath.row]
+        self.performSegueWithIdentifier("JobDetailsSegue", sender: nil)
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
