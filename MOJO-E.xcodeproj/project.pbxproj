@@ -14,6 +14,11 @@
 		6B8054E21CE2E50600E3B039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B8054E01CE2E50600E3B039 /* LaunchScreen.storyboard */; };
 		6B8054ED1CE2E50600E3B039 /* MOJO_ETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8054EC1CE2E50600E3B039 /* MOJO_ETests.swift */; };
 		6B8054F81CE2E50600E3B039 /* MOJO_EUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8054F71CE2E50600E3B039 /* MOJO_EUITests.swift */; };
+		8275C8141CE48FCE007B2D19 /* TimeSlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */; };
+		8275C8161CE4900F007B2D19 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8151CE4900F007B2D19 /* TimeSlot.swift */; };
+		8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8171CE4908B007B2D19 /* ListTimeCell.swift */; };
+		8275C81A1CE490EA007B2D19 /* ListDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8191CE490EA007B2D19 /* ListDayCell.swift */; };
+		8275C81C1CE49160007B2D19 /* DateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C81B1CE49160007B2D19 /* DateInfo.swift */; };
 		829CE1221CE30BBC00030E47 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE11F1CE30BBC00030E47 /* Config.swift */; };
 		829CE1231CE30BBC00030E47 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1201CE30BBC00030E47 /* Extension.swift */; };
 		829CE1241CE30BBC00030E47 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1211CE30BBC00030E47 /* Utility.swift */; };
@@ -62,6 +67,11 @@
 		6B8054F71CE2E50600E3B039 /* MOJO_EUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOJO_EUITests.swift; sourceTree = "<group>"; };
 		6B8054F91CE2E50600E3B039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF7DB87811EA313F827CD6E /* Pods_MOJO_E.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MOJO_E.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlotViewController.swift; sourceTree = "<group>"; };
+		8275C8151CE4900F007B2D19 /* TimeSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
+		8275C8171CE4908B007B2D19 /* ListTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeCell.swift; sourceTree = "<group>"; };
+		8275C8191CE490EA007B2D19 /* ListDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDayCell.swift; sourceTree = "<group>"; };
+		8275C81B1CE49160007B2D19 /* DateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInfo.swift; sourceTree = "<group>"; };
 		829CE11F1CE30BBC00030E47 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		829CE1201CE30BBC00030E47 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		829CE1211CE30BBC00030E47 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -165,6 +175,8 @@
 		829CE11A1CE30B5C00030E47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8275C8191CE490EA007B2D19 /* ListDayCell.swift */,
+				8275C8171CE4908B007B2D19 /* ListTimeCell.swift */,
 				829CE1301CE32D6F00030E47 /* JobCell.swift */,
 				829CE1251CE3131D00030E47 /* Authentication.storyboard */,
 				6B8054DB1CE2E50600E3B039 /* Authenticated.storyboard */,
@@ -176,6 +188,7 @@
 		829CE11B1CE30B6600030E47 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */,
 				829CE1341CE478D500030E47 /* JobViewController.swift */,
 				829CE12E1CE32D5E00030E47 /* JobsListViewController.swift */,
 				829CE1281CE313A300030E47 /* AuthenticationViewController.swift */,
@@ -187,7 +200,9 @@
 		829CE11C1CE30B6D00030E47 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8275C81B1CE49160007B2D19 /* DateInfo.swift */,
 				829CE1321CE3305400030E47 /* Job.swift */,
+				8275C8151CE4900F007B2D19 /* TimeSlot.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -501,11 +516,16 @@
 				829CE12F1CE32D5E00030E47 /* JobsListViewController.swift in Sources */,
 				829CE1311CE32D6F00030E47 /* JobCell.swift in Sources */,
 				829CE1241CE30BBC00030E47 /* Utility.swift in Sources */,
+				8275C81C1CE49160007B2D19 /* DateInfo.swift in Sources */,
+				8275C8141CE48FCE007B2D19 /* TimeSlotViewController.swift in Sources */,
 				6B8054D81CE2E50600E3B039 /* AppDelegate.swift in Sources */,
+				8275C81A1CE490EA007B2D19 /* ListDayCell.swift in Sources */,
 				829CE1221CE30BBC00030E47 /* Config.swift in Sources */,
 				829CE12D1CE3150500030E47 /* ErrorMessage.swift in Sources */,
+				8275C8161CE4900F007B2D19 /* TimeSlot.swift in Sources */,
 				829CE1351CE478D500030E47 /* JobViewController.swift in Sources */,
 				829CE12A1CE313A300030E47 /* AuthenticationViewController.swift in Sources */,
+				8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */,
 				829CE12B1CE313A300030E47 /* SignUpViewController.swift in Sources */,
 				829CE1231CE30BBC00030E47 /* Extension.swift in Sources */,
 				829CE1331CE3305400030E47 /* Job.swift in Sources */,

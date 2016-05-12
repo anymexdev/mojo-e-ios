@@ -45,6 +45,30 @@ extension NSDate
         return components.month
     }
     
+    func toShortDayString() -> String {
+        return String("\(self.toThuF()), \(self.toMonthF()) \(self.day()), \(self.year())")
+    }
+    
+    func thu() -> String {
+        //Get thu
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(NSCalendarUnit.Weekday, fromDate: self)
+        let strThu = dayOfWeek[String(components.weekday)]
+        return strThu!
+    }
+    
+    func toThuF() -> String
+    {
+        //Get thu
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(NSCalendarUnit.Weekday , fromDate: self)
+        return dayOfWeekFull[ dayOfWeek[String(components.weekday)]!]!
+    }
+    
+    func toMonthF() -> String
+    {
+        return monthOfYear[String(self.month())]!
+    }
     
     func hour() -> Int
     {
@@ -150,9 +174,9 @@ extension NSDate
 
 extension UIImage {
     public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool) -> UIImage {
-        let radiansToDegrees: (CGFloat) -> CGFloat = {
-            return $0 * (180.0 / CGFloat(M_PI))
-        }
+//        let radiansToDegrees: (CGFloat) -> CGFloat = {
+//            return $0 * (180.0 / CGFloat(M_PI))
+//        }
         let degreesToRadians: (CGFloat) -> CGFloat = {
             return $0 / 180.0 * CGFloat(M_PI)
         }

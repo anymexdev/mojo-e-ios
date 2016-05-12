@@ -12,6 +12,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     //MARK: UI Element
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addTimeslotView: UIView!
+    @IBOutlet weak var addTimeslotButton: UIButton!
     
     //MARK: private property
     var jobs = [Job]()
@@ -20,6 +22,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     //MARK: View did load
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initialize()
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,7 +68,17 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         }
     }
     
-    // MARK: UITableViewDataSource.
+    @IBAction func addTimeslotAction(sender: AnyObject) {
+        self.performSegueWithIdentifier("TimeslotSegue", sender: nil)
+    }
+    
+    // MARK: Functions
+    
+    func initialize() {
+        Utility.borderRadiusView(addTimeslotView.frame.size.width / 2, view: addTimeslotView)
+        Utility.borderRadiusView(addTimeslotButton.frame.size.width / 2, view: addTimeslotButton)
+    }
+    
     func syncJobsWithType(type: String)
     {
         jobsRef.observeEventType(.Value, withBlock: {
@@ -84,6 +97,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             }
         })
     }
+    
+    // MARK: UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

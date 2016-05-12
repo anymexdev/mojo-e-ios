@@ -49,6 +49,9 @@ class Utility {
         JLToast.makeText(mesage, duration: duration).show()
     }
     
+    class func lightBlueColor() -> UIColor {
+        return UIColor(red: 169.0/255.0, green: 219.0/255.0, blue: 239.0/255.0, alpha: 1.0)
+    }
     
     class func navigateToVC(from : UIViewController, vc : UIViewController, direction : String = kCATransitionFromRight) {
         
@@ -94,6 +97,10 @@ class Utility {
     
     class func greenL3Color() -> UIColor {
         return UIColor(red: 174.0/255.0, green: 213.0/255.0, blue: 129.0/255.0, alpha: 1.0)
+    }
+    
+    class func greenL0Color() -> UIColor {
+        return UIColor(red: 85.0/255.0, green: 139.0/255.0, blue: 47.0/255.0, alpha: 1.0)
     }
     
     class func scaleImage(image: UIImage, toSize newSize: CGSize) -> (UIImage) {

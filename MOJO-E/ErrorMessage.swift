@@ -23,3 +23,8 @@ let kErrorAuthenticationDefault = "Something went wrong, please try again."
 let kErrorEmailExists = "This email's been registered please try another"
 let kErrorUserNameShort = "This username's short. Username must be at least 5 character."
 let kErrorInputEmpty = "The username and phone couldn't be empty!"
+
+
+let kErrorTimeSlotDateExist = "The timeslot's been existed. Please pick another"
+let kErrorTimeSlotShortDistance = "The interval could be least at 15 minute"
+let kErrorTimeSlotPreToTimeLaterThanFromTime = "From time must be sooner than To time"
