@@ -99,7 +99,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVB-ss-8lA">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="business Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVB-ss-8lA">
                                                     <rect key="frame" x="30" y="2" width="291" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="MmW-gj-dPf"/>
@@ -108,7 +108,7 @@
                                                     <color key="textColor" red="0.27058823529999998" green="0.4823529412" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBg-1P-qIT">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBg-1P-qIT">
                                                     <rect key="frame" x="30" y="33" width="150" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="Z0x-Za-8Tp"/>
@@ -124,8 +124,10 @@
                                                         <constraint firstAttribute="width" constant="65" id="1pf-of-rBk"/>
                                                         <constraint firstAttribute="height" constant="30" id="uKX-YJ-gGP"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="16"/>
-                                                    <state key="normal" title="Accept"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-MediumItalic" family="Avenir Next" pointSize="16"/>
+                                                    <state key="normal" title="Accept">
+                                                        <color key="titleColor" red="1" green="0.55767670591543972" blue="0.092172561055548496" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="acceptAction:" destination="sDu-IF-g3n" eventType="touchUpInside" id="cVK-lH-N1z"/>
                                                     </connections>
@@ -154,8 +156,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="jobDateLabel" destination="xBg-1P-qIT" id="xYR-u4-DI8"/>
-                                            <outlet property="jobNameLabel" destination="FVB-ss-8lA" id="yNC-S8-ods"/>
+                                            <outlet property="addressLabel" destination="xBg-1P-qIT" id="Elv-QM-kSH"/>
+                                            <outlet property="businessNameLabel" destination="FVB-ss-8lA" id="gb8-XH-dD6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

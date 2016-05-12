@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 
 //Firebase
-let kFireBaseUrl = "https://sweltering-inferno-5617.firebaseio.com/"
-let kFireBaseUsersUrl = "\(kFireBaseUrl)users"
-let kFireBaseJobsUrl = "\(kFireBaseUrl)jobs"
+let kFireBaseUrl = "https://sizzling-torch-8660.firebaseio.com"
+let kFireBaseUsersUrl = "\(kFireBaseUrl)/users"
+let kFireBaseJobsUrl = "\(kFireBaseUrl)/jobs"
 let myRootRef = Firebase(url: kFireBaseUrl)
 let usersRef = Firebase(url: kFireBaseUsersUrl)
 let jobsRef = Firebase(url: kFireBaseJobsUrl)

@@ -44,60 +44,50 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
         super.viewDidDisappear(animated)
     }
     
-    
-    func setCurrentUser(uid: String, data: NSDictionary ) {
-//        UserInfo.sharedInstance().currentUserInfo = User.createInManagedObjectContext(appDelegate.managedObjectContext, uid: uid, data: data)
-//        currentUser = User.createInManagedObjectContext(appDelegate.managedObjectContext, uid: uid, data: data)
-//        if let _ = try? appDelegate.managedObjectContext.save() {
-//            // Save ok
-//            print("Coredata save OK")
-//        }
-//        else {
-//            // Save error
-//            print("Coredata save Error")
-//        }
-     }
-    
     //MARK: Login via Email
     @IBAction func signInAction(sender: AnyObject) {
-        Utility.openAuthenticatedFlow()
-        /*
-        myRootRef.authUser(emailTextField.text, password: passwordTextField.text) { (error, authData) -> Void in
-            if error != nil {
-                // There was an error logging the account
-                if let errorCode = FAuthenticationError(rawValue: error.code) {
-                    switch (errorCode) {
-                    case .UserDoesNotExist:
-                        Utility.showToastWithMessage(kErrorSignInUserDoesNotExist)
-                    case .InvalidEmail:
-                        Utility.showToastWithMessage(kErrorSignInInvalidEmail)
-                    case .InvalidPassword:
-                        Utility.showToastWithMessage(kErrorSignInInvalidPassword)
-                    case .NetworkError:
-                        Utility.showToastWithMessage(kErrorNetwork)
-                    default:
-                        Utility.showToastWithMessage(kErrorAuthenticationDefault)
+//        Utility.openAuthenticatedFlow()
+        if let email = emailTextField.text, let password = passwordTextField.text where email.count() > 0 && password.count() > 0 {
+            myRootRef.authUser(email, password: password) { (error, authData) -> Void in
+                if let error = error {
+                    // There was an error logging the account
+                    if let errorCode = FAuthenticationError(rawValue: error.code) {
+                        switch (errorCode) {
+                        case .UserDoesNotExist:
+                            Utility.showToastWithMessage(kErrorSignInUserDoesNotExist)
+                        case .InvalidEmail:
+                            Utility.showToastWithMessage(kErrorSignInInvalidEmail)
+                        case .InvalidPassword:
+                            Utility.showToastWithMessage(kErrorSignInInvalidPassword)
+                        case .NetworkError:
+                            Utility.showToastWithMessage(kErrorNetwork)
+                        default:
+                            Utility.showToastWithMessage(kErrorAuthenticationDefault)
+                        }
                     }
+                } else {
+//                    print("Successfully created user account with uid: \(authData.uid)")
+//                    let myCurrentUsersRef = Firebase(url: "\(kFireBaseUsersUrl)/\(authData.uid)")
+                    // load snapshot of user
+//                    myCurrentUsersRef.observeSingleEventOfType(.Value, withBlock: {
+//                        snapshot in
+//                        print(snapshot.value)
+//                        if let _ = snapshot.value as? NSDictionary {
+//                            print(authData.auth)
+//                            Utility.openAuthenticatedFlow()
+//                        }
+//                        }, withCancelBlock: { error in
+//                            print(error.description)
+//                            
+//                    })
+                    Utility.openAuthenticatedFlow()
                 }
-            } else {
-                print("Successfully created user account with uid: \(authData.uid)")
-                let myCurrentUsersRef = Firebase(url: "\(kFireBaseUsersUrl)/\(authData.uid)")
-                // load snapshot of user
-                myCurrentUsersRef.observeSingleEventOfType(.Value, withBlock: {
-                    snapshot in
-                    print(snapshot.value)
-                    if let data = snapshot.value as? NSDictionary {
-                        self.setCurrentUser(authData.uid, data: data)
-                        print(authData.auth)
-                        Utility.openAuthenticatedFlow()
-                    }
-                    }, withCancelBlock: { error in
-                        print(error.description)
-                        
-                })
             }
         }
- */
+        else {
+            Utility.showToastWithMessage(kErrorEmailIsEmpty)
+        }
+        
     }
     
     @IBAction func signUpAction(sender: AnyObject) {
@@ -115,7 +105,8 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     }
     
     func initialize() {
-        
+        emailTextField.text = "u2@gmail.com"
+        passwordTextField.text = "u2"
     }
     
     func endEditing() {

@@ -14,7 +14,6 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
@@ -40,23 +39,29 @@ class SignUpViewController: UIViewController {
     
     //MARK: UI ACtion
     @IBAction func finishAction(sender: AnyObject) {
-        if usernameTextField.text?.characters.count > 4 {
-            if let email = emailTextField.text {
-                myRootRef.createUser(email, password: passwordTextField.text!,
+        if let name = usernameTextField.text where name.count() > 0 {
+            if let email = emailTextField.text, let password = passwordTextField.text where email.count() > 0 && password.count() > 0 {
+                myRootRef.createUser(email, password: password,
                      withValueCompletionBlock: { error, result in
-                        if error != nil {
+                        if let error = error {
                             if let errorCode = FAuthenticationError(rawValue: error.code) {
                                 switch (errorCode) {
                                 case .NetworkError:
                                     Utility.showToastWithMessage(kErrorNetwork)
                                 default:
-                                    Utility.showToastWithMessage(kErrorSignUpCantCreateUser)
+                                    Utility.showToastWithMessage(error.description)
                                 }
                             }
                         } else {
 //                            usersRef.childByAppendingPath(currentUser?.uId).childByAppendingPath("username").setValue(usernameTextField.text!)
+                            var data = Dictionary<String, String>()
+                            data["userName"] = name
+                            data["email"] = email
+                            usersRef.childByAutoId().setValue(data)
+                            Utility.openAuthenticatedFlow()
+                            /*
                             myRootRef.authUser(self.emailTextField.text, password: self.passwordTextField.text) { (error, authData) -> Void in
-                                if error != nil {
+                                if let error = error {
                                     // There was an error logging the account
                                     if let errorCode = FAuthenticationError(rawValue: error.code) {
                                         switch (errorCode) {
@@ -74,24 +79,18 @@ class SignUpViewController: UIViewController {
                                     }
                                 } else {
                                     print("Successfully created user account with uid: \(authData.uid)")
-                                    let myCurrentUsersRef = Firebase(url: "\(kFireBaseUsersUrl)/\(authData.uid)")
-                                    // load snapshot of user
-                                    myCurrentUsersRef.observeSingleEventOfType(.Value, withBlock: {
-                                        snapshot in
-                                        if let _ = snapshot.value as? NSDictionary {
-                                            Utility.openAuthenticatedFlow()
-                                        }
-                                        }, withCancelBlock: { error in
-                                    })
+                                    Utility.openAuthenticatedFlow()
                                 }
                             }
+                            */
                         }
                 })
             }
-        } else {
-            if !(usernameTextField.text?.characters.count > 4) {
-                Utility.showToastWithMessage(kErrorUserNameShort)
+            else {
+                Utility.showToastWithMessage(kErrorEmailIsEmpty)
             }
+        } else {
+            Utility.showToastWithMessage(kErrorNameIsEmpty)
         }
     }
     
@@ -104,7 +103,6 @@ class SignUpViewController: UIViewController {
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
         usernameTextField.becomeFirstResponder()
-        emailTextField.enabled = false
     }
     
     func endEditing() {

@@ -67,11 +67,9 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             if let arrayData = snapshot.value.allObjects {
                 for value in arrayData {
                     if let value = value as? NSDictionary {
-                        let job = Job()
-                        if let jobType = value.objectForKey("jobType") as? String, let jobName = value.objectForKey("jobName") as? String, jobDate = value.objectForKey("jobDate") as? String where jobName.count() > 0 && jobType == type  {
-                            job.jobName = jobName
-                            job.jobDate = jobDate
-                            self.jobs.append(job)
+                        let job = Job.createJobFromDict(value)
+                        if job.type == type {
+                            self.jobs.append(Job.createJobFromDict(value))
                         }
                     }
                 }

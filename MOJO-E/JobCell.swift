@@ -16,8 +16,8 @@ import Font_Awesome_Swift
 class JobCell: MGSwipeTableCell {
 
     // MARK: UI's elements
-    @IBOutlet weak var jobNameLabel: UILabel!
-    @IBOutlet weak var jobDateLabel: UILabel!
+    @IBOutlet weak var businessNameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     
     
     // MARK: Class's properties
@@ -61,14 +61,14 @@ class JobCell: MGSwipeTableCell {
     
     func renderUI() {
         if let job = self.job {
-            self.jobDateLabel.text = job.jobDate
-            self.jobNameLabel.text = job.jobName
+            self.businessNameLabel.text = job.businessName
+            self.addressLabel.text = job.address1
         }
     }
     
     func cleanCell() {
-        self.jobDateLabel.text = ""
-        self.jobNameLabel.text = ""
+        self.businessNameLabel.text = ""
+        self.addressLabel.text = ""
     }
     
     

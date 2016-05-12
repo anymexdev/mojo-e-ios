@@ -339,7 +339,9 @@
                     <navigationItem key="navigationItem" id="p3W-C2-XqX"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="confirmPasswordTextField" destination="RVj-ez-9R7" id="oyR-72-Tlf"/>
                         <outlet property="emailTextField" destination="7kQ-NV-bKM" id="Hy8-fi-1vk"/>
+                        <outlet property="passwordTextField" destination="1YM-l9-Kf4" id="Y5A-Nd-eD4"/>
                         <outlet property="usernameTextField" destination="meF-ug-9T5" id="afp-6r-855"/>
                     </connections>
                 </viewController>
