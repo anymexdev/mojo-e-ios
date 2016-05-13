@@ -12,7 +12,7 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Jobs List View Controller-->
+        <!--Calendar Appearance Delegate-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="JobsListViewController" id="BYZ-38-t0r" customClass="JobsListViewController" customModule="MOJO_E" customModuleProvider="target" sceneMemberID="viewController">
@@ -47,6 +47,9 @@
                                         <state key="normal" title="Calendar">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="changeViewAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jcu-fQ-Xdc"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bq1-Wx-D8t" userLabel="Side" customClass="SquareButton" customModule="MOJO_E" customModuleProvider="target">
                                         <rect key="frame" x="354" y="20" width="50" height="50"/>
@@ -166,6 +169,41 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="GC8-AM-aFN"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gjm-jy-VX4" userLabel="Calendar">
+                                <rect key="frame" x="0.0" y="124" width="414" height="612"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1G2-hA-MiL" customClass="CVCalendarMenuView" customModule="CVCalendar">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <color key="backgroundColor" red="0.27058823529999998" green="0.4823529412" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="OpM-Xs-6oJ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="menuViewDelegate" destination="BYZ-38-t0r" id="XKP-k6-gA5"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubJ-Dn-a6h" customClass="CVCalendarView" customModule="CVCalendar">
+                                        <rect key="frame" x="0.0" y="49" width="414" height="360"/>
+                                        <color key="backgroundColor" red="0.41960784309999999" green="0.65490196079999996" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="360" id="HsW-CX-KBw"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="calendarAppearanceDelegate" destination="BYZ-38-t0r" id="g8w-nQ-F9l"/>
+                                            <outlet property="calendarDelegate" destination="BYZ-38-t0r" id="nGI-fF-1Bm"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="1G2-hA-MiL" secondAttribute="trailing" id="8vb-08-UcB"/>
+                                    <constraint firstItem="ubJ-Dn-a6h" firstAttribute="top" secondItem="1G2-hA-MiL" secondAttribute="bottom" constant="5" id="APm-wp-mWq"/>
+                                    <constraint firstItem="1G2-hA-MiL" firstAttribute="top" secondItem="Gjm-jy-VX4" secondAttribute="top" id="R28-OQ-LsV"/>
+                                    <constraint firstAttribute="trailing" secondItem="ubJ-Dn-a6h" secondAttribute="trailing" id="VvI-Ss-VJr"/>
+                                    <constraint firstItem="1G2-hA-MiL" firstAttribute="leading" secondItem="Gjm-jy-VX4" secondAttribute="leading" id="pym-ti-cAX"/>
+                                    <constraint firstItem="ubJ-Dn-a6h" firstAttribute="leading" secondItem="Gjm-jy-VX4" secondAttribute="leading" id="yqN-QF-GrO"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fn-B8-ZWv" userLabel="Add unavailable slots">
                                 <rect key="frame" x="314" y="636" width="50" height="50"/>
                                 <subviews>
@@ -197,14 +235,18 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="SZ1-99-zci" secondAttribute="bottom" id="23k-XA-JlE"/>
                             <constraint firstItem="5Fb-Zq-iyS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8oP-oP-os1"/>
                             <constraint firstAttribute="trailing" secondItem="5Fb-Zq-iyS" secondAttribute="trailing" id="9rc-KM-niI"/>
+                            <constraint firstItem="Gjm-jy-VX4" firstAttribute="bottom" secondItem="SZ1-99-zci" secondAttribute="bottom" id="ARH-wk-nvi"/>
                             <constraint firstItem="5Fb-Zq-iyS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="BpT-10-iRE"/>
                             <constraint firstItem="7HU-Yn-OpD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ELd-MR-p4b"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6fn-B8-ZWv" secondAttribute="bottom" constant="50" id="PTI-Tk-41f"/>
+                            <constraint firstItem="Gjm-jy-VX4" firstAttribute="trailing" secondItem="SZ1-99-zci" secondAttribute="trailing" id="SG1-jo-9rs"/>
                             <constraint firstItem="SZ1-99-zci" firstAttribute="top" secondItem="7HU-Yn-OpD" secondAttribute="bottom" constant="15" id="g3N-yb-r51"/>
                             <constraint firstItem="7HU-Yn-OpD" firstAttribute="top" secondItem="5Fb-Zq-iyS" secondAttribute="bottom" constant="15" id="lJM-nB-3F9"/>
                             <constraint firstItem="SZ1-99-zci" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mi6-GP-8Xb"/>
                             <constraint firstAttribute="trailing" secondItem="6fn-B8-ZWv" secondAttribute="trailing" constant="50" id="u6w-AT-3Xt"/>
                             <constraint firstAttribute="trailing" secondItem="SZ1-99-zci" secondAttribute="trailing" id="wCb-mS-lK4"/>
+                            <constraint firstItem="Gjm-jy-VX4" firstAttribute="top" secondItem="SZ1-99-zci" secondAttribute="top" id="yBz-F5-iBW"/>
+                            <constraint firstItem="Gjm-jy-VX4" firstAttribute="leading" secondItem="SZ1-99-zci" secondAttribute="leading" id="zht-yp-s7o"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NOo-Ep-lnK"/>
@@ -212,6 +254,10 @@
                     <connections>
                         <outlet property="addTimeslotButton" destination="krF-uz-gdb" id="yIb-3o-4OV"/>
                         <outlet property="addTimeslotView" destination="6fn-B8-ZWv" id="JO9-a3-ZlV"/>
+                        <outlet property="calendarContainerView" destination="Gjm-jy-VX4" id="Msc-GU-Nmj"/>
+                        <outlet property="calendarView" destination="ubJ-Dn-a6h" id="wBJ-fF-L9s"/>
+                        <outlet property="jobViewStyleButton" destination="gjS-RB-cXp" id="ODe-Jr-671"/>
+                        <outlet property="menuView" destination="1G2-hA-MiL" id="9w7-Z7-CRS"/>
                         <outlet property="tableView" destination="SZ1-99-zci" id="biY-OB-gBx"/>
                         <segue destination="Tns-i7-nsI" kind="show" identifier="JobDetailsSegue" id="I2Y-Zx-UfM"/>
                         <segue destination="6b5-dX-rag" kind="show" identifier="TimeslotSegue" id="cl0-Pe-Tk7"/>
@@ -1006,7 +1052,7 @@
         <image name="SideMenu" width="26" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AMb-6G-SWd"/>
-        <segue reference="vOE-Xy-1Pu"/>
+        <segue reference="AJQ-Ng-BpI"/>
+        <segue reference="uHa-8e-yUf"/>
     </inferredMetricsTieBreakers>
 </document>

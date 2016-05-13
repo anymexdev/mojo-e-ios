@@ -9,6 +9,7 @@ target 'MOJO-E' do
 	pod 'Firebase'
     pod 'JLToast'
     pod 'SideMenu'
+    pod 'CVCalendar'
 end
 
 target 'MOJO-ETests' do

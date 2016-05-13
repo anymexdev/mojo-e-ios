@@ -8,13 +8,21 @@
 import UIKit
 import MGSwipeTableCell
 import SideMenu
+import CVCalendar
 
-class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource {
+class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource, CVCalendarViewDelegate, CVCalendarMenuViewDelegate, CVCalendarViewAppearanceDelegate {
     
     //MARK: UI Element
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addTimeslotView: UIView!
     @IBOutlet weak var addTimeslotButton: UIButton!
+    @IBOutlet weak var jobViewStyleButton: UIButton!
+    
+    @IBOutlet weak var menuView: CVCalendarMenuView!
+    @IBOutlet weak var calendarView: CVCalendarView!
+    
+    @IBOutlet weak var calendarContainerView: UIView!
+    
     
     //MARK: private property
     var jobs = [Job]()
@@ -49,6 +57,13 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.menuView.commitMenuViewUpdate()
+        self.calendarView.commitCalendarViewUpdate()
+    }
+    
     //MARK: UI Action
     
     @IBAction func backAction(sender: AnyObject) {
@@ -73,6 +88,18 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         self.performSegueWithIdentifier("TimeslotSegue", sender: nil)
     }
     
+    @IBAction func changeViewAction(sender: AnyObject) {
+        if jobViewStyleButton.currentTitle == "Calendar" {
+            tableView.hidden = true
+            jobViewStyleButton.setTitle("List", forState: .Normal)
+            calendarContainerView.hidden = false
+        }
+        else {
+            tableView.hidden = false
+            jobViewStyleButton.setTitle("Calendar", forState: .Normal)
+            calendarContainerView.hidden = true
+        }
+    }
     // MARK: Functions
     
     func initialize() {
@@ -145,7 +172,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         return 0.0;
     }
     
-    //MARK: -Swipe cell delegate
+    // MARK: -Swipe cell delegate
     func swipeTableCell(cell: MGSwipeTableCell!, tappedButtonAtIndex index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
         let path: NSIndexPath = self.tableView.indexPathForCell(cell)!
         if direction == MGSwipeDirection.LeftToRight && index == 0 {
@@ -154,9 +181,18 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         return true
     }
     
-    //MARK: Friend request protocol
+    // MARK: Friend request protocol
     func acceptJob(job: Job?) {
         
+    }
+    
+    // MARK: CalendarView's Delegate 
+    func presentationMode() -> CalendarMode {
+        return CalendarMode.MonthView
+    }
+    
+    func firstWeekday() -> Weekday {
+        return Weekday.Sunday
     }
     
 }
