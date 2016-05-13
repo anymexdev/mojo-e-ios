@@ -37,6 +37,7 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func initialize() {
+        appDelegate.mainVC = self
         setUnSelectedBackgoundLabel()
         dateTimePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
         if let _ = dateList {

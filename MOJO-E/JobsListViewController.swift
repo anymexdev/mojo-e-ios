@@ -76,10 +76,12 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: Functions
     
     func initialize() {
+        appDelegate.mainVC = self
         Utility.borderRadiusView(addTimeslotView.frame.size.width / 2, view: addTimeslotView)
         Utility.borderRadiusView(addTimeslotButton.frame.size.width / 2, view: addTimeslotButton)
         
         let menuRightNavigationController = Utility.getSideMenuNavigationC()
+
         SideMenuManager.menuRightNavigationController = menuRightNavigationController
         SideMenuManager.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)

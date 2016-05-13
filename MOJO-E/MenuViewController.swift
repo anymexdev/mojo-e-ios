@@ -7,6 +7,7 @@
 
 import UIKit
 import Font_Awesome_Swift
+import SideMenu
 
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -84,6 +85,12 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dataMenu = dataIcons[indexPath.row]
         if dataMenu == FAType.FASignOut {
             Utility.openAuthenticationFlow()
+        }
+        else {
+            SideMenuManager.menuRightNavigationController?.dismissViewControllerAnimated(true, completion: {
+                appDelegate.mainVC!.performSegueWithIdentifier("SampleViewSegue", sender: self)
+            })
+            
         }
     }
     

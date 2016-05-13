@@ -7,18 +7,12 @@
 
 import UIKit
 import MapKit
-class JobViewController: UIViewController, MKMapViewDelegate {
+class SampleViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: private property
-    var jobSelected: Job?
 
     //MARK: UI Element
-    @IBOutlet weak var businessName: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var widthOfMapConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerSampleLabel: UILabel!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -28,7 +22,6 @@ class JobViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.widthOfMapConstraint.constant = self.view.bounds.size.width - 60.0
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -47,14 +40,7 @@ class JobViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: Other functions
     func initialize() {
-        appDelegate.mainVC = self
-        loadJobInfo()
+        
     }
     
-    func loadJobInfo() {
-        businessName.text = jobSelected?.businessName
-        addressLabel.text = jobSelected?.address1
-        cityLabel.text = jobSelected?.city
-        typeLabel.text = jobSelected?.type
-    }
 }
