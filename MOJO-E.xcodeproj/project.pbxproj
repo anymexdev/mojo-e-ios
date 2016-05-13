@@ -19,6 +19,8 @@
 		8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8171CE4908B007B2D19 /* ListTimeCell.swift */; };
 		8275C81A1CE490EA007B2D19 /* ListDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8191CE490EA007B2D19 /* ListDayCell.swift */; };
 		8275C81C1CE49160007B2D19 /* DateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C81B1CE49160007B2D19 /* DateInfo.swift */; };
+		8275C81E1CE5B4F1007B2D19 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C81D1CE5B4F1007B2D19 /* MenuCell.swift */; };
+		8275C8201CE5B520007B2D19 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C81F1CE5B520007B2D19 /* MenuViewController.swift */; };
 		829CE1221CE30BBC00030E47 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE11F1CE30BBC00030E47 /* Config.swift */; };
 		829CE1231CE30BBC00030E47 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1201CE30BBC00030E47 /* Extension.swift */; };
 		829CE1241CE30BBC00030E47 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1211CE30BBC00030E47 /* Utility.swift */; };
@@ -72,6 +74,8 @@
 		8275C8171CE4908B007B2D19 /* ListTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeCell.swift; sourceTree = "<group>"; };
 		8275C8191CE490EA007B2D19 /* ListDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDayCell.swift; sourceTree = "<group>"; };
 		8275C81B1CE49160007B2D19 /* DateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInfo.swift; sourceTree = "<group>"; };
+		8275C81D1CE5B4F1007B2D19 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		8275C81F1CE5B520007B2D19 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		829CE11F1CE30BBC00030E47 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		829CE1201CE30BBC00030E47 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		829CE1211CE30BBC00030E47 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 		829CE11A1CE30B5C00030E47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8275C81D1CE5B4F1007B2D19 /* MenuCell.swift */,
 				8275C8191CE490EA007B2D19 /* ListDayCell.swift */,
 				8275C8171CE4908B007B2D19 /* ListTimeCell.swift */,
 				829CE1301CE32D6F00030E47 /* JobCell.swift */,
@@ -188,6 +193,7 @@
 		829CE11B1CE30B6600030E47 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8275C81F1CE5B520007B2D19 /* MenuViewController.swift */,
 				8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */,
 				829CE1341CE478D500030E47 /* JobViewController.swift */,
 				829CE12E1CE32D5E00030E47 /* JobsListViewController.swift */,
@@ -526,8 +532,10 @@
 				829CE1351CE478D500030E47 /* JobViewController.swift in Sources */,
 				829CE12A1CE313A300030E47 /* AuthenticationViewController.swift in Sources */,
 				8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */,
+				8275C8201CE5B520007B2D19 /* MenuViewController.swift in Sources */,
 				829CE12B1CE313A300030E47 /* SignUpViewController.swift in Sources */,
 				829CE1231CE30BBC00030E47 /* Extension.swift in Sources */,
+				8275C81E1CE5B4F1007B2D19 /* MenuCell.swift in Sources */,
 				829CE1331CE3305400030E47 /* Job.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

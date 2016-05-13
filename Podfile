@@ -8,6 +8,7 @@ target 'MOJO-E' do
 	pod 'MGSwipeTableCell'
 	pod 'Firebase'
     pod 'JLToast'
+    pod 'SideMenu'
 end
 
 target 'MOJO-ETests' do

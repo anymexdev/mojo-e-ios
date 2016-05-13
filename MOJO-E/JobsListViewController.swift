@@ -7,6 +7,7 @@
 
 import UIKit
 import MGSwipeTableCell
+import SideMenu
 
 class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -77,6 +78,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     func initialize() {
         Utility.borderRadiusView(addTimeslotView.frame.size.width / 2, view: addTimeslotView)
         Utility.borderRadiusView(addTimeslotButton.frame.size.width / 2, view: addTimeslotButton)
+        
+        let menuRightNavigationController = Utility.getSideMenuNavigationC()
+        SideMenuManager.menuRightNavigationController = menuRightNavigationController
+        SideMenuManager.menuAddPanGestureToPresent(toView: self.view)
+        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
     }
     
     func syncJobsWithType(type: String)

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SystemConfiguration
 import JLToast
+import SideMenu
 
 class Utility {
     
@@ -81,11 +82,11 @@ class Utility {
         appDelegate.window?.rootViewController = initVC
     }
     
-//    class func getSideMenuNavigationC() -> UISideMenuNavigationController {
-//        let authenticationSB = UIStoryboard(name: "Authenticated", bundle: NSBundle.mainBundle())
-//        let sideMenuNavigationC = authenticationSB.instantiateViewControllerWithIdentifier("SideMenuNavigationControllerID") as! UISideMenuNavigationController
-//        return sideMenuNavigationC
-//    }
+    class func getSideMenuNavigationC() -> UISideMenuNavigationController {
+        let authenticationSB = UIStoryboard(name: "Authenticated", bundle: NSBundle.mainBundle())
+        let sideMenuNavigationC = authenticationSB.instantiateViewControllerWithIdentifier("SideMenuNavigationControllerID") as! UISideMenuNavigationController
+        return sideMenuNavigationC
+    }
     
     class func greenL1Color() -> UIColor {
         return UIColor(red: 139.0/255.0, green: 195.0/255.0, blue: 74.0/255.0, alpha: 1.0)
