@@ -22,11 +22,18 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBOutlet weak var calendarView: CVCalendarView!
     
     @IBOutlet weak var calendarContainerView: UIView!
+    @IBOutlet weak var todayLabel: UILabel!
+    @IBOutlet weak var weekButton: UIButton!
+    @IBOutlet weak var todayButton: UIButton!
+    
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    
     
     
     //MARK: private property
     var jobs = [Job]()
     var jobSelected: Job?
+    var calendarViewType = CalendarMode.MonthView
     
     //MARK: View did load
     override func viewDidLoad() {
@@ -66,9 +73,22 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     //MARK: UI Action
     
-    @IBAction func backAction(sender: AnyObject) {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func weekAction(sender: AnyObject) {
+        if weekButton.currentTitle == "week" {
+            calendarViewType = CalendarMode.WeekView
+            weekButton.setTitle("month", forState: .Normal)
+        }
+        else {
+            calendarViewType = CalendarMode.MonthView
+            weekButton.setTitle("week", forState: .Normal)
+        }
+        calendarView.changeMode(calendarViewType)
     }
+    
+    @IBAction func todayAction(sender: AnyObject) {
+        self.calendarView.toggleCurrentDayView()
+    }
+    
     
     @IBAction func typeChangedAction(sender: AnyObject) {
         if let segment = sender as? UISegmentedControl {
@@ -90,12 +110,12 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     @IBAction func changeViewAction(sender: AnyObject) {
         if jobViewStyleButton.currentTitle == "Calendar" {
-            tableView.hidden = true
+            topConstraint.constant = calendarView.frame.size.height + calendarView.frame.origin.y + 50
             jobViewStyleButton.setTitle("List", forState: .Normal)
             calendarContainerView.hidden = false
         }
         else {
-            tableView.hidden = false
+            topConstraint.constant = 15
             jobViewStyleButton.setTitle("Calendar", forState: .Normal)
             calendarContainerView.hidden = true
         }
@@ -103,6 +123,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: Functions
     
     func initialize() {
+        calendarContainerView.hidden = true
+        topConstraint.constant = 15
         appDelegate.mainVC = self
         Utility.borderRadiusView(addTimeslotView.frame.size.width / 2, view: addTimeslotView)
         Utility.borderRadiusView(addTimeslotButton.frame.size.width / 2, view: addTimeslotButton)
@@ -188,11 +210,19 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     // MARK: CalendarView's Delegate 
     func presentationMode() -> CalendarMode {
-        return CalendarMode.MonthView
+        return calendarViewType
     }
     
     func firstWeekday() -> Weekday {
         return Weekday.Sunday
+    }
+    
+    func dayOfWeekTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    
+    func presentedDateUpdated(date: Date) {
+        todayLabel.text = kDateMMMYYYY.stringFromDate(date.convertedDate()!)
     }
     
 }

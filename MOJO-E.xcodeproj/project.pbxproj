@@ -705,7 +705,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2c97c18b-c1c6-41b0-9687-52578614b8b1";
+				PROVISIONING_PROFILE = "65afbb3d-f865-4846-9e49-334d86bc09e0";
 			};
 			name = Debug;
 		};
@@ -720,7 +720,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2c97c18b-c1c6-41b0-9687-52578614b8b1";
+				PROVISIONING_PROFILE = "65afbb3d-f865-4846-9e49-334d86bc09e0";
 			};
 			name = Release;
 		};
