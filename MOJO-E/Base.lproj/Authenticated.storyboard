@@ -820,16 +820,16 @@
                                     <action selector="addTimeAction:" destination="6b5-dX-rag" eventType="touchUpInside" id="w30-h7-otn"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPy-kB-B73" userLabel="From Time">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPy-kB-B73" userLabel="To Time">
                                 <rect key="frame" x="145" y="176" width="120" height="30"/>
                                 <connections>
-                                    <action selector="tofromAction:" destination="6b5-dX-rag" eventType="touchUpInside" id="zTY-F8-eO9"/>
+                                    <action selector="tofromAction:" destination="6b5-dX-rag" eventType="touchUpInside" id="aJE-vL-2QG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pCK-Oi-1yr" userLabel="To Time">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pCK-Oi-1yr" userLabel="From Time">
                                 <rect key="frame" x="5" y="176" width="120" height="30"/>
                                 <connections>
-                                    <action selector="tofromAction:" destination="6b5-dX-rag" eventType="touchUpInside" id="fLI-4H-6aV"/>
+                                    <action selector="tofromAction:" destination="6b5-dX-rag" eventType="touchUpInside" id="di1-m8-GS9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -924,12 +924,12 @@
                         <outlet property="addButton" destination="gR2-6R-B84" id="Pzz-yg-fJG"/>
                         <outlet property="currentDateSelectedLabel" destination="qKd-T5-ivm" id="Slh-ts-JAX"/>
                         <outlet property="dateTimePicker" destination="OGc-0N-Doa" id="yO4-nx-hAw"/>
-                        <outlet property="fromButton" destination="xPy-kB-B73" id="qTB-38-TVh"/>
-                        <outlet property="fromLabel" destination="vr3-tY-YWY" id="iWR-7Q-c5F"/>
+                        <outlet property="fromButton" destination="pCK-Oi-1yr" id="eKR-wc-lpl"/>
+                        <outlet property="fromLabel" destination="B9f-9Y-BQs" id="Rq7-Lt-5Rf"/>
                         <outlet property="listDayCollection" destination="Jr0-Jd-gmO" id="q02-A1-ANu"/>
                         <outlet property="listTimeTableView" destination="aKN-Qf-se8" id="4Cb-Yy-kHf"/>
-                        <outlet property="toButton" destination="pCK-Oi-1yr" id="hH1-8u-as0"/>
-                        <outlet property="toLabel" destination="B9f-9Y-BQs" id="ahW-1J-E7x"/>
+                        <outlet property="toButton" destination="xPy-kB-B73" id="pa1-di-Gos"/>
+                        <outlet property="toLabel" destination="vr3-tY-YWY" id="gGz-id-jVf"/>
                         <segue destination="6uP-h6-YAa" kind="show" identifier="SampleViewSegue" id="vOE-Xy-1Pu"/>
                     </connections>
                 </viewController>

@@ -55,7 +55,7 @@ class ListTimeCell: UITableViewCell {
     func renderUI() {
         let toTime = dateToDate?.toTime?.toShortTime()
         let fromTime = dateToDate?.fromTime?.toShortTime()
-        timeLabel.text = String(toTime! + " - " + fromTime!)
+        timeLabel.text = String(fromTime! + " - " + toTime!)
     }
     
     //MARK: Action

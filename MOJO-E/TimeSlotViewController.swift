@@ -46,7 +46,7 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
             dateList = DateInfo.create30Day()
         }
         //set current select
-        tofromAction(toButton)
+        tofromAction(fromButton)
         currentTimeSlot = (dateList?.first?.mTimeSlot)!
         currentSelect = NSIndexPath(forRow: 0, inSection: 0)
         collectionView(listDayCollection, didSelectItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
@@ -139,8 +139,9 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     // MARK: Action
     @IBAction func addTimeAction(sender: AnyObject) {
-        if toLabel.text != "From" && fromLabel.text != "To" {
+        if toLabel.text != "To" && fromLabel.text != "From" {
             let dateFormatter = NSDateFormatter()
+            dateFormatter.timeZone = NSTimeZone(name: "GMT")
             dateFormatter.dateFormat = "h:mm a"
             let toTime = dateFormatter.dateFromString(toLabel.text!)
             let fromTime = dateFormatter.dateFromString(fromLabel.text!)
@@ -158,8 +159,13 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                         return
                     }
                 }
-                if fromTime.minutesFrom(toTime) > 14 {
-                    let temp = TimeSlot(to: toTime, from: fromTime)
+                if toTime.minutesFrom(fromTime) > 14 {
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.timeZone = NSTimeZone.systemTimeZone()
+                    dateFormatter.dateFormat = "h:mm a"
+                    let toTimeAdd = dateFormatter.dateFromString(toLabel.text!)
+                    let fromTimeAdd = dateFormatter.dateFromString(fromLabel.text!)
+                    let temp = TimeSlot(to: toTimeAdd!, from: fromTimeAdd!)
                     currentTimeSlot.append(temp)
                     listTimeTableView.reloadData()
                 } else {
@@ -203,9 +209,9 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
         var temp : NSDate
         let strDateChanged = dateTimePicker.date.toShortTimeString()
         timeSelectedLabel?.text = strDateChanged
-        if timeSelectedLabel == toLabel {
+        if timeSelectedLabel == fromLabel {
             temp = dateTimePicker.date.dateByAddingTimeInterval(900)
-            fromLabel.text = temp.toShortTimeString()
+            toLabel.text = temp.toShortTimeString()
         }
     }
     
