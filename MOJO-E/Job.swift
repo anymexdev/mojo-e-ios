@@ -101,7 +101,7 @@ class Job: NSObject, NSCoding {
             job.ticketNumber = ticketNumber
         }
         job.latitude = dict.objectForKey("latitude") as? Double
-        job.longtitude = dict.objectForKey("longtitude") as? Double
+        job.longtitude = dict.objectForKey("longitude") as? Double
         return job
     }
     

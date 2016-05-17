@@ -10,6 +10,7 @@ target 'MOJO-E' do
     pod 'JLToast'
     pod 'SideMenu'
     pod 'CVCalendar'
+    pod 'JPSThumbnailAnnotation'
 end
 
 target 'MOJO-ETests' do

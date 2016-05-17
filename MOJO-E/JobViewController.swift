@@ -7,6 +7,8 @@
 
 import UIKit
 import MapKit
+import JPSThumbnailAnnotation
+
 class JobViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: private property
@@ -30,6 +32,7 @@ class JobViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.widthOfMapConstraint.constant = self.view.bounds.size.width - 60.0
+        self.drawPinsOfRequest()
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -53,6 +56,26 @@ class JobViewController: UIViewController, MKMapViewDelegate {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    // MARK: MapKit's methods
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if let annotation = annotation as? JPSThumbnailAnnotation {
+            return annotation.annotationViewInMap(mapView)
+        }
+        return nil
+    }
+    
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        if let view = view as? JPSThumbnailAnnotationView {
+            view.didSelectAnnotationViewInMap(mapView)
+        }
+    }
+    
+    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+        if let view = view as? JPSThumbnailAnnotationView {
+            view.didDeselectAnnotationViewInMap(mapView)
+        }
+    }
+    
     //MARK: Other functions
     func initialize() {
         appDelegate.mainVC = self
@@ -70,5 +93,31 @@ class JobViewController: UIViewController, MKMapViewDelegate {
         addressLabel.text = jobSelected?.address1
         cityLabel.text = jobSelected?.city
         typeLabel.text = jobSelected?.type
+    }
+    
+    private func drawPinsOfRequest() {
+        let latDelta: CLLocationDegrees = 0.01
+        let longDelta: CLLocationDegrees = 0.01
+        if let lat = self.jobSelected?.latitude, let long = self.jobSelected?.longtitude {
+            let lat: CLLocationDegrees = lat
+            let long: CLLocationDegrees = long
+            
+            let theSpan: MKCoordinateSpan = MKCoordinateSpanMake(latDelta,longDelta)
+            
+            let mypos: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat,long)
+            
+            let myreg: MKCoordinateRegion = MKCoordinateRegionMake(mypos, theSpan)
+            self.mapView.setRegion(myreg, animated: false)
+            
+            let pin = JPSThumbnail()
+            pin.image = UIImage(named: "PinIcon")
+            pin.title = jobSelected?.businessName
+            pin.subtitle = jobSelected?.address1
+            pin.coordinate = CLLocationCoordinate2DMake(lat, long)
+            pin.disclosureBlock = {() -> Void in
+                print("tap on job")
+            }
+            mapView.addAnnotation(JPSThumbnailAnnotation(thumbnail: pin))
+        }
     }
 }

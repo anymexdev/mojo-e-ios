@@ -155,6 +155,7 @@
 				829CE11B1CE30B6600030E47 /* Controllers */,
 				829CE11A1CE30B5C00030E47 /* Views */,
 				829CE11D1CE30B7A00030E47 /* Utility */,
+				821CD80C1CEB2167004EC52E /* Third Party */,
 				829CE11E1CE30B8000030E47 /* Resources */,
 			);
 			path = "MOJO-E";
@@ -176,6 +177,13 @@
 				6B8054F91CE2E50600E3B039 /* Info.plist */,
 			);
 			path = "MOJO-EUITests";
+			sourceTree = "<group>";
+		};
+		821CD80C1CEB2167004EC52E /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Third Party";
 			sourceTree = "<group>";
 		};
 		8275C8231CE5CA95007B2D19 /* Authentication */ = {
