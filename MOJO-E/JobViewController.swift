@@ -9,10 +9,12 @@ import UIKit
 import MapKit
 import JPSThumbnailAnnotation
 
-class JobViewController: UIViewController, MKMapViewDelegate {
+class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     //MARK: private property
     var jobSelected: Job?
+    var locationManager = CLLocationManager()
+    var pinLocation: CLLocation?
 
     //MARK: UI Element
     @IBOutlet weak var businessName: UILabel!
@@ -22,6 +24,7 @@ class JobViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var widthOfMapConstraint: NSLayoutConstraint!
     @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var distanceLabel: UILabel!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -31,8 +34,8 @@ class JobViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.widthOfMapConstraint.constant = self.view.bounds.size.width - 60.0
         self.drawPinsOfRequest()
+        self.widthOfMapConstraint.constant = self.view.bounds.size.width - 60.0
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -76,8 +79,28 @@ class JobViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        if let pin = self.pinLocation {
+            updateDistanceToAnotation(pin, userLocation: locValue)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print(error.description)
+    }
+    
+    func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+        print(error.description)
+    }
+    
     //MARK: Other functions
     func initialize() {
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         appDelegate.mainVC = self
         if jobSelected?.type == "Incoming" {
             acceptButton.hidden = false
@@ -118,6 +141,16 @@ class JobViewController: UIViewController, MKMapViewDelegate {
                 print("tap on job")
             }
             mapView.addAnnotation(JPSThumbnailAnnotation(thumbnail: pin))
+            self.pinLocation = CLLocation(latitude: lat, longitude: long)
         }
     }
+    
+    private func updateDistanceToAnotation(anotationLocation: CLLocation, userLocation: CLLocationCoordinate2D) {
+        let userLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+        let distance = anotationLocation.distanceFromLocation(userLocation)
+        let stringMiles  = NSString(format: "%.1f miles", distance/1609.344)
+        distanceLabel.text = "\(stringMiles)"
+        
+    }
+    
 }

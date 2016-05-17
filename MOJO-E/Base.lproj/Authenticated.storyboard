@@ -508,6 +508,22 @@
                                             <outlet property="delegate" destination="Tns-i7-nsI" id="okG-Lx-Dmf"/>
                                         </connections>
                                     </mapView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQJ-xh-V0b">
+                                        <rect key="frame" x="30" y="480" width="71" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="HO3-4F-PGA"/>
+                                            <constraint firstAttribute="width" constant="71" id="HpO-Cm-1X6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-MediumItalic" family="Avenir Next" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avC-mh-LvA">
+                                        <rect key="frame" x="120" y="479" width="120" height="24"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -516,24 +532,30 @@
                                     <constraint firstItem="zfJ-uD-ANd" firstAttribute="centerY" secondItem="6o5-d7-Mlb" secondAttribute="centerY" id="1S4-cv-tv6"/>
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="centerY" secondItem="b2Y-gl-FyU" secondAttribute="centerY" id="4G4-mU-DDf"/>
                                     <constraint firstItem="b2Y-gl-FyU" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="7I9-8h-Yve"/>
+                                    <constraint firstItem="avC-mh-LvA" firstAttribute="height" secondItem="2jf-Zy-i9C" secondAttribute="height" id="8ZH-5o-hLf"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" id="Bhg-tG-P2p"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="leading" secondItem="sSP-bC-6ae" secondAttribute="leading" id="DYl-3z-96R"/>
                                     <constraint firstItem="sSP-bC-6ae" firstAttribute="top" secondItem="5gc-YA-c3U" secondAttribute="bottom" constant="10" id="Dn2-Wq-vSi"/>
                                     <constraint firstItem="sSP-bC-6ae" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="Exj-sy-SDS"/>
+                                    <constraint firstItem="gQJ-xh-V0b" firstAttribute="leading" secondItem="b2Y-gl-FyU" secondAttribute="leading" id="Fku-bB-Fon"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="top" secondItem="sSP-bC-6ae" secondAttribute="bottom" constant="20" id="G0V-16-Gjt"/>
                                     <constraint firstItem="WJv-Z9-i4d" firstAttribute="trailing" secondItem="50O-7z-pMW" secondAttribute="trailing" id="HRJ-Qy-zf5"/>
+                                    <constraint firstItem="avC-mh-LvA" firstAttribute="leading" secondItem="2jf-Zy-i9C" secondAttribute="leading" id="NcE-bK-7oq"/>
                                     <constraint firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" constant="30" id="TFu-HD-FyM"/>
                                     <constraint firstItem="3A1-FL-bDH" firstAttribute="top" secondItem="6o5-d7-Mlb" secondAttribute="bottom" constant="20" id="TGy-tf-uOn"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="UEC-Ps-eT2"/>
+                                    <constraint firstItem="gQJ-xh-V0b" firstAttribute="top" secondItem="b2Y-gl-FyU" secondAttribute="bottom" constant="20" id="VME-Sh-ekt"/>
                                     <constraint firstItem="Nt3-6P-1d6" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="W7N-zF-v6y"/>
                                     <constraint firstItem="zfJ-uD-ANd" firstAttribute="leading" secondItem="6o5-d7-Mlb" secondAttribute="trailing" constant="15" id="a9F-Of-FQV"/>
                                     <constraint firstItem="b2Y-gl-FyU" firstAttribute="top" secondItem="Nt3-6P-1d6" secondAttribute="bottom" constant="20" id="coG-jM-ZsH"/>
                                     <constraint firstItem="WJv-Z9-i4d" firstAttribute="centerY" secondItem="Nt3-6P-1d6" secondAttribute="centerY" id="grV-f3-WBe"/>
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="leading" secondItem="50O-7z-pMW" secondAttribute="leading" id="j0M-dX-n3S"/>
+                                    <constraint firstItem="avC-mh-LvA" firstAttribute="width" secondItem="2jf-Zy-i9C" secondAttribute="width" id="l1K-iC-His"/>
                                     <constraint firstItem="5gc-YA-c3U" firstAttribute="top" secondItem="Thd-Yx-fKt" secondAttribute="top" constant="30" id="lTH-Qd-J4i"/>
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="trailing" secondItem="50O-7z-pMW" secondAttribute="trailing" id="lyX-U2-xl3"/>
                                     <constraint firstItem="3A1-FL-bDH" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="mZS-Ce-7GQ"/>
                                     <constraint firstItem="Nt3-6P-1d6" firstAttribute="top" secondItem="3A1-FL-bDH" secondAttribute="bottom" constant="20" id="qyd-LV-1Ym"/>
+                                    <constraint firstItem="avC-mh-LvA" firstAttribute="centerY" secondItem="gQJ-xh-V0b" secondAttribute="centerY" id="sX5-Gh-iHI"/>
                                     <constraint firstItem="WJv-Z9-i4d" firstAttribute="leading" secondItem="50O-7z-pMW" secondAttribute="leading" id="ttU-Z2-Q2y"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="centerY" secondItem="3A1-FL-bDH" secondAttribute="centerY" id="yEg-gj-pCx"/>
                                 </constraints>
@@ -584,6 +606,7 @@
                         <outlet property="addressLabel" destination="50O-7z-pMW" id="LDy-VS-mjz"/>
                         <outlet property="businessName" destination="zfJ-uD-ANd" id="okR-bP-ctc"/>
                         <outlet property="cityLabel" destination="WJv-Z9-i4d" id="xKL-So-K5D"/>
+                        <outlet property="distanceLabel" destination="avC-mh-LvA" id="fK9-Em-eiO"/>
                         <outlet property="mapView" destination="sSP-bC-6ae" id="aBK-cU-ZcW"/>
                         <outlet property="typeLabel" destination="2jf-Zy-i9C" id="YR0-xq-Jf0"/>
                         <outlet property="widthOfMapConstraint" destination="Ort-rV-oa1" id="XtK-HC-SpN"/>
@@ -1134,7 +1157,7 @@
         <image name="SideMenu" width="26" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AJQ-Ng-BpI"/>
-        <segue reference="uHa-8e-yUf"/>
+        <segue reference="Z1g-To-cwV"/>
+        <segue reference="7lT-OQ-7qL"/>
     </inferredMetricsTieBreakers>
 </document>
