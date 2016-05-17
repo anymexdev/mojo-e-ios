@@ -77,10 +77,18 @@ class Job: NSObject, NSCoding {
     class func createJobFromDict(dict: NSDictionary) -> Job {
         let job = Job()
         job.businessID = dict.objectForKey("business_id") as? Int32
-        job.type = (dict.objectForKey("type") as? String)!
-        job.businessName = (dict.objectForKey("business_name") as? String)!
-        job.address1 = (dict.objectForKey("address1") as? String)!
-        job.city = (dict.objectForKey("city") as? String)!
+        if let type = dict.objectForKey("type") as? String {
+            job.type = type
+        }
+        if let businessName = dict.objectForKey("business_name") as? String {
+            job.businessName = businessName
+        }
+        if let address1 = dict.objectForKey("address1") as? String {
+            job.address1 = address1
+        }
+        if let city = dict.objectForKey("city") as? String {
+            job.city = city
+        }
         job.companyID = dict.objectForKey("companyID") as? Int32
         job.id = dict.objectForKey("id") as? Int32
         job.latitude = dict.objectForKey("latitude") as? Double

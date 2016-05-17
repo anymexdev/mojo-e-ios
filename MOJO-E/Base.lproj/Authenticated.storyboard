@@ -406,7 +406,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thd-Yx-fKt">
-                                <rect key="frame" x="0.0" y="86" width="414" height="650"/>
+                                <rect key="frame" x="0.0" y="86" width="414" height="595"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfJ-uD-ANd">
                                         <rect key="frame" x="120" y="310" width="120" height="26"/>
@@ -536,6 +536,20 @@
                                     </mask>
                                 </variation>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stz-WY-s2l">
+                                <rect key="frame" x="157" y="686" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="AWa-N3-eTD"/>
+                                    <constraint firstAttribute="height" constant="40" id="lX5-dd-EVv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-MediumItalic" family="Avenir Next" pointSize="19"/>
+                                <state key="normal" title="Accept">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backAction:" destination="Tns-i7-nsI" eventType="touchUpInside" id="I74-Hn-9Q3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.54901960780000003" green="0.76862745099999996" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -545,8 +559,16 @@
                             <constraint firstItem="d3T-Um-d0e" firstAttribute="leading" secondItem="c6j-Dr-tZd" secondAttribute="leading" id="Int-qL-jZL"/>
                             <constraint firstAttribute="trailing" secondItem="d3T-Um-d0e" secondAttribute="trailing" id="OQG-AH-vlN"/>
                             <constraint firstItem="Thd-Yx-fKt" firstAttribute="leading" secondItem="c6j-Dr-tZd" secondAttribute="leading" id="XiB-IG-U5A"/>
+                            <constraint firstItem="stz-WY-s2l" firstAttribute="top" secondItem="Thd-Yx-fKt" secondAttribute="bottom" constant="5" id="bHK-F9-pYF"/>
+                            <constraint firstItem="stz-WY-s2l" firstAttribute="centerX" secondItem="c6j-Dr-tZd" secondAttribute="centerX" id="nao-jb-O7k"/>
                             <constraint firstAttribute="trailing" secondItem="Thd-Yx-fKt" secondAttribute="trailing" id="oKu-6Y-x0C"/>
+                            <constraint firstItem="wdn-ua-aTM" firstAttribute="top" secondItem="stz-WY-s2l" secondAttribute="bottom" constant="10" id="xy9-NE-1oC"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4Si-KT-PgC"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
@@ -1104,7 +1126,7 @@
         <image name="SideMenu" width="26" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AJQ-Ng-BpI"/>
-        <segue reference="uHa-8e-yUf"/>
+        <segue reference="7lT-OQ-7qL"/>
+        <segue reference="Z1g-To-cwV"/>
     </inferredMetricsTieBreakers>
 </document>

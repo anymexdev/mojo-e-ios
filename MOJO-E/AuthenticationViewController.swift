@@ -100,8 +100,8 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     }
     
     func initialize() {
-//        emailTextField.text = "tam3@gmail.com"
-//        passwordTextField.text = "tam3"
+        emailTextField.text = "tam3@gmail.com"
+        passwordTextField.text = "tam3"
         //
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AuthenticationViewController.endEditing))
         tapGesture.cancelsTouchesInView = false
