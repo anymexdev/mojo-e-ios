@@ -185,10 +185,10 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         return 60.0;
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        jobSelected = self.jobs[indexPath.row]
-        self.performSegueWithIdentifier("JobDetailsSegue", sender: nil)
-    }
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        jobSelected = self.jobs[indexPath.row]
+//        self.performSegueWithIdentifier("JobDetailsSegue", sender: nil)
+//    }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0;
@@ -205,7 +205,15 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     // MARK: Friend request protocol
     func acceptJob(job: Job?) {
-        
+        if let job = job {
+            job.accepted()
+            self.syncJobsWithType("Incoming")
+        }
+    }
+    
+    func goToDetails(job: Job?) {
+        jobSelected = job
+        self.performSegueWithIdentifier("JobDetailsSegue", sender: nil)
     }
     
     // MARK: CalendarView's Delegate 

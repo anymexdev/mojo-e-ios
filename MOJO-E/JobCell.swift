@@ -11,6 +11,7 @@ import Font_Awesome_Swift
 
 @objc protocol JobCellDelegate {
     func acceptJob(job: Job?)
+    func goToDetails(job: Job?)
 }
 
 class JobCell: MGSwipeTableCell {
@@ -18,6 +19,7 @@ class JobCell: MGSwipeTableCell {
     // MARK: UI's elements
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var acceptButton: UIButton!
     
     
     // MARK: Class's properties
@@ -63,16 +65,27 @@ class JobCell: MGSwipeTableCell {
         if let job = self.job {
             self.businessNameLabel.text = job.businessName
             self.addressLabel.text = job.address1
+            if job.type == "Incoming" {
+                acceptButton.hidden = false
+            }
+            else {
+                acceptButton.hidden = true
+            }
         }
     }
     
     func cleanCell() {
         self.businessNameLabel.text = ""
         self.addressLabel.text = ""
+        acceptButton.hidden = true
     }
     
     
     @IBAction func acceptAction(sender: AnyObject) {
         delegateCell?.acceptJob(job)
+    }
+    
+    @IBAction func goDetailsAction(sender: AnyObject) {
+        delegateCell?.goToDetails(job)
     }
 }

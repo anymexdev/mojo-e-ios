@@ -19,6 +19,7 @@ class JobViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var widthOfMapConstraint: NSLayoutConstraint!
+    @IBOutlet weak var acceptButton: UIButton!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -45,9 +46,22 @@ class JobViewController: UIViewController, MKMapViewDelegate {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    @IBAction func acceptAction(sender: AnyObject) {
+        if let job = jobSelected {
+            job.accepted()
+        }
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     //MARK: Other functions
     func initialize() {
         appDelegate.mainVC = self
+        if jobSelected?.type == "Incoming" {
+            acceptButton.hidden = false
+        }
+        else {
+            acceptButton.hidden = true
+        }
         loadJobInfo()
     }
     

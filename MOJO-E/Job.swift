@@ -15,16 +15,16 @@ class Job: NSObject, NSCoding {
     }
     
     // MARK: Class's properties
-    var id: Int32?
+    var id: Int?
     var businessName = ""
-    var businessID: Int32?
+    var businessID: Int?
     var address1 = ""
     var city = ""
-    var companyID: Int32?
+    var companyID: Int?
     var type = "Incoming"
     var latitude: Double?
     var longtitude: Double?
-    var ticketNumber: Int32?
+    var ticketNumber: Int?
     
     
     // MARK: NSCoding
@@ -40,16 +40,16 @@ class Job: NSObject, NSCoding {
             coder.encodeDouble(longtitude, forKey: "longtitude")
         }
         if let ticketNumber = self.ticketNumber {
-            coder.encodeInt(ticketNumber, forKey: "ticketNumber")
+            coder.encodeInteger(ticketNumber, forKey: "ticketNumber")
         }
         if let id = self.id {
-            coder.encodeInt(id, forKey: "id")
+            coder.encodeInteger(id, forKey: "id")
         }
         if let businessID = self.businessID {
-            coder.encodeInt(businessID, forKey: "businessID")
+            coder.encodeInteger(businessID, forKey: "businessID")
         }
         if let companyID = self.companyID {
-            coder.encodeInt(companyID, forKey: "companyID")
+            coder.encodeInteger(companyID, forKey: "companyID")
         }
     }
     
@@ -62,21 +62,20 @@ class Job: NSObject, NSCoding {
                 return nil
         }
         self.init()
-        self.businessID = decoder.decodeIntForKey("businessID")
+        self.businessID = decoder.decodeIntegerForKey("businessID")
         self.businessName = businessName
         self.address1 = address1
         self.city = city
         self.type = type
-        self.companyID = decoder.decodeIntForKey("companyID")
+        self.companyID = decoder.decodeIntegerForKey("companyID")
         self.latitude = decoder.decodeDoubleForKey("latitude")
         self.longtitude = decoder.decodeDoubleForKey("longtitude")
-        self.ticketNumber = decoder.decodeIntForKey("ticketNumber")
-        self.id = decoder.decodeIntForKey("id")
+        self.ticketNumber = decoder.decodeIntegerForKey("ticketNumber")
+        self.id = decoder.decodeIntegerForKey("id")
     }
     
     class func createJobFromDict(dict: NSDictionary) -> Job {
         let job = Job()
-        job.businessID = dict.objectForKey("business_id") as? Int32
         if let type = dict.objectForKey("type") as? String {
             job.type = type
         }
@@ -89,11 +88,28 @@ class Job: NSObject, NSCoding {
         if let city = dict.objectForKey("city") as? String {
             job.city = city
         }
-        job.companyID = dict.objectForKey("companyID") as? Int32
-        job.id = dict.objectForKey("id") as? Int32
+        if let id = dict.objectForKey("id") as? Int {
+            job.id = id
+        }
+        if let businessID = dict.objectForKey("business_id") as? Int {
+            job.businessID = businessID
+        }
+        if let companyID = dict.objectForKey("company_id") as? Int {
+            job.companyID = companyID
+        }
+        if let ticketNumber = dict.objectForKey("ticket_number") as? Int {
+            job.ticketNumber = ticketNumber
+        }
         job.latitude = dict.objectForKey("latitude") as? Double
         job.longtitude = dict.objectForKey("longtitude") as? Double
         return job
+    }
+    
+    func accepted() {
+        if let id = self.id {
+            let jobRef = jobsRef.childByAppendingPath("\(id)")
+            jobRef.childByAppendingPath("type").setValue("Accepted")
+        }
     }
 }
 
