@@ -9,8 +9,10 @@ import UIKit
 import MGSwipeTableCell
 import SideMenu
 import CVCalendar
+import EventKit
+import EventKitUI
 
-class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource, CVCalendarViewDelegate, CVCalendarMenuViewDelegate, CVCalendarViewAppearanceDelegate {
+class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource, CVCalendarViewDelegate, CVCalendarMenuViewDelegate, CVCalendarViewAppearanceDelegate, DDCalendarViewDelegate, DDCalendarViewDataSource {
     
     //MARK: UI Element
     @IBOutlet weak var tableView: UITableView!
@@ -27,8 +29,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBOutlet weak var todayButton: UIButton!
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    
-    
+    @IBOutlet var ddCalendarView: DDCalendarView!
+    var dict = Dictionary<Int, [DDCalendarEvent]>()
     
     //MARK: private property
     var jobs = [Job]()
@@ -56,6 +58,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     override func viewDidAppear(animated: Bool) {
         self.syncJobsWithType("Incoming")
+        ddCalendarView.scrollDateToVisible(NSDate(), animated: animated)
+        ddCalendarView.showsTimeMarker = true
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -110,21 +114,24 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     @IBAction func changeViewAction(sender: AnyObject) {
         if jobViewStyleButton.currentTitle == "Calendar" {
-            topConstraint.constant = calendarView.frame.size.height + calendarView.frame.origin.y + 50
+//            topConstraint.constant = calendarView.frame.size.height + calendarView.frame.origin.y + 50
             jobViewStyleButton.setTitle("List", forState: .Normal)
             calendarContainerView.hidden = false
+            tableView.hidden = true
         }
         else {
-            topConstraint.constant = 15
+//            topConstraint.constant = 15
             jobViewStyleButton.setTitle("Calendar", forState: .Normal)
             calendarContainerView.hidden = true
+            tableView.hidden = false
         }
     }
     // MARK: Functions
     
     func initialize() {
         calendarContainerView.hidden = true
-        topConstraint.constant = 15
+//        topConstraint.constant = 15
+        tableView.hidden = false
         appDelegate.mainVC = self
         Utility.borderRadiusView(addTimeslotView.frame.size.width / 2, view: addTimeslotView)
         Utility.borderRadiusView(addTimeslotButton.frame.size.width / 2, view: addTimeslotButton)
@@ -231,6 +238,57 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     func presentedDateUpdated(date: Date) {
         todayLabel.text = kDateMMMYYYY.stringFromDate(date.convertedDate()!)
+    }
+    
+    // MARK: DDCalendar's delegate
+    
+    func calendarView(view: DDCalendarView, focussedOnDay date: NSDate) {
+        let days = date.daysFromDate(NSDate())
+        print(days)
+        var ddEvents = [DDCalendarEvent]()
+        let ekEvent = EKEvent(eventStore: EKEventStore())
+        ekEvent.title = "Starbucks 2"
+        ekEvent.startDate = NSDate().dateByAddingTimeInterval(3600)
+        ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
+        let ddEvent = DDCalendarEvent()
+        ddEvent.title = ekEvent.title
+        ddEvent.dateBegin = ekEvent.startDate
+        ddEvent.dateEnd = ekEvent.endDate
+        ddEvent.userInfo = ["event" : ekEvent]
+        ddEvents.append(ddEvent)
+        dict[days] = ddEvents
+    }
+    
+    func calendarView(view: DDCalendarView, didSelectEvent event: DDCalendarEvent) {
+//        let ekEvent = event.userInfo["event"] as! EKEvent
+//        
+//        let vc = EKEventViewController()
+//        vc.event = ekEvent
+//        self.presentViewController(vc, animated: true, completion: nil)
+        goToDetails(jobSelected)
+    }
+    
+    func calendarView(view: DDCalendarView, allowEditingEvent event: DDCalendarEvent) -> Bool {
+        //NOTE some check could be here, we just say true :D
+        let ekEvent = event.userInfo["event"] as! EKEvent
+        let ekCal = ekEvent.calendarItemIdentifier
+        print(ekCal)
+        
+        return true
+    }
+    
+    func calendarView(view: DDCalendarView, commitEditEvent event: DDCalendarEvent) {
+        //NOTE we dont actually save anything because this demo doesnt wanna mess with your calendar :)
+    }
+    
+    // MARK: DDCalendar'sdataSource
+    
+    func calendarView(view: DDCalendarView, eventsForDay date: NSDate) -> [AnyObject]? {
+        return dict[date.daysFromDate(NSDate())]
+    }
+    
+    func calendarView(view: DDCalendarView, viewForEvent event: DDCalendarEvent) -> DDCalendarEventView? {
+        return EventView(event: event)
     }
     
 }
