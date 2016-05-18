@@ -23,6 +23,10 @@ let monthOfYear = ["1": "Janaury", "2": "February", "3": "March", "4": "April" ,
 
 let kDateMMMYYYY = DateFormatter(format: "MMMM - yyyy")
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
+let kUserDefault = NSUserDefaults.standardUserDefaults()
+let kIsRemember = "kIsRemember"
+
 let areaCodes: NSDictionary =  [
      "Canada"                                       :  "+1",
      "China"                                        :  "+86",

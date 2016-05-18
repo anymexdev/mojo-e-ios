@@ -14,6 +14,8 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var buildVersionLabel: UILabel!
+    @IBOutlet weak var rememberSwitch: UISwitch!
+    
     
     // MARK: Class's properties
     
@@ -76,6 +78,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
 //                            print(error.description)
 //                            
 //                    })
+                    kUserDefault.setBool(self.rememberSwitch.on, forKey: kIsRemember)
                     Utility.openAuthenticatedFlow()
                 }
             }
@@ -84,6 +87,11 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
             Utility.showToastWithMessage(kErrorEmailIsEmpty)
         }
         
+    }
+    
+    @IBAction func forgotPasswordAction(sender: AnyObject) {
+        let url = NSURL(string: "http://google.com")!
+        UIApplication.sharedApplication().openURL(url)
     }
     
     @IBAction func signUpAction(sender: AnyObject) {
@@ -103,6 +111,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     func initialize() {
         emailTextField.text = "tam3@gmail.com"
         passwordTextField.text = "tam3"
+        rememberSwitch.on = kUserDefault.boolForKey(kIsRemember)
         //
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AuthenticationViewController.endEditing))
         tapGesture.cancelsTouchesInView = false
