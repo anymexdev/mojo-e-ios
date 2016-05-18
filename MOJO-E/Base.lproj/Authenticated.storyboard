@@ -416,7 +416,7 @@
                                 <rect key="frame" x="0.0" y="86" width="414" height="595"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfJ-uD-ANd">
-                                        <rect key="frame" x="120" y="310" width="120" height="26"/>
+                                        <rect key="frame" x="120" y="310" width="324" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="2kf-g5-21s"/>
                                         </constraints>
@@ -434,9 +434,12 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50O-7z-pMW">
-                                        <rect key="frame" x="120" y="353" width="120" height="24"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="206-18 50th Ave, Flushing, NY, 11364" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50O-7z-pMW">
+                                        <rect key="frame" x="120" y="340" width="324" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="vfl-4K-IXB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -461,7 +464,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJv-Z9-i4d">
-                                        <rect key="frame" x="120" y="395" width="120" height="24"/>
+                                        <rect key="frame" x="120" y="395" width="324" height="24"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -477,7 +480,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jf-Zy-i9C">
-                                        <rect key="frame" x="120" y="437" width="120" height="24"/>
+                                        <rect key="frame" x="120" y="437" width="324" height="24"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -519,7 +522,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avC-mh-LvA">
-                                        <rect key="frame" x="120" y="479" width="120" height="24"/>
+                                        <rect key="frame" x="120" y="479" width="324" height="24"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -533,12 +536,14 @@
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="centerY" secondItem="b2Y-gl-FyU" secondAttribute="centerY" id="4G4-mU-DDf"/>
                                     <constraint firstItem="b2Y-gl-FyU" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="7I9-8h-Yve"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="height" secondItem="2jf-Zy-i9C" secondAttribute="height" id="8ZH-5o-hLf"/>
+                                    <constraint firstItem="zfJ-uD-ANd" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="9wx-8Z-BzU"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" id="Bhg-tG-P2p"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="leading" secondItem="sSP-bC-6ae" secondAttribute="leading" id="DYl-3z-96R"/>
                                     <constraint firstItem="sSP-bC-6ae" firstAttribute="top" secondItem="5gc-YA-c3U" secondAttribute="bottom" constant="10" id="Dn2-Wq-vSi"/>
                                     <constraint firstItem="sSP-bC-6ae" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="Exj-sy-SDS"/>
                                     <constraint firstItem="gQJ-xh-V0b" firstAttribute="leading" secondItem="b2Y-gl-FyU" secondAttribute="leading" id="Fku-bB-Fon"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="top" secondItem="sSP-bC-6ae" secondAttribute="bottom" constant="20" id="G0V-16-Gjt"/>
+                                    <constraint firstItem="avC-mh-LvA" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="HHH-rq-hhP"/>
                                     <constraint firstItem="WJv-Z9-i4d" firstAttribute="trailing" secondItem="50O-7z-pMW" secondAttribute="trailing" id="HRJ-Qy-zf5"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="leading" secondItem="2jf-Zy-i9C" secondAttribute="leading" id="NcE-bK-7oq"/>
                                     <constraint firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" constant="30" id="TFu-HD-FyM"/>
@@ -546,9 +551,11 @@
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="UEC-Ps-eT2"/>
                                     <constraint firstItem="gQJ-xh-V0b" firstAttribute="top" secondItem="b2Y-gl-FyU" secondAttribute="bottom" constant="20" id="VME-Sh-ekt"/>
                                     <constraint firstItem="Nt3-6P-1d6" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="W7N-zF-v6y"/>
+                                    <constraint firstItem="2jf-Zy-i9C" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="Zg2-hZ-NSk"/>
                                     <constraint firstItem="zfJ-uD-ANd" firstAttribute="leading" secondItem="6o5-d7-Mlb" secondAttribute="trailing" constant="15" id="a9F-Of-FQV"/>
                                     <constraint firstItem="b2Y-gl-FyU" firstAttribute="top" secondItem="Nt3-6P-1d6" secondAttribute="bottom" constant="20" id="coG-jM-ZsH"/>
                                     <constraint firstItem="WJv-Z9-i4d" firstAttribute="centerY" secondItem="Nt3-6P-1d6" secondAttribute="centerY" id="grV-f3-WBe"/>
+                                    <constraint firstItem="WJv-Z9-i4d" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="h2s-dQ-lFC"/>
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="leading" secondItem="50O-7z-pMW" secondAttribute="leading" id="j0M-dX-n3S"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="width" secondItem="2jf-Zy-i9C" secondAttribute="width" id="l1K-iC-His"/>
                                     <constraint firstItem="5gc-YA-c3U" firstAttribute="top" secondItem="Thd-Yx-fKt" secondAttribute="top" constant="30" id="lTH-Qd-J4i"/>
@@ -558,10 +565,14 @@
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="centerY" secondItem="gQJ-xh-V0b" secondAttribute="centerY" id="sX5-Gh-iHI"/>
                                     <constraint firstItem="WJv-Z9-i4d" firstAttribute="leading" secondItem="50O-7z-pMW" secondAttribute="leading" id="ttU-Z2-Q2y"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="centerY" secondItem="3A1-FL-bDH" secondAttribute="centerY" id="yEg-gj-pCx"/>
+                                    <constraint firstItem="50O-7z-pMW" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="yRq-tS-fPn"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Exj-sy-SDS"/>
+                                        <exclude reference="Bhg-tG-P2p"/>
+                                        <exclude reference="HRJ-Qy-zf5"/>
+                                        <exclude reference="lyX-U2-xl3"/>
                                     </mask>
                                 </variation>
                             </scrollView>

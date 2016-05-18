@@ -113,7 +113,20 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func loadJobInfo() {
         businessName.text = jobSelected?.businessName
-        addressLabel.text = jobSelected?.address1
+        var fullAddress = ""
+        if let address = jobSelected?.address1 {
+            fullAddress = address
+        }
+        if let city = jobSelected?.city {
+            fullAddress += ", " + city
+        }
+        if let state = jobSelected?.state {
+            fullAddress += ", " + state
+        }
+        if let zip = jobSelected?.zip {
+            fullAddress += ", " + zip
+        }
+        addressLabel.text = fullAddress
         cityLabel.text = jobSelected?.city
         typeLabel.text = jobSelected?.type
     }
