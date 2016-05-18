@@ -12,18 +12,18 @@ import EventKit
 class EventView: DDCalendarEventView {
     override var active : Bool {
         didSet {
-            var c = UIColor.redColor()
+            var c = Utility.greenL0Color()
 //            if let ek = self.event.userInfo["event"] as? EKEvent {
 //                c = UIColor(CGColor: ek.calendar.CGColor)
 //            }
 
             if(active) {
-                self.backgroundColor = c.colorWithAlphaComponent(0.8)
+                self.backgroundColor = c.colorWithAlphaComponent(0.9)
                 self.layer.borderColor = c.CGColor
                 self.layer.borderWidth = 1
             }
             else {
-                self.backgroundColor = c.colorWithAlphaComponent(0.5)
+                self.backgroundColor = c.colorWithAlphaComponent(0.7)
                 self.layer.borderColor = nil
                 self.layer.borderWidth = 0
             }

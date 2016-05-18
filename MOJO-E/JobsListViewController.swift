@@ -57,7 +57,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.syncJobsWithType("Incoming")
         ddCalendarView.scrollDateToVisible(NSDate(), animated: animated)
         ddCalendarView.showsTimeMarker = true
     }
@@ -141,6 +140,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         SideMenuManager.menuRightNavigationController = menuRightNavigationController
         SideMenuManager.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
+        self.syncJobsWithType("Incoming")
+        changeViewAction(weekButton)
     }
     
     func syncJobsWithType(type: String)
@@ -247,7 +248,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         print(days)
         var ddEvents = [DDCalendarEvent]()
         let ekEvent = EKEvent(eventStore: EKEventStore())
-        ekEvent.title = "Starbucks 2"
+        ekEvent.title = "Starbucks delivery to New York"
         ekEvent.startDate = NSDate().dateByAddingTimeInterval(3600)
         ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
         let ddEvent = DDCalendarEvent()
@@ -256,6 +257,17 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         ddEvent.dateEnd = ekEvent.endDate
         ddEvent.userInfo = ["event" : ekEvent]
         ddEvents.append(ddEvent)
+        
+        let ekEvent2 = EKEvent(eventStore: EKEventStore())
+        ekEvent2.title = "Work from home"
+        ekEvent2.startDate = ekEvent.endDate.dateByAddingTimeInterval(3600)
+        ekEvent2.endDate = ekEvent2.startDate.dateByAddingTimeInterval(3600)
+        let ddEvent2 = DDCalendarEvent()
+        ddEvent2.title = ekEvent2.title
+        ddEvent2.dateBegin = ekEvent2.startDate
+        ddEvent2.dateEnd = ekEvent2.endDate
+        ddEvent2.userInfo = ["event" : ekEvent2]
+        ddEvents.append(ddEvent2)
         dict[days] = ddEvents
     }
     

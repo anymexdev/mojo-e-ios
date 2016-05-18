@@ -49,8 +49,9 @@
     assert(event.dateBegin);
     assert(event.dateEnd);
     
-    self.label.text = [NSString stringWithFormat:@"%@\n\n%@\n%@", event.title, event.dateBegin.stringWithTimeOnly, event.dateEnd.stringWithTimeOnly];
-    [self.label sizeToFit];
+    self.label.text = [NSString stringWithFormat:@"%@\nFrom %@\nTo %@", event.title, event.dateBegin.stringWithTimeOnly, event.dateEnd.stringWithTimeOnly];
+//    [self.label sizeToFit];
+    self.label.textColor = [UIColor whiteColor];
 }
 
 - (void)setActive:(BOOL)active {
