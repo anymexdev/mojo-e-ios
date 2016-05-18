@@ -972,8 +972,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Build 1.0.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Zp-oa-1rX">
+                                <rect key="frame" x="130" y="696" width="154" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="154" id="0g8-KM-U6r"/>
+                                    <constraint firstAttribute="height" constant="30" id="M2n-nw-fMJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LPm-6R-MyV">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="686"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MenuCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" id="5YO-Wf-VDc" customClass="MenuCell" customModule="MOJO_E" customModuleProvider="target">
@@ -1040,12 +1050,14 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.090196078430000007" green="0.5568627451" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.41960784309999999" green="0.65490196079999996" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="LPm-6R-MyV" firstAttribute="top" secondItem="lxv-eS-EdU" secondAttribute="bottom" id="6ks-1r-AJz"/>
-                            <constraint firstItem="cSD-d2-2ny" firstAttribute="top" secondItem="LPm-6R-MyV" secondAttribute="bottom" id="OBK-KT-7bz"/>
+                            <constraint firstItem="2Zp-oa-1rX" firstAttribute="centerX" secondItem="VDS-3D-C0a" secondAttribute="centerX" id="IPT-jZ-eYS"/>
+                            <constraint firstItem="2Zp-oa-1rX" firstAttribute="top" secondItem="LPm-6R-MyV" secondAttribute="bottom" constant="10" id="d2s-yj-c1g"/>
                             <constraint firstAttribute="trailing" secondItem="LPm-6R-MyV" secondAttribute="trailing" id="gos-fM-6Ki"/>
                             <constraint firstItem="LPm-6R-MyV" firstAttribute="leading" secondItem="VDS-3D-C0a" secondAttribute="leading" id="joR-GJ-Hmb"/>
+                            <constraint firstItem="cSD-d2-2ny" firstAttribute="top" secondItem="2Zp-oa-1rX" secondAttribute="bottom" constant="10" id="qPz-SF-Ch1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="11f-2m-vUe"/>
@@ -1053,6 +1065,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="buildVersionLabel" destination="2Zp-oa-1rX" id="dDV-Ko-MuF"/>
                         <outlet property="tableView" destination="LPm-6R-MyV" id="MQf-Ge-H6C"/>
                     </connections>
                 </viewController>
@@ -1100,7 +1113,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uD2-Ib-Yxu" userLabel="Header background">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="86"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Samle Header" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lz8-Vd-FGF">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lz8-Vd-FGF">
                                         <rect key="frame" x="107" y="51" width="200" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="HPP-Cb-gOo"/>

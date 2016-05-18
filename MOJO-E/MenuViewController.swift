@@ -13,7 +13,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     // Mark: UI's elements
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var buildVersionLabel: UILabel!
     
     // Mark: Application's life cirlce
     override func viewDidLoad() {
@@ -40,6 +40,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Mark: class's private methods
     private func initialize() {
         generateData()
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            self.buildVersionLabel.text = "Build version \(version)"
+        }
     }
     
     private func generateData() {

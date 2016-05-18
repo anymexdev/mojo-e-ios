@@ -35,6 +35,16 @@
                                     <constraint firstAttribute="height" constant="86" id="hs8-Ru-zhs"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9i-bo-SrA">
+                                <rect key="frame" x="82" y="81" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="I0L-3O-NyW"/>
+                                    <constraint firstAttribute="width" constant="250" id="XLs-Zs-tVp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFE-SP-BrQ" userLabel="Email Login">
                                 <rect key="frame" x="0.0" y="126" width="414" height="205"/>
                                 <subviews>
@@ -102,13 +112,13 @@
                                     <constraint firstItem="5DD-jd-3gq" firstAttribute="top" secondItem="KNU-is-gKY" secondAttribute="bottom" constant="10" id="pXM-4F-8jV"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9i-bo-SrA">
-                                <rect key="frame" x="82" y="81" width="250" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Build 1.0.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGf-ib-xlu">
+                                <rect key="frame" x="130" y="696" width="154" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="I0L-3O-NyW"/>
-                                    <constraint firstAttribute="width" constant="250" id="XLs-Zs-tVp"/>
+                                    <constraint firstAttribute="width" constant="154" id="CqI-Zq-0Yu"/>
+                                    <constraint firstAttribute="height" constant="30" id="fVm-nL-Scw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -119,15 +129,18 @@
                             <constraint firstItem="3Mc-Tl-xxG" firstAttribute="leading" secondItem="hag-9P-mfB" secondAttribute="leading" id="1iX-iC-cF0"/>
                             <constraint firstItem="lFE-SP-BrQ" firstAttribute="top" secondItem="X9i-bo-SrA" secondAttribute="bottom" constant="15" id="NWp-IB-hpV"/>
                             <constraint firstAttribute="trailing" secondItem="3Mc-Tl-xxG" secondAttribute="trailing" id="QZx-xr-AyW"/>
+                            <constraint firstItem="CGf-ib-xlu" firstAttribute="centerX" secondItem="hag-9P-mfB" secondAttribute="centerX" id="S0v-nC-LzA"/>
                             <constraint firstItem="3Mc-Tl-xxG" firstAttribute="top" secondItem="9ae-61-WeW" secondAttribute="bottom" constant="-20" id="jIs-zL-O2Y"/>
                             <constraint firstItem="lFE-SP-BrQ" firstAttribute="leading" secondItem="hag-9P-mfB" secondAttribute="leading" id="nde-xY-RBM"/>
                             <constraint firstItem="X9i-bo-SrA" firstAttribute="top" secondItem="3Mc-Tl-xxG" secondAttribute="bottom" constant="15" id="nwd-WY-hBa"/>
                             <constraint firstItem="X9i-bo-SrA" firstAttribute="centerX" secondItem="hag-9P-mfB" secondAttribute="centerX" id="oeL-Dp-QfU"/>
+                            <constraint firstItem="SzF-kL-lY0" firstAttribute="top" secondItem="CGf-ib-xlu" secondAttribute="bottom" constant="10" id="sRp-mG-usN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GUV-Or-UTg"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="buildVersionLabel" destination="CGf-ib-xlu" id="JhO-Vq-IAH"/>
                         <outlet property="emailTextField" destination="KNU-is-gKY" id="BQH-nj-DoW"/>
                         <outlet property="passwordTextField" destination="5DD-jd-3gq" id="tMV-TB-BQ8"/>
                         <segue destination="e2T-wR-Apb" kind="show" identifier="SignUpSegue" id="oa1-mk-UzH"/>
@@ -241,7 +254,7 @@
                                         <rect key="frame" x="244" y="184" width="120" height="40"/>
                                         <color key="backgroundColor" red="0.27058823529999998" green="0.4823529412" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="16"/>
-                                        <state key="normal" title="Save">
+                                        <state key="normal" title="Register">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>

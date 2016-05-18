@@ -13,6 +13,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     // Mark: UI's elements
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var buildVersionLabel: UILabel!
     
     // MARK: Class's properties
     
@@ -107,6 +108,10 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
         // Setup delegates
+        
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            self.buildVersionLabel.text = "Build version \(version)"
+        }
     }
     
     func endEditing() {
