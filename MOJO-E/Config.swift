@@ -26,6 +26,9 @@ let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 let kUserDefault = NSUserDefaults.standardUserDefaults()
 let kIsRemember = "kIsRemember"
+let kIsLogged = "kIsLogged"
+let kUsernameRemember = "kUsernameRemember"
+let kPasswordRemember = "kPasswordRemember"
 
 let areaCodes: NSDictionary =  [
      "Canada"                                       :  "+1",

@@ -79,6 +79,15 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
 //                            
 //                    })
                     kUserDefault.setBool(self.rememberSwitch.on, forKey: kIsRemember)
+                    kUserDefault.setBool(true, forKey: kIsLogged)
+                    if self.rememberSwitch.on {
+                        kUserDefault.setObject(email, forKey: kUsernameRemember)
+                        kUserDefault.setObject(password, forKey: kPasswordRemember)
+                    }
+                    else {
+                        kUserDefault.setObject("", forKey: kUsernameRemember)
+                        kUserDefault.setObject("", forKey: kPasswordRemember)
+                    }
                     Utility.openAuthenticatedFlow()
                 }
             }
@@ -109,9 +118,11 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     }
     
     func initialize() {
-        emailTextField.text = "tam3@gmail.com"
-        passwordTextField.text = "tam3"
         rememberSwitch.on = kUserDefault.boolForKey(kIsRemember)
+        if rememberSwitch.on {
+            emailTextField.text = kUserDefault.objectForKey(kUsernameRemember) as? String
+            passwordTextField.text = kUserDefault.objectForKey(kPasswordRemember) as? String
+        }
         //
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AuthenticationViewController.endEditing))
         tapGesture.cancelsTouchesInView = false

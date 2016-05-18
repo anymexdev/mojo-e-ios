@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userInterfaceIdiom: .Phone
         )
         // Override point for customization after application launch.
-        if kUserDefault.boolForKey(kIsRemember) {
+        if kUserDefault.boolForKey(kIsLogged) {
             Utility.openAuthenticatedFlow()
         }
         return true
