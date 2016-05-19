@@ -64,7 +64,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
                         }
                     }
                 } else {
-//                    print("Successfully created user account with uid: \(authData.uid)")
+                    print("Successfully created user account with uid: \(authData.uid)")
 //                    let myCurrentUsersRef = Firebase(url: "\(kFireBaseUsersUrl)/\(authData.uid)")
                     // load snapshot of user
 //                    myCurrentUsersRef.observeSingleEventOfType(.Value, withBlock: {
@@ -80,6 +80,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
 //                    })
                     kUserDefault.setBool(self.rememberSwitch.on, forKey: kIsRemember)
                     kUserDefault.setBool(true, forKey: kIsLogged)
+                    kUserDefault.setObject(authData.uid, forKey: kUserId)
                     if self.rememberSwitch.on {
                         kUserDefault.setObject(email, forKey: kUsernameRemember)
                         kUserDefault.setObject(password, forKey: kPasswordRemember)

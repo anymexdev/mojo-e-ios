@@ -24,6 +24,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         if kUserDefault.boolForKey(kIsLogged) {
             Utility.openAuthenticatedFlow()
+//            if let email = kUserDefault.objectForKey(kUsernameRemember) as? String, let password = kUserDefault.objectForKey(kPasswordRemember) as? String {
+//                myRootRef.authUser(email, password: password) { (error, authData) -> Void in
+//                    if let _ = error {
+//                        // dont care
+//                    } else {
+//                        print("Successfully created user account with uid: \(authData.uid)")
+//                        kUserDefault.setObject(authData.uid, forKey: kUserId)
+//                    }
+//                }
+//            }
         }
         return true
     }

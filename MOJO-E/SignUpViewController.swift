@@ -44,47 +44,27 @@ class SignUpViewController: UIViewController {
                 if let email = emailTextField.text, let password = passwordTextField.text {
                     myRootRef.createUser(email, password: password,
                                          withValueCompletionBlock: { error, result in
-                                            if let error = error {
-                                                if let errorCode = FAuthenticationError(rawValue: error.code) {
-                                                    switch (errorCode) {
-                                                    case .NetworkError:
-                                                        Utility.showToastWithMessage(kErrorNetwork)
-                                                    default:
-                                                        Utility.showToastWithMessage(error.description)
-                                                    }
-                                                }
-                                            } else {
-                                                //                            usersRef.childByAppendingPath(currentUser?.uId).childByAppendingPath("username").setValue(usernameTextField.text!)
-                                                var data = Dictionary<String, String>()
-                                                data["userName"] = name
-                                                data["email"] = email
-                                                usersRef.childByAutoId().setValue(data)
-                                                Utility.openAuthenticatedFlow()
-                                                /*
-                                                 myRootRef.authUser(self.emailTextField.text, password: self.passwordTextField.text) { (error, authData) -> Void in
-                                                 if let error = error {
-                                                 // There was an error logging the account
-                                                 if let errorCode = FAuthenticationError(rawValue: error.code) {
-                                                 switch (errorCode) {
-                                                 case .UserDoesNotExist:
-                                                 Utility.showToastWithMessage(kErrorSignInUserDoesNotExist)
-                                                 case .InvalidEmail:
-                                                 Utility.showToastWithMessage(kErrorSignInInvalidEmail)
-                                                 case .InvalidPassword:
-                                                 Utility.showToastWithMessage(kErrorSignInInvalidPassword)
-                                                 case .NetworkError:
-                                                 Utility.showToastWithMessage(kErrorNetwork)
-                                                 default:
-                                                 Utility.showToastWithMessage(kErrorAuthenticationDefault)
-                                                 }
-                                                 }
-                                                 } else {
-                                                 print("Successfully created user account with uid: \(authData.uid)")
-                                                 Utility.openAuthenticatedFlow()
-                                                 }
-                                                 }
-                                                 */
-                                            }
+                        if let error = error {
+                            if let errorCode = FAuthenticationError(rawValue: error.code) {
+                                switch (errorCode) {
+                                case .NetworkError:
+                                    Utility.showToastWithMessage(kErrorNetwork)
+                                default:
+                                    Utility.showToastWithMessage(error.description)
+                                }
+                            }
+                        } else {
+                            var data = Dictionary<String, String>()
+                            data["userName"] = name
+                            data["email"] = email
+                            usersRef.childByAppendingPath(result["uid"] as! String) .setValue(data)
+                            kUserDefault.setObject(result["uid"] as! String, forKey: kUserId)
+                            kUserDefault.setBool(true, forKey: kIsRemember)
+                            kUserDefault.setBool(true, forKey: kIsLogged)
+                            kUserDefault.setObject(email, forKey: kUsernameRemember)
+                            kUserDefault.setObject(password, forKey: kPasswordRemember)
+                            Utility.openAuthenticatedFlow()
+                        }
                     })
                 }
                 else {

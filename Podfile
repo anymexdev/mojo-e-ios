@@ -11,6 +11,7 @@ target 'MOJO-E' do
     pod 'SideMenu'
     pod 'CVCalendar'
     pod 'JPSThumbnailAnnotation'
+    pod 'GeoFire'
 end
 
 target 'MOJO-ETests' do

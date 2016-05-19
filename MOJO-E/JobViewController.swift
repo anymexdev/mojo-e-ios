@@ -85,6 +85,20 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let pin = self.pinLocation {
             updateDistanceToAnotation(pin, userLocation: locValue)
         }
+        if let userID = kUserDefault.objectForKey(kUserId) as? String {
+            var data = Dictionary<String, Double>()
+            data["latitude"] = locValue.latitude
+            data["longitude"] = locValue.longitude
+            usersRef.childByAppendingPath(userID).childByAppendingPath("location").setValue(data)
+//            let key = "j\(userID)/location"
+//            geoFire.setLocation(CLLocation(latitude: locValue.latitude, longitude: locValue.longitude), forKey: userID) { (error) in
+//                if (error != nil) {
+//                    print("An error occured: \(error)")
+//                } else {
+//                    print("Saved location successfully!")
+//                }
+//            }
+        }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
