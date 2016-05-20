@@ -30,6 +30,7 @@
 		821CD8431CEC4F2D004EC52E /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8411CEC4F2D004EC52E /* EventManager.swift */; };
 		821CD8441CEC4F2D004EC52E /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8421CEC4F2D004EC52E /* EventView.swift */; };
 		821CD8461CEF0D83004EC52E /* WorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8451CEF0D83004EC52E /* WorkerViewController.swift */; };
+		821CD8481CEF2539004EC52E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8471CEF2539004EC52E /* Profile.swift */; };
 		8275C8141CE48FCE007B2D19 /* TimeSlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */; };
 		8275C8161CE4900F007B2D19 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8151CE4900F007B2D19 /* TimeSlot.swift */; };
 		8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8171CE4908B007B2D19 /* ListTimeCell.swift */; };
@@ -118,6 +119,7 @@
 		821CD8411CEC4F2D004EC52E /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		821CD8421CEC4F2D004EC52E /* EventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		821CD8451CEF0D83004EC52E /* WorkerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerViewController.swift; sourceTree = "<group>"; };
+		821CD8471CEF2539004EC52E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlotViewController.swift; sourceTree = "<group>"; };
 		8275C8151CE4900F007B2D19 /* TimeSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
 		8275C8171CE4908B007B2D19 /* ListTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeCell.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 		829CE11C1CE30B6D00030E47 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				821CD8471CEF2539004EC52E /* Profile.swift */,
 				8275C81B1CE49160007B2D19 /* DateInfo.swift */,
 				829CE1321CE3305400030E47 /* Job.swift */,
 				8275C8151CE4900F007B2D19 /* TimeSlot.swift */,
@@ -681,6 +684,7 @@
 				8275C8221CE5C08A007B2D19 /* SampleViewController.swift in Sources */,
 				8275C81E1CE5B4F1007B2D19 /* MenuCell.swift in Sources */,
 				829CE1331CE3305400030E47 /* Job.swift in Sources */,
+				821CD8481CEF2539004EC52E /* Profile.swift in Sources */,
 				821CD8381CEC4EC7004EC52E /* FFHourAndMinLabel.m in Sources */,
 				821CD83B1CEC4EC7004EC52E /* NSDate+DDCalendar.m in Sources */,
 				821CD8391CEC4EC7004EC52E /* FFViewWithHourLines.m in Sources */,
