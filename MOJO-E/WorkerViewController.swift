@@ -16,6 +16,14 @@ class WorkerViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var confirmLabel: UILabel!
+    
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var actionButton: UIButton!
+    
     // Mark: Class's properties
     var profile = Profile.get()
     
@@ -31,16 +39,22 @@ class WorkerViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        toggleEditMode(false)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    //MARK: UI ACtion
-    @IBAction func finishAction(sender: AnyObject) {
-        if let profile = profile where validateForSaving() {
+    //MARK: UI's Action
+    @IBAction func buttonAction(sender: AnyObject) {
+        let title = actionButton.titleForState(.Normal)
+        if title == "Edit" {
+            actionButton.setTitle("Save", forState: .Normal)
+            cancelButton.hidden = false
+            toggleEditMode(true)
+        }
+        else if let profile = profile where validateForSaving() && title == "Save" {
             profile.email = emailTextField.text!
             profile.password = passwordTextField.text!
             profile.userName = usernameTextField.text!
@@ -49,12 +63,28 @@ class WorkerViewController: UIViewController {
         }
     }
     
+    @IBAction func cancelAction(sender: AnyObject) {
+        actionButton.setTitle("Edit", forState: .Normal)
+        cancelButton.hidden = true
+        toggleEditMode(false)
+    }
+    
     @IBAction func backAction(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    @IBAction func cancelAction(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    //MARK: Functions
+    func toggleEditMode(editable: Bool) {
+        usernameTextField.hidden = !editable
+        emailTextField.hidden = !editable
+        passwordTextField.hidden = !editable
+        confirmPasswordTextField.hidden = !editable
+        cancelButton.hidden = !editable
+        
+        usernameLabel.hidden = editable
+        emailLabel.hidden = editable
+        passwordLabel.hidden = editable
+        confirmLabel.hidden = editable
     }
     
     func initialize() {
@@ -67,6 +97,11 @@ class WorkerViewController: UIViewController {
             passwordTextField.text = profile.password
             confirmPasswordTextField.text = profile.password
             usernameTextField.text = profile.userName
+            
+            emailLabel.text = profile.email
+            passwordLabel.text = profile.password
+            confirmLabel.text = profile.password
+            usernameLabel.text = profile.userName
         }
     }
     

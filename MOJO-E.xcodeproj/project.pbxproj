@@ -322,11 +322,11 @@
 		829CE11B1CE30B6600030E47 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				821CD8451CEF0D83004EC52E /* WorkerViewController.swift */,
 				8275C8231CE5CA95007B2D19 /* Authentication */,
 				8275C8211CE5C08A007B2D19 /* SampleViewController.swift */,
 				8275C81F1CE5B520007B2D19 /* MenuViewController.swift */,
 				8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */,
+				821CD8451CEF0D83004EC52E /* WorkerViewController.swift */,
 				829CE1341CE478D500030E47 /* JobViewController.swift */,
 				829CE12E1CE32D5E00030E47 /* JobsListViewController.swift */,
 			);
