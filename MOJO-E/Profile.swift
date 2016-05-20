@@ -31,7 +31,8 @@ class Profile: NSObject, NSCoding {
     var email = ""
     var password = ""
     var authenID = ""
-    
+    var isRemember = false
+    var isLogged = false
     
     required convenience init?(coder decoder: NSCoder) {
         guard let name = decoder.decodeObjectForKey("name") as? String,
@@ -56,6 +57,8 @@ class Profile: NSObject, NSCoding {
         self.email = email
         self.password = password
         self.authenID = authenID
+        self.isRemember = decoder.decodeBoolForKey("isRemember")
+        self.isLogged = decoder.decodeBoolForKey("isLogged")
         self.rate1 = decoder.decodeFloatForKey("rate1")
         self.rate2 = decoder.decodeFloatForKey("rate2")
         self.rate3 = decoder.decodeFloatForKey("rate3")
@@ -65,6 +68,8 @@ class Profile: NSObject, NSCoding {
     
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.userName, forKey: "name")
+        coder.encodeBool(self.isRemember, forKey: "isRemember")
+        coder.encodeBool(self.isLogged, forKey: "isLogged")
         coder.encodeObject(self.email, forKey: "email")
         coder.encodeObject(self.password, forKey: "password")
         coder.encodeObject(self.authenID, forKey: "authenID")
@@ -80,5 +85,26 @@ class Profile: NSObject, NSCoding {
         coder.encodeFloat(self.rate4, forKey: "rate4")
         coder.encodeFloat(self.rate5, forKey: "rate5")
         coder.encodeObject(self.createAt, forKey: "createAt")
+    }
+    
+    func syncToFirebase() {
+        var data = Dictionary<String, String>()
+        data["userName"] = self.userName
+        data["email"] = self.email
+        usersRef.childByAppendingPath(self.authenID) .setValue(data)
+        self.saveProfile()
+    }
+    
+    func saveProfile() {
+        let data = NSKeyedArchiver.archivedDataWithRootObject(self)
+        kUserDefault.setObject(data, forKey: kUserProfile)
+        kUserDefault.synchronize()
+    }
+    
+    class func get() -> Profile? {
+        if let profileData = kUserDefault.objectForKey(kUserProfile) as? NSData {
+            return NSKeyedUnarchiver.unarchiveObjectWithData(profileData) as? Profile
+        }
+        return nil
     }
 }

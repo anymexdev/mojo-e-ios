@@ -78,17 +78,13 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
 //                            print(error.description)
 //                            
 //                    })
-                    kUserDefault.setBool(self.rememberSwitch.on, forKey: kIsRemember)
-                    kUserDefault.setBool(true, forKey: kIsLogged)
-                    kUserDefault.setObject(authData.uid, forKey: kUserId)
-                    if self.rememberSwitch.on {
-                        kUserDefault.setObject(email, forKey: kUsernameRemember)
-                        kUserDefault.setObject(password, forKey: kPasswordRemember)
-                    }
-                    else {
-                        kUserDefault.setObject("", forKey: kUsernameRemember)
-                        kUserDefault.setObject("", forKey: kPasswordRemember)
-                    }
+                    let profile = Profile()
+                    profile.authenID = authData.uid
+                    profile.isRemember = self.rememberSwitch.on
+                    profile.isLogged = true
+                    profile.email = email
+                    profile.password = password
+                    profile.saveProfile()
                     Utility.openAuthenticatedFlow()
                 }
             }
@@ -119,11 +115,14 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     }
     
     func initialize() {
-        rememberSwitch.on = kUserDefault.boolForKey(kIsRemember)
-        if rememberSwitch.on {
-            emailTextField.text = kUserDefault.objectForKey(kUsernameRemember) as? String
-            passwordTextField.text = kUserDefault.objectForKey(kPasswordRemember) as? String
+        if let profile = kUserDefault.objectForKey(kUserProfile) as? Profile {
+            rememberSwitch.on = profile.isRemember
+            if rememberSwitch.on {
+                emailTextField.text = profile.email
+                passwordTextField.text = profile.password
+            }
         }
+
         //
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AuthenticationViewController.endEditing))
         tapGesture.cancelsTouchesInView = false

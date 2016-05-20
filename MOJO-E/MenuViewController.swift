@@ -87,7 +87,10 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dataMenu = dataIcons[indexPath.row]
         if dataMenu == FAType.FASignOut {
-            kUserDefault.setBool(false, forKey: kIsLogged)
+            if let profile = Profile.get() {
+                profile.isLogged = false
+                profile.saveProfile()
+            }
             Utility.openAuthenticationFlow()
         }
         else if dataMenu == FAType.FAUser {

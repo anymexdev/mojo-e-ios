@@ -27,12 +27,8 @@ let kDateMMMYYYY = DateFormatter(format: "MMMM - yyyy")
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 let kUserDefault = NSUserDefaults.standardUserDefaults()
-let kIsRemember = "kIsRemember"
-let kIsLogged = "kIsLogged"
-let kUsernameRemember = "kUsernameRemember"
-let kUserId = "kUserId"
-let kPasswordRemember = "kPasswordRemember"
 let kGeoKey = "firebase-geoMojo"
+let kUserProfile = "kUserProfile"
 
 let areaCodes: NSDictionary =  [
      "Canada"                                       :  "+1",

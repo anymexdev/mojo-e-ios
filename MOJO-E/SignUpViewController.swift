@@ -54,15 +54,14 @@ class SignUpViewController: UIViewController {
                                 }
                             }
                         } else {
-                            var data = Dictionary<String, String>()
-                            data["userName"] = name
-                            data["email"] = email
-                            usersRef.childByAppendingPath(result["uid"] as! String) .setValue(data)
-                            kUserDefault.setObject(result["uid"] as! String, forKey: kUserId)
-                            kUserDefault.setBool(true, forKey: kIsRemember)
-                            kUserDefault.setBool(true, forKey: kIsLogged)
-                            kUserDefault.setObject(email, forKey: kUsernameRemember)
-                            kUserDefault.setObject(password, forKey: kPasswordRemember)
+                            let profile = Profile()
+                            profile.authenID = result["uid"] as! String
+                            profile.isRemember = true
+                            profile.isLogged = true
+                            profile.email = email
+                            profile.userName = name
+                            profile.password = password
+                            profile.syncToFirebase()
                             Utility.openAuthenticatedFlow()
                         }
                     })

@@ -22,8 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userInterfaceIdiom: .Phone
         )
         // Override point for customization after application launch.
-        if kUserDefault.boolForKey(kIsLogged) {
-            Utility.openAuthenticatedFlow()
+        if let profile = Profile.get() {
+            if profile.isLogged {
+                Utility.openAuthenticatedFlow()
+            }
 //            if let email = kUserDefault.objectForKey(kUsernameRemember) as? String, let password = kUserDefault.objectForKey(kPasswordRemember) as? String {
 //                myRootRef.authUser(email, password: password) { (error, authData) -> Void in
 //                    if let _ = error {

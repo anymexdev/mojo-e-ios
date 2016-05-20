@@ -11,12 +11,13 @@ import Firebase
 class WorkerViewController: UIViewController {
 
     //MARK: UI element
-    
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
+    // Mark: Class's properties
+    var profile = Profile.get()
     
     //MARK: View did load
     override func viewDidLoad() {
@@ -39,17 +40,12 @@ class WorkerViewController: UIViewController {
     
     //MARK: UI ACtion
     @IBAction func finishAction(sender: AnyObject) {
-        if validateForSaving() {
-            let name = usernameTextField.text
-            let email = emailTextField.text
-            let password = passwordTextField.text
-            if let userID = kUserDefault.objectForKey(kUserId) as? String {
-                var data = Dictionary<String, String>()
-                data["userName"] = name
-                data["email"] = email
-                data["password"] = password
-                usersRef.childByAppendingPath(userID) .setValue(data)
-            }
+        if let profile = profile where validateForSaving() {
+            profile.email = emailTextField.text!
+            profile.password = passwordTextField.text!
+            profile.userName = usernameTextField.text!
+            profile.syncToFirebase()
+            self.backAction(passwordTextField)
         }
     }
     
@@ -66,6 +62,12 @@ class WorkerViewController: UIViewController {
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
         usernameTextField.becomeFirstResponder()
+        if let profile = profile {
+            emailTextField.text = profile.email
+            passwordTextField.text = profile.password
+            confirmPasswordTextField.text = profile.password
+            usernameTextField.text = profile.userName
+        }
     }
     
     func endEditing() {
