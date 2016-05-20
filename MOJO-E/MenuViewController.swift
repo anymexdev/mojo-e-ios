@@ -90,6 +90,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             kUserDefault.setBool(false, forKey: kIsLogged)
             Utility.openAuthenticationFlow()
         }
+        else if dataMenu == FAType.FAUser {
+            SideMenuManager.menuRightNavigationController?.dismissViewControllerAnimated(true, completion: {
+                appDelegate.mainVC!.performSegueWithIdentifier("WorkerSegue", sender: self)
+            })
+        }
         else {
             SideMenuManager.menuRightNavigationController?.dismissViewControllerAnimated(true, completion: {
                 appDelegate.mainVC!.performSegueWithIdentifier("SampleViewSegue", sender: self)
