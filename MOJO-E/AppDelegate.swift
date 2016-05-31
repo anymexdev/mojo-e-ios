@@ -8,6 +8,7 @@
 
 import UIKit
 import JLToast
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             forAttributeName: JLToastViewBackgroundColorAttributeName,
             userInterfaceIdiom: .Phone
         )
+        FIRApp.configure()
         // Override point for customization after application launch.
         if let profile = Profile.get() {
             if profile.isLogged {

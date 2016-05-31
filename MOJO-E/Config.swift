@@ -8,16 +8,16 @@
 import Foundation
 import UIKit
 import Firebase
-import GeoFire
+//import GeoFire
 
 //Firebase
-let kFireBaseUrl = "https://sizzling-torch-8660.firebaseio.com"
-let kFireBaseUsersUrl = "\(kFireBaseUrl)/users"
-let kFireBaseJobsUrl = "\(kFireBaseUrl)/jobs"
-let myRootRef = Firebase(url: kFireBaseUrl)
-let usersRef = Firebase(url: kFireBaseUsersUrl)
-let jobsRef = Firebase(url: kFireBaseJobsUrl)
-let geoFire = GeoFire(firebaseRef: myRootRef)
+//let kFireBaseUsersUrl = "\(kFireBaseUrl)/users"
+//let kFireBaseJobsUrl = "\(kFireBaseUrl)/jobs"
+let myRootRef = FIRDatabase.database().reference()
+//let myRootRef = Firebase(url: kFireBaseUrl)
+//let usersRef = Firebase(url: kFireBaseUsersUrl)
+//let jobsRef = Firebase(url: kFireBaseJobsUrl)
+//let geoFire = GeoFire(firebaseRef: myRootRef)
 
 let dayOfWeek = ["1": "SUN", "2": "MON", "3": "TUE", "4": "WED" , "5": "THUR", "6": "FRI", "7": "SAT"]
 let dayOfWeekFull = ["SUN": "Sunday", "MON": "Monday", "TUE": "Tuesday", "WED": "Wednesday" , "THUR": "Thursday", "FRI": "Firday", "SAT": "Saturday" ]

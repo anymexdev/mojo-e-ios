@@ -42,12 +42,11 @@ class SignUpViewController: UIViewController {
         if validateSignUp() {
             if let name = usernameTextField.text {
                 if let email = emailTextField.text, let password = passwordTextField.text {
-                    myRootRef.createUser(email, password: password,
-                                         withValueCompletionBlock: { error, result in
+                    FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: { (user, error) in
                         if let error = error {
-                            if let errorCode = FAuthenticationError(rawValue: error.code) {
+                            if let errorCode = FIRAuthErrorCode(rawValue: error.code) {
                                 switch (errorCode) {
-                                case .NetworkError:
+                                case .ErrorCodeNetworkError:
                                     Utility.showToastWithMessage(kErrorNetwork)
                                 default:
                                     Utility.showToastWithMessage(error.description)
@@ -55,7 +54,7 @@ class SignUpViewController: UIViewController {
                             }
                         } else {
                             let profile = Profile()
-                            profile.authenID = result["uid"] as! String
+                            profile.authenID = user!.uid
                             profile.isRemember = true
                             profile.isLogged = true
                             profile.email = email

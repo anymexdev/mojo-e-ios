@@ -91,7 +91,7 @@ class Profile: NSObject, NSCoding {
         var data = Dictionary<String, String>()
         data["userName"] = self.userName
         data["email"] = self.email
-        usersRef.childByAppendingPath(self.authenID) .setValue(data)
+        myRootRef.child("users").child(self.authenID) .setValue(data)
         self.saveProfile()
     }
     

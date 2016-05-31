@@ -89,7 +89,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         data["latitude"] = locValue.latitude
         data["longitude"] = locValue.longitude
         let profile = kUserDefault.objectForKey(kUserProfile) as! Profile
-        usersRef.childByAppendingPath(profile.authenID).childByAppendingPath("location").setValue(data)
+        myRootRef.child("users").childByAppendingPath(profile.authenID).childByAppendingPath("location").setValue(data)
 //            let key = "j\(userID)/location"
 //            geoFire.setLocation(CLLocation(latitude: locValue.latitude, longitude: locValue.longitude), forKey: userID) { (error) in
 //                if (error != nil) {
@@ -114,7 +114,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         appDelegate.mainVC = self
-        if jobSelected?.type == "Incoming" {
+        if jobSelected?.type == "new" {
             acceptButton.hidden = false
         }
         else {

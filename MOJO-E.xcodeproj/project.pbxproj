@@ -31,6 +31,7 @@
 		821CD8441CEC4F2D004EC52E /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8421CEC4F2D004EC52E /* EventView.swift */; };
 		821CD8461CEF0D83004EC52E /* WorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8451CEF0D83004EC52E /* WorkerViewController.swift */; };
 		821CD8481CEF2539004EC52E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8471CEF2539004EC52E /* Profile.swift */; };
+		821CD84A1CFD7D8C004EC52E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 821CD8491CFD7D8C004EC52E /* GoogleService-Info.plist */; };
 		8275C8141CE48FCE007B2D19 /* TimeSlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */; };
 		8275C8161CE4900F007B2D19 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8151CE4900F007B2D19 /* TimeSlot.swift */; };
 		8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8171CE4908B007B2D19 /* ListTimeCell.swift */; };
@@ -120,6 +121,7 @@
 		821CD8421CEC4F2D004EC52E /* EventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		821CD8451CEF0D83004EC52E /* WorkerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerViewController.swift; sourceTree = "<group>"; };
 		821CD8471CEF2539004EC52E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		821CD8491CFD7D8C004EC52E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlotViewController.swift; sourceTree = "<group>"; };
 		8275C8151CE4900F007B2D19 /* TimeSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
 		8275C8171CE4908B007B2D19 /* ListTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeCell.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		829CE11E1CE30B8000030E47 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				821CD8491CFD7D8C004EC52E /* GoogleService-Info.plist */,
 				821CD8121CEC4460004EC52E /* Bridging-Header.h */,
 				6B8054E31CE2E50600E3B039 /* Info.plist */,
 				6B8054DE1CE2E50600E3B039 /* Assets.xcassets */,
@@ -506,6 +509,7 @@
 				6B8054E21CE2E50600E3B039 /* LaunchScreen.storyboard in Resources */,
 				6B8054DF1CE2E50600E3B039 /* Assets.xcassets in Resources */,
 				6B8054DD1CE2E50600E3B039 /* Authenticated.storyboard in Resources */,
+				821CD84A1CFD7D8C004EC52E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

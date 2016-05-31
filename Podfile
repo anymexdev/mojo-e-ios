@@ -6,12 +6,13 @@ target 'MOJO-E' do
     pod 'Font-Awesome-Swift'
     pod 'MICountryPicker'
 	pod 'MGSwipeTableCell'
-	pod 'Firebase'
+    pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    pod 'Firebase/Auth'
     pod 'JLToast'
     pod 'SideMenu'
     pod 'CVCalendar'
     pod 'JPSThumbnailAnnotation'
-    pod 'GeoFire'
 end
 
 target 'MOJO-ETests' do

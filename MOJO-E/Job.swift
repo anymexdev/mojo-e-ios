@@ -23,7 +23,7 @@ class Job: NSObject, NSCoding {
     var address1 = ""
     var city = ""
     var companyID: Int?
-    var type = "Incoming"
+    var type = "new"
     var latitude: Double?
     var longtitude: Double?
     var ticketNumber: Int?
@@ -121,8 +121,8 @@ class Job: NSObject, NSCoding {
     
     func accepted() {
         if let id = self.id {
-            let jobRef = jobsRef.childByAppendingPath("\(id)")
-            jobRef.childByAppendingPath("type").setValue("Accepted")
+            let jobRef = myRootRef.child("jobs").child("\(id)")
+            jobRef.child("type").setValue("Accepted")
         }
     }
 }

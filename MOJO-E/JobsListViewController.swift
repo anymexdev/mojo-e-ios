@@ -96,13 +96,13 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBAction func typeChangedAction(sender: AnyObject) {
         if let segment = sender as? UISegmentedControl {
             if segment.selectedSegmentIndex == 0 {
-                self.syncJobsWithType("Incoming")
+                self.syncJobsWithType("new")
             }
             else if segment.selectedSegmentIndex == 1 {
-                self.syncJobsWithType("Accepted")
+                self.syncJobsWithType("assigned")
             }
             else if segment.selectedSegmentIndex == 2 {
-                self.syncJobsWithType("Completed")
+                self.syncJobsWithType("finished")
             }
         }
     }
@@ -140,16 +140,17 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         SideMenuManager.menuRightNavigationController = menuRightNavigationController
         SideMenuManager.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
-        self.syncJobsWithType("Incoming")
+        self.syncJobsWithType("new")
         changeViewAction(weekButton)
     }
     
     func syncJobsWithType(type: String)
     {
-        jobsRef.observeEventType(.Value, withBlock: {
+         myRootRef.child("jobs").observeEventType(.Value, withBlock: {
             snapshot in
             self.jobs.removeAll()
-            if let arrayData = snapshot.value.allObjects {
+            if let arrayData = snapshot.value as? NSArray {
+                print(arrayData)
                 for value in arrayData {
                     if let value = value as? NSDictionary {
                         let job = Job.createJobFromDict(value)

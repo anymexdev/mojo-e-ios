@@ -46,40 +46,40 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     @IBAction func signInAction(sender: AnyObject) {
 //        Utility.openAuthenticatedFlow()
         if let email = emailTextField.text, let password = passwordTextField.text where email.count() > 0 && password.count() > 0 {
-            myRootRef.authUser(email, password: password) { (error, authData) -> Void in
+            FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (user, error) in
                 if let error = error {
                     // There was an error logging the account
-                    if let errorCode = FAuthenticationError(rawValue: error.code) {
+                    if let errorCode = FIRAuthErrorCode(rawValue: error.code) {
                         switch (errorCode) {
-                        case .UserDoesNotExist:
+                        case .ErrorCodeAppNotAuthorized:
                             Utility.showToastWithMessage(kErrorSignInUserDoesNotExist)
-                        case .InvalidEmail:
+                        case .ErrorCodeInvalidEmail:
                             Utility.showToastWithMessage(kErrorSignInInvalidEmail)
-                        case .InvalidPassword:
+                        case .ErrorCodeInvalidCredential:
                             Utility.showToastWithMessage(kErrorSignInInvalidPassword)
-                        case .NetworkError:
+                        case .ErrorCodeNetworkError:
                             Utility.showToastWithMessage(kErrorNetwork)
                         default:
                             Utility.showToastWithMessage(kErrorAuthenticationDefault)
                         }
                     }
                 } else {
-                    print("Successfully created user account with uid: \(authData.uid)")
-//                    let myCurrentUsersRef = Firebase(url: "\(kFireBaseUsersUrl)/\(authData.uid)")
+                    print("Successfully created user account with uid: \(user!.uid)")
+                    //                    let myCurrentUsersRef = Firebase(url: "\(kFireBaseUsersUrl)/\(authData.uid)")
                     // load snapshot of user
-//                    myCurrentUsersRef.observeSingleEventOfType(.Value, withBlock: {
-//                        snapshot in
-//                        print(snapshot.value)
-//                        if let _ = snapshot.value as? NSDictionary {
-//                            print(authData.auth)
-//                            Utility.openAuthenticatedFlow()
-//                        }
-//                        }, withCancelBlock: { error in
-//                            print(error.description)
-//                            
-//                    })
+                    //                    myCurrentUsersRef.observeSingleEventOfType(.Value, withBlock: {
+                    //                        snapshot in
+                    //                        print(snapshot.value)
+                    //                        if let _ = snapshot.value as? NSDictionary {
+                    //                            print(authData.auth)
+                    //                            Utility.openAuthenticatedFlow()
+                    //                        }
+                    //                        }, withCancelBlock: { error in
+                    //                            print(error.description)
+                    //
+                    //                    })
                     let profile = Profile()
-                    profile.authenID = authData.uid
+                    profile.authenID = user!.uid
                     profile.isRemember = self.rememberSwitch.on
                     profile.isLogged = true
                     profile.email = email
@@ -87,7 +87,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
                     profile.saveProfile()
                     Utility.openAuthenticatedFlow()
                 }
-            }
+            })
         }
         else {
             Utility.showToastWithMessage(kErrorEmailIsEmpty)

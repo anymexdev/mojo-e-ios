@@ -8,6 +8,7 @@
 import UIKit
 import Font_Awesome_Swift
 import SideMenu
+import Firebase
 
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -87,11 +88,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dataMenu = dataIcons[indexPath.row]
         if dataMenu == FAType.FASignOut {
-            if let profile = Profile.get() {
+            if let _ = try? FIRAuth.auth()?.signOut(), let profile = Profile.get() {
                 profile.isLogged = false
                 profile.saveProfile()
+                Utility.openAuthenticationFlow()
             }
-            Utility.openAuthenticationFlow()
         }
         else if dataMenu == FAType.FAUser {
             SideMenuManager.menuRightNavigationController?.dismissViewControllerAnimated(true, completion: {
