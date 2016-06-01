@@ -15,15 +15,21 @@ class WorkerViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
     
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmLabel: UILabel!
+    @IBOutlet weak var specialitiesLabel: UILabel!
+    @IBOutlet weak var companiesLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
     
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var actionButton: UIButton!
     
+    @IBOutlet weak var availableSwitch: UISwitch!
+    @IBOutlet weak var avatarImage: UIImageView!
     // Mark: Class's properties
     var profile = Profile.get()
     
@@ -91,7 +97,7 @@ class WorkerViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.endEditing))
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
-        usernameTextField.becomeFirstResponder()
+//        usernameTextField.becomeFirstResponder()
         if let profile = profile {
             emailTextField.text = profile.email
             passwordTextField.text = profile.password
@@ -104,7 +110,15 @@ class WorkerViewController: UIViewController {
             usernameLabel.text = profile.userName
         }
         profile?.syncFromFirebase({ (profile) in
-            print(profile)
+            if let profile = profile {
+                self.profile = profile
+                self.companiesLabel.text = profile.companies
+                self.specialitiesLabel.text = profile.specialties
+                self.phoneLabel.text = profile.phone
+                self.phoneTextField.text = profile.phone
+                self.availableSwitch.on = profile.isAvailibity
+                Utility.downloadImage(profile.photoURL, viewToDisplay: self.avatarImage)
+            }
         })
     }
     

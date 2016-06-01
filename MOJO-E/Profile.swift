@@ -110,7 +110,9 @@ class Profile: NSObject, NSCoding {
         myRootRef.child("users").child("fa03b804-9784-4f02-ad54-80a240213613").observeEventType(.Value, withBlock: {
             snapshot in
             if let data = snapshot.value as? NSDictionary {
-                print(data)
+                if let phone = data.objectForKey("phone") as? String {
+                    self.phone = phone
+                }
                 if let avai = data.objectForKey("current_availability") as? String {
                     if avai == "on" {
                         self.isAvailibity = true

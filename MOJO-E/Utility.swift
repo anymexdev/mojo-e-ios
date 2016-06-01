@@ -133,6 +133,24 @@ class Utility {
         }
     }
     
+    class func downloadImage(imageUrl: String, viewToDisplay: UIImageView) {
+        print("\(imageUrl) to download")
+        let imgURL: NSURL = NSURL(string: imageUrl)!
+        let request: NSURLRequest = NSURLRequest(URL: imgURL)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+            if error == nil {
+                if let imageV = UIImage(data: data!) {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        viewToDisplay.image = imageV
+                    })
+                }
+            }
+            else {
+                print("Error: \(error!.localizedDescription)")
+            }
+        })
+    }
+    
     //MARK: Check internet connection
     class func isConnectedToNetwork() -> Bool {
         var zeroAddress = sockaddr_in()
