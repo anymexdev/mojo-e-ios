@@ -103,6 +103,9 @@ class WorkerViewController: UIViewController {
             confirmLabel.text = profile.password
             usernameLabel.text = profile.userName
         }
+        profile?.syncFromFirebase({ (profile) in
+            print(profile)
+        })
     }
     
     func endEditing() {

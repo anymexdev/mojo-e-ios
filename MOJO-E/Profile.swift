@@ -33,6 +33,9 @@ class Profile: NSObject, NSCoding {
     var authenID = ""
     var isRemember = false
     var isLogged = false
+    var isAvailibity = true
+    var companies = ""
+    var specialties = ""
     
     required convenience init?(coder decoder: NSCoder) {
         guard let name = decoder.decodeObjectForKey("name") as? String,
@@ -41,6 +44,8 @@ class Profile: NSObject, NSCoding {
             let password = decoder.decodeObjectForKey("password") as? String,
             let authenID = decoder.decodeObjectForKey("authenID") as? String,
             let location = decoder.decodeObjectForKey("location") as? String,
+            let companies = decoder.decodeObjectForKey("companies") as? String,
+            let specialties = decoder.decodeObjectForKey("specialties") as? String,
             let phone = decoder.decodeObjectForKey("phone") as? String,
             let createAt = decoder.decodeObjectForKey("createAt") as? String
             else { return nil }
@@ -58,6 +63,9 @@ class Profile: NSObject, NSCoding {
         self.password = password
         self.authenID = authenID
         self.isRemember = decoder.decodeBoolForKey("isRemember")
+        self.isAvailibity = decoder.decodeBoolForKey("isAvailibity")
+        self.companies = companies
+        self.specialties = specialties
         self.isLogged = decoder.decodeBoolForKey("isLogged")
         self.rate1 = decoder.decodeFloatForKey("rate1")
         self.rate2 = decoder.decodeFloatForKey("rate2")
@@ -67,7 +75,10 @@ class Profile: NSObject, NSCoding {
     }
     
     func encodeWithCoder(coder: NSCoder) {
+        coder.encodeObject(self.companies, forKey: "companies")
+        coder.encodeObject(self.specialties, forKey: "specialties")
         coder.encodeObject(self.userName, forKey: "name")
+        coder.encodeBool(self.isAvailibity, forKey: "isAvailibity")
         coder.encodeBool(self.isRemember, forKey: "isRemember")
         coder.encodeBool(self.isLogged, forKey: "isLogged")
         coder.encodeObject(self.email, forKey: "email")
@@ -91,8 +102,53 @@ class Profile: NSObject, NSCoding {
         var data = Dictionary<String, String>()
         data["userName"] = self.userName
         data["email"] = self.email
-        myRootRef.child("users").child(self.authenID) .setValue(data)
+        myRootRef.child("users").child(self.authenID).setValue(data)
         self.saveProfile()
+    }
+    
+    func syncFromFirebase(completionBlock: (profile: Profile?) -> Void) {
+        myRootRef.child("users").child("fa03b804-9784-4f02-ad54-80a240213613").observeEventType(.Value, withBlock: {
+            snapshot in
+            if let data = snapshot.value as? NSDictionary {
+                print(data)
+                if let avai = data.objectForKey("current_availability") as? String {
+                    if avai == "on" {
+                        self.isAvailibity = true
+                    }
+                    else {
+                        self.isAvailibity = false
+                    }
+                }
+                if let photoURL = data.objectForKey("profile_picture") as? String {
+                    self.photoURL = photoURL
+                }
+                if let companies = data.objectForKey("companies") as? NSArray {
+                    print(companies)
+                }
+                if let specialties = data.objectForKey("specialties") as? NSArray {
+                    for value in specialties {
+                        if let value = value as? Int {
+                            if value == 1 {
+                                self.specialties += "telecommunication, "
+                            }
+                            if value == 2 {
+                                self.specialties += "Computer/Network cutvoer, "
+                            }
+                            if value == 3 {
+                                self.specialties += "Point of Sale, "
+                            }
+                            if value == 4 {
+                                self.specialties += "Security, "
+                            }
+                        }
+                    }
+                }
+                completionBlock(profile: self)
+            }
+            else {
+                completionBlock(profile: self)
+            }
+        })
     }
     
     func saveProfile() {

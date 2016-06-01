@@ -64,7 +64,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
                         }
                     }
                 } else {
-                    print("Successfully created user account with uid: \(user!.uid)")
+                    print("Successfully sign in user account with uid: \(user!.uid)")
                     //                    let myCurrentUsersRef = Firebase(url: "\(kFireBaseUsersUrl)/\(authData.uid)")
                     // load snapshot of user
                     //                    myCurrentUsersRef.observeSingleEventOfType(.Value, withBlock: {
