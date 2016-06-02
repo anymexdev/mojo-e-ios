@@ -14,6 +14,7 @@ import Firebase
 //let kFireBaseUsersUrl = "\(kFireBaseUrl)/users"
 //let kFireBaseJobsUrl = "\(kFireBaseUrl)/jobs"
 let myRootRef = FIRDatabase.database().reference()
+let storage = FIRStorage.storage()
 //let myRootRef = Firebase(url: kFireBaseUrl)
 //let usersRef = Firebase(url: kFireBaseUsersUrl)
 //let jobsRef = Firebase(url: kFireBaseJobsUrl)

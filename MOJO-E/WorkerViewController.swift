@@ -216,6 +216,23 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
         avatarImage.contentMode = .ScaleAspectFit
         self.dismissViewControllerAnimated(true) { 
             self.toggleEditMode(true)
+            // Data in memory
+            let data = UIImagePNGRepresentation(image)
+            // Create a reference to the file you want to upload
+            let profilePicRef = storage.reference().child("images/\(self.profile!.authenID).png")
+            
+            // Upload the file to the path "images/rivers.jpg"
+            _ = profilePicRef.putData(data!, metadata: nil) { metadata, error in
+                if (error != nil) {
+                    // Uh-oh, an error occurred!
+                } else {
+                    // Metadata contains file metadata such as size, content-type, and download URL.
+                    let downloadURL = metadata!.downloadURL
+                    if let url = downloadURL()?.absoluteString {
+                        self.profile?.photoURL = url
+                    }
+                }
+            }
         }
     }
 }

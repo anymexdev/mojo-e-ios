@@ -104,12 +104,13 @@ class Profile: NSObject, NSCoding {
         data["email"] = self.email
         data["phone"] = self.phone
         data["current_availability"] = self.isAvailibity ? "on" : "off"
+        data["profile_picture"] = self.photoURL
         myRootRef.child("users").child(self.authenID).setValue(data)
         self.saveProfile()
     }
     
     func syncFromFirebase(completionBlock: (profile: Profile?) -> Void) {
-        myRootRef.child("users").child("fa03b804-9784-4f02-ad54-80a240213613").observeEventType(.Value, withBlock: {
+        myRootRef.child("users").child(self.authenID).observeEventType(.Value, withBlock: {
             snapshot in
             if let data = snapshot.value as? NSDictionary {
                 if let phone = data.objectForKey("phone") as? String {
