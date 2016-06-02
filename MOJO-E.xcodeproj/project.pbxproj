@@ -32,6 +32,7 @@
 		821CD8461CEF0D83004EC52E /* WorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8451CEF0D83004EC52E /* WorkerViewController.swift */; };
 		821CD8481CEF2539004EC52E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8471CEF2539004EC52E /* Profile.swift */; };
 		821CD84A1CFD7D8C004EC52E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 821CD8491CFD7D8C004EC52E /* GoogleService-Info.plist */; };
+		821CD84C1CFFD119004EC52E /* KeyboardNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD84B1CFFD119004EC52E /* KeyboardNotification.swift */; };
 		8275C8141CE48FCE007B2D19 /* TimeSlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */; };
 		8275C8161CE4900F007B2D19 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8151CE4900F007B2D19 /* TimeSlot.swift */; };
 		8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8171CE4908B007B2D19 /* ListTimeCell.swift */; };
@@ -122,6 +123,7 @@
 		821CD8451CEF0D83004EC52E /* WorkerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerViewController.swift; sourceTree = "<group>"; };
 		821CD8471CEF2539004EC52E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		821CD8491CFD7D8C004EC52E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		821CD84B1CFFD119004EC52E /* KeyboardNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotification.swift; sourceTree = "<group>"; };
 		8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlotViewController.swift; sourceTree = "<group>"; };
 		8275C8151CE4900F007B2D19 /* TimeSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
 		8275C8171CE4908B007B2D19 /* ListTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeCell.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		821CD80C1CEB2167004EC52E /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				821CD84B1CFFD119004EC52E /* KeyboardNotification.swift */,
 				821CD8161CEC4EC6004EC52E /* DDCalendarView_objc */,
 			);
 			name = "Third Party";
@@ -666,6 +669,7 @@
 				821CD83C1CEC4EC7004EC52E /* OBDragDropManager.m in Sources */,
 				829CE1241CE30BBC00030E47 /* Utility.swift in Sources */,
 				8275C81C1CE49160007B2D19 /* DateInfo.swift in Sources */,
+				821CD84C1CFFD119004EC52E /* KeyboardNotification.swift in Sources */,
 				8275C8141CE48FCE007B2D19 /* TimeSlotViewController.swift in Sources */,
 				6B8054D81CE2E50600E3B039 /* AppDelegate.swift in Sources */,
 				821CD8431CEC4F2D004EC52E /* EventManager.swift in Sources */,

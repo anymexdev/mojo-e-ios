@@ -102,6 +102,8 @@ class Profile: NSObject, NSCoding {
         var data = Dictionary<String, String>()
         data["userName"] = self.userName
         data["email"] = self.email
+        data["phone"] = self.phone
+        data["current_availability"] = self.isAvailibity ? "on" : "off"
         myRootRef.child("users").child(self.authenID).setValue(data)
         self.saveProfile()
     }

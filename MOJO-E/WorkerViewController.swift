@@ -7,8 +7,9 @@
 
 import UIKit
 import Firebase
+import MobileCoreServices
 
-class WorkerViewController: UIViewController {
+class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //MARK: UI element
     @IBOutlet weak var usernameTextField: UITextField!
@@ -25,9 +26,10 @@ class WorkerViewController: UIViewController {
     @IBOutlet weak var companiesLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     
+    @IBOutlet weak var changeAvatarButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var actionButton: UIButton!
-    
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var availableSwitch: UISwitch!
     @IBOutlet weak var avatarImage: UIImageView!
     // Mark: Class's properties
@@ -64,6 +66,7 @@ class WorkerViewController: UIViewController {
             profile.email = emailTextField.text!
             profile.password = passwordTextField.text!
             profile.userName = usernameTextField.text!
+            profile.phone = phoneTextField.text!
             profile.syncToFirebase()
             self.backAction(passwordTextField)
         }
@@ -79,6 +82,15 @@ class WorkerViewController: UIViewController {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    @IBAction func changeAvatar(sender: AnyObject) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.mediaTypes = [kUTTypeImage as String]
+        imagePicker.allowsEditing = false
+        self.presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
     //MARK: Functions
     func toggleEditMode(editable: Bool) {
         usernameTextField.hidden = !editable
@@ -86,18 +98,23 @@ class WorkerViewController: UIViewController {
         passwordTextField.hidden = !editable
         confirmPasswordTextField.hidden = !editable
         cancelButton.hidden = !editable
+        changeAvatarButton.hidden = !editable
+        phoneTextField.hidden = !editable
         
         usernameLabel.hidden = editable
         emailLabel.hidden = editable
         passwordLabel.hidden = editable
         confirmLabel.hidden = editable
+        phoneLabel.hidden = editable
     }
     
     func initialize() {
+        self.avatarImage.layer.borderColor = Utility.greenL0Color().CGColor
+        self.avatarImage.layer.borderWidth = 2
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.endEditing))
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
-//        usernameTextField.becomeFirstResponder()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkerViewController.keyboardWillChangeFrameNotification(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         if let profile = profile {
             emailTextField.text = profile.email
             passwordTextField.text = profile.password
@@ -124,6 +141,34 @@ class WorkerViewController: UIViewController {
     
     func endEditing() {
         self.view.endEditing(true)
+    }
+    
+    func keyboardWillChangeFrameNotification(notification: NSNotification) {
+        let n = KeyboardNotification(notification)
+        let keyboardFrame = n.frameEndForView(self.view)
+        let animationDuration = n.animationDuration
+        let animationCurve = n.animationCurve
+        let viewFrame = self.view.frame
+        let newBottomOffset = viewFrame.maxY - keyboardFrame.minY
+        print("newBottomOffset is \(newBottomOffset)")
+        self.view.layoutIfNeeded()
+        UIView.animateWithDuration(animationDuration,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions(rawValue: UInt(animationCurve << 16)),
+                                   animations: {
+                                    if newBottomOffset > 0 {
+                                        // Keyboard will show
+                                        self.bottomConstraint.constant = -newBottomOffset
+                                    }
+                                    else {
+                                        // keyboard will hide
+                                        self.bottomConstraint.constant = 0
+                                        
+                                    }
+                                    self.view.layoutIfNeeded()
+            },
+                                   completion: nil
+        )
     }
     
     private func validateForSaving() -> Bool {
@@ -165,4 +210,12 @@ class WorkerViewController: UIViewController {
         
     }
     
+    //MARK: PickerImage Delegate
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        avatarImage.image = image
+        avatarImage.contentMode = .ScaleAspectFit
+        self.dismissViewControllerAnimated(true) { 
+            self.toggleEditMode(true)
+        }
+    }
 }
