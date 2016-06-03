@@ -137,6 +137,9 @@ class Job: NSObject, NSCoding {
         if let id = self.id {
             let jobRef = myRootRef.child("jobs").child("\(id)")
             jobRef.child("type").setValue("Accepted")
+            if let profile = Profile.get() {
+                jobRef.child("user_id").setValue(profile.authenID)
+            }
         }
     }
 }
