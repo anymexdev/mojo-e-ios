@@ -78,7 +78,7 @@
     
     //make us as big as needed
     CGSize s = self.frame.size;
-    s.width *= 3;
+    s.width *= 1;
     self.pagingView.contentSize = s;
     
     self.pagingView.contentOffset = CGPointMake(self.leftCal.frame.size.width,0);

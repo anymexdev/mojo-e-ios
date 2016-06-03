@@ -31,6 +31,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet var ddCalendarView: DDCalendarView!
     var dict = Dictionary<Int, [DDCalendarEvent]>()
+    var ddEvents = [DDCalendarEvent]()
     
     //MARK: private property
     var jobs = [Job]()
@@ -248,9 +249,9 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: DDCalendar's delegate
     
     func calendarView(view: DDCalendarView, focussedOnDay date: NSDate) {
-        let days = date.daysFromDate(NSDate())
-        print(days)
-        var ddEvents = [DDCalendarEvent]()
+//        let days = date.daysFromDate(NSDate())
+//        print("****** calendarView \(days)")
+//        var ddEvents = [DDCalendarEvent]()
         let ekEvent = EKEvent(eventStore: EKEventStore())
         ekEvent.title = "Starbucks delivery to New York"
         ekEvent.startDate = NSDate().dateByAddingTimeInterval(3600)
@@ -261,18 +262,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         ddEvent.dateEnd = ekEvent.endDate
         ddEvent.userInfo = ["event" : ekEvent]
         ddEvents.append(ddEvent)
-        
-        let ekEvent2 = EKEvent(eventStore: EKEventStore())
-        ekEvent2.title = "Work from home"
-        ekEvent2.startDate = ekEvent.endDate.dateByAddingTimeInterval(3600)
-        ekEvent2.endDate = ekEvent2.startDate.dateByAddingTimeInterval(3600)
-        let ddEvent2 = DDCalendarEvent()
-        ddEvent2.title = ekEvent2.title
-        ddEvent2.dateBegin = ekEvent2.startDate
-        ddEvent2.dateEnd = ekEvent2.endDate
-        ddEvent2.userInfo = ["event" : ekEvent2]
-        ddEvents.append(ddEvent2)
-        dict[days] = ddEvents
+//        dict[days] = ddEvents
     }
     
     func calendarView(view: DDCalendarView, didSelectEvent event: DDCalendarEvent) {
@@ -300,7 +290,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: DDCalendar'sdataSource
     
     func calendarView(view: DDCalendarView, eventsForDay date: NSDate) -> [AnyObject]? {
-        return dict[date.daysFromDate(NSDate())]
+//        return dict[date.daysFromDate(NSDate())]
+        return ddEvents
     }
     
     func calendarView(view: DDCalendarView, viewForEvent event: DDCalendarEvent) -> DDCalendarEventView? {
