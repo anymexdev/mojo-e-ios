@@ -25,6 +25,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var widthOfMapConstraint: NSLayoutConstraint!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var createTimeLabel: UILabel!
+    @IBOutlet weak var dispatchTimeLabel: UILabel!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -81,15 +83,16 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+//        print("locations = \(locValue.latitude) \(locValue.longitude)")
         if let pin = self.pinLocation {
             updateDistanceToAnotation(pin, userLocation: locValue)
         }
         var data = Dictionary<String, Double>()
         data["latitude"] = locValue.latitude
         data["longitude"] = locValue.longitude
-        let profile = kUserDefault.objectForKey(kUserProfile) as! Profile
-        myRootRef.child("users").childByAppendingPath(profile.authenID).childByAppendingPath("location").setValue(data)
+        if let profile = Profile.get() {
+            myRootRef.child("users").child(profile.authenID).child("location").setValue(data)
+        }
 //            let key = "j\(userID)/location"
 //            geoFire.setLocation(CLLocation(latitude: locValue.latitude, longitude: locValue.longitude), forKey: userID) { (error) in
 //                if (error != nil) {
@@ -141,6 +144,10 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         addressLabel.text = fullAddress
         cityLabel.text = jobSelected?.city
         typeLabel.text = jobSelected?.type
+        if let dispatchTime = jobSelected?.dispatchTime, let createTime = jobSelected?.createTime {
+            dispatchTimeLabel.text = kDateJobTime.stringFromDate(dispatchTime)
+            createTimeLabel.text = kDateJobTime.stringFromDate(createTime)
+        }
     }
     
     private func drawPinsOfRequest() {

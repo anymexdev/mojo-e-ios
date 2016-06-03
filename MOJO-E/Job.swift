@@ -27,11 +27,15 @@ class Job: NSObject, NSCoding {
     var latitude: Double?
     var longtitude: Double?
     var ticketNumber: Int?
+    var dispatchTime = NSDate()
+    var createTime = NSDate()
     
     
     // MARK: NSCoding
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.businessName, forKey: "businessName")
+        coder.encodeObject(self.dispatchTime, forKey: "dispatchTime")
+        coder.encodeObject(self.createTime, forKey: "createTime")
         coder.encodeObject(self.address1, forKey: "address1")
         coder.encodeObject(self.city, forKey: "city")
         coder.encodeObject(self.type, forKey: "type")
@@ -61,6 +65,8 @@ class Job: NSObject, NSCoding {
         guard let businessName = decoder.decodeObjectForKey("businessName") as? String,
             let address1 = decoder.decodeObjectForKey("address1") as? String,
             let city = decoder.decodeObjectForKey("city") as? String,
+            let dispatchTime = decoder.decodeObjectForKey("dispatchTime") as? NSDate,
+            let createTime = decoder.decodeObjectForKey("createTime") as? NSDate,
             let zip = decoder.decodeObjectForKey("zip") as? String,
             let state = decoder.decodeObjectForKey("state") as? String,
             let type = decoder.decodeObjectForKey("type") as? String
@@ -73,6 +79,8 @@ class Job: NSObject, NSCoding {
         self.zip = zip
         self.state = state
         self.address1 = address1
+        self.dispatchTime = dispatchTime
+        self.createTime = createTime
         self.city = city
         self.type = type
         self.companyID = decoder.decodeIntegerForKey("companyID")
@@ -113,6 +121,12 @@ class Job: NSObject, NSCoding {
         }
         if let ticketNumber = dict.objectForKey("ticket_number") as? Int {
             job.ticketNumber = ticketNumber
+        }
+        if let dispatchTime = dict.objectForKey("dispatch_time") as? NSTimeInterval {
+            job.dispatchTime = NSDate(timeIntervalSince1970: dispatchTime)
+        }
+        if let createTime = dict.objectForKey("created_at") as? NSTimeInterval {
+            job.createTime = NSDate(timeIntervalSince1970: createTime)
         }
         job.latitude = dict.objectForKey("latitude") as? Double
         job.longtitude = dict.objectForKey("longitude") as? Double
