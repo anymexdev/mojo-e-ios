@@ -27,6 +27,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var createTimeLabel: UILabel!
     @IBOutlet weak var dispatchTimeLabel: UILabel!
+    @IBOutlet weak var mainScroll: UIScrollView!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -36,8 +37,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.drawPinsOfRequest()
-        self.widthOfMapConstraint.constant = self.view.bounds.size.width - 60.0
+        drawPinsOfRequest()
+        widthOfMapConstraint.constant = self.view.bounds.size.width - 60.0
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -182,7 +183,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let distance = anotationLocation.distanceFromLocation(userLocation)
         let stringMiles  = NSString(format: "%.1f miles", distance/1609.344)
         distanceLabel.text = "\(stringMiles)"
-        
+        mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, self.view.bounds.size.height - 55.0)
     }
     
 }

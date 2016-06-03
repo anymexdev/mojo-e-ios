@@ -425,7 +425,7 @@
                                     <constraint firstAttribute="trailing" secondItem="28I-On-4y0" secondAttribute="trailing" constant="10" id="uEk-M0-uu3"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thd-Yx-fKt">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thd-Yx-fKt">
                                 <rect key="frame" x="0.0" y="86" width="414" height="595"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfJ-uD-ANd">
@@ -653,8 +653,8 @@
                             <constraint firstItem="wdn-ua-aTM" firstAttribute="top" secondItem="Thd-Yx-fKt" secondAttribute="bottom" id="4Si-KT-PgC"/>
                             <constraint firstItem="d3T-Um-d0e" firstAttribute="leading" secondItem="c6j-Dr-tZd" secondAttribute="leading" id="Int-qL-jZL"/>
                             <constraint firstAttribute="trailing" secondItem="d3T-Um-d0e" secondAttribute="trailing" id="OQG-AH-vlN"/>
+                            <constraint firstItem="stz-WY-s2l" firstAttribute="top" secondItem="Thd-Yx-fKt" secondAttribute="bottom" constant="5" id="Uts-aa-tkY"/>
                             <constraint firstItem="Thd-Yx-fKt" firstAttribute="leading" secondItem="c6j-Dr-tZd" secondAttribute="leading" id="XiB-IG-U5A"/>
-                            <constraint firstItem="stz-WY-s2l" firstAttribute="top" secondItem="Thd-Yx-fKt" secondAttribute="bottom" constant="5" id="bHK-F9-pYF"/>
                             <constraint firstItem="stz-WY-s2l" firstAttribute="centerX" secondItem="c6j-Dr-tZd" secondAttribute="centerX" id="nao-jb-O7k"/>
                             <constraint firstAttribute="trailing" secondItem="Thd-Yx-fKt" secondAttribute="trailing" id="oKu-6Y-x0C"/>
                             <constraint firstItem="wdn-ua-aTM" firstAttribute="top" secondItem="stz-WY-s2l" secondAttribute="bottom" constant="10" id="xy9-NE-1oC"/>
@@ -675,6 +675,7 @@
                         <outlet property="createTimeLabel" destination="dPP-1E-Hds" id="syb-jr-BhE"/>
                         <outlet property="dispatchTimeLabel" destination="Lch-a7-9pb" id="VQw-YK-b59"/>
                         <outlet property="distanceLabel" destination="avC-mh-LvA" id="fK9-Em-eiO"/>
+                        <outlet property="mainScroll" destination="Thd-Yx-fKt" id="vgd-ed-aVR"/>
                         <outlet property="mapView" destination="sSP-bC-6ae" id="aBK-cU-ZcW"/>
                         <outlet property="typeLabel" destination="2jf-Zy-i9C" id="YR0-xq-Jf0"/>
                         <outlet property="widthOfMapConstraint" destination="Ort-rV-oa1" id="XtK-HC-SpN"/>
