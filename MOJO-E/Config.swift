@@ -25,6 +25,7 @@ let dayOfWeekFull = ["SUN": "Sunday", "MON": "Monday", "TUE": "Tuesday", "WED": 
 let monthOfYear = ["1": "Janaury", "2": "February", "3": "March", "4": "April" , "5": "May", "6": "June", "7": "Jully", "8": "August","9": "September","10": "October","11": "November","12": "December"]
 
 let kDateMMMYYYY = DateFormatter(format: "MMMM-yyyy")
+let kDateddMMYY = DateFormatter(format: "dd-MM-YY")
 let kDateJobTime = DateFormatter(format: "dd-MMMM-yyyy hh:mm")
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 

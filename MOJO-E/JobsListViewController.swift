@@ -31,7 +31,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet var ddCalendarView: DDCalendarView!
     var dict = Dictionary<Int, [DDCalendarEvent]>()
-    var ddEvents = [DDCalendarEvent]()
     
     //MARK: private property
     var jobs = [Job]()
@@ -164,6 +163,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                     }
                 }
                 self.tableView.reloadData()
+                self.renderJobInDate(NSDate())
             }
         })
     }
@@ -249,20 +249,33 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: DDCalendar's delegate
     
     func calendarView(view: DDCalendarView, focussedOnDay date: NSDate) {
-//        let days = date.daysFromDate(NSDate())
-//        print("****** calendarView \(days)")
-//        var ddEvents = [DDCalendarEvent]()
-        let ekEvent = EKEvent(eventStore: EKEventStore())
-        ekEvent.title = "Starbucks delivery to New York"
-        ekEvent.startDate = NSDate().dateByAddingTimeInterval(3600)
-        ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
-        let ddEvent = DDCalendarEvent()
-        ddEvent.title = ekEvent.title
-        ddEvent.dateBegin = ekEvent.startDate
-        ddEvent.dateEnd = ekEvent.endDate
-        ddEvent.userInfo = ["event" : ekEvent]
-        ddEvents.append(ddEvent)
-//        dict[days] = ddEvents
+        renderJobInDate(date)
+    }
+    
+    func renderJobInDate(date: NSDate) {
+        if self.jobs.count > 0 {
+            var ddEvents = [DDCalendarEvent]()
+            for job in self.jobs {
+                let stringTo = kDateddMMYY.stringFromDate(job.createTime)
+                let stringFrom = kDateddMMYY.stringFromDate(date)
+                print("**** \(stringTo) \(stringFrom)")
+                if stringTo == stringFrom {
+                    let ekEvent = EKEvent(eventStore: EKEventStore())
+                    ekEvent.title = job.businessName
+                    ekEvent.startDate = NSDate()
+                    ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
+                    let ddEvent = DDCalendarEvent()
+                    ddEvent.title = ekEvent.title
+                    ddEvent.dateBegin = ekEvent.startDate
+                    ddEvent.dateEnd = ekEvent.endDate
+                    ddEvent.userInfo = ["event" : ekEvent]
+                    ddEvents.append(ddEvent)
+                }
+            }
+            print(ddEvents.count)
+            dict[0] = ddEvents
+            self.ddCalendarView.reloadData()
+        }
     }
     
     func calendarView(view: DDCalendarView, didSelectEvent event: DDCalendarEvent) {
@@ -290,12 +303,19 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: DDCalendar'sdataSource
     
     func calendarView(view: DDCalendarView, eventsForDay date: NSDate) -> [AnyObject]? {
-//        return dict[date.daysFromDate(NSDate())]
-        return ddEvents
+        print("====== eventsForDay \(date.daysFromDate(NSDate()))")
+        return dict[date.daysFromDate(NSDate())]
     }
     
     func calendarView(view: DDCalendarView, viewForEvent event: DDCalendarEvent) -> DDCalendarEventView? {
         return EventView(event: event)
+    }
+    
+    // MARK: CVCalendarViewDelegate's methods
+    func didSelectDayView(dayView: DayView, animationDidFinish: Bool) {
+        if let date = dayView.date.convertedDate() {
+            renderJobInDate(date)
+        }
     }
     
 }
