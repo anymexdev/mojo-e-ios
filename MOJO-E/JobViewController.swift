@@ -118,12 +118,15 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         appDelegate.mainVC = self
-        if jobSelected?.type == "new" {
-            acceptButton.hidden = false
+        if jobSelected?.type == "Started" {
+//            acceptButton.hidden = false
+            acceptButton.setTitle("Finish", forState: .Normal)
         }
-        else {
-            acceptButton.hidden = true
+        else if jobSelected?.type == "assigned" || jobSelected?.type == "Accepted" {
+//            acceptButton.hidden = true
+            acceptButton.setTitle("Start", forState: .Normal)
         }
+        acceptButton.hidden = false
         loadJobInfo()
     }
     

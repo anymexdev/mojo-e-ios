@@ -14,14 +14,10 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
     //MARK: UI element
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
-    @IBOutlet weak var confirmLabel: UILabel!
     @IBOutlet weak var specialitiesLabel: UILabel!
     @IBOutlet weak var companiesLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
@@ -64,11 +60,9 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         else if let profile = profile where validateForSaving() && title == "Save" {
             profile.email = emailTextField.text!
-            profile.password = passwordTextField.text!
             profile.userName = usernameTextField.text!
             profile.phone = phoneTextField.text!
             profile.syncToFirebase()
-            self.backAction(passwordTextField)
         }
     }
     
@@ -95,16 +89,12 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
     func toggleEditMode(editable: Bool) {
         usernameTextField.hidden = !editable
         emailTextField.hidden = !editable
-        passwordTextField.hidden = !editable
-        confirmPasswordTextField.hidden = !editable
         cancelButton.hidden = !editable
         changeAvatarButton.hidden = !editable
         phoneTextField.hidden = !editable
         
         usernameLabel.hidden = editable
         emailLabel.hidden = editable
-        passwordLabel.hidden = editable
-        confirmLabel.hidden = editable
         phoneLabel.hidden = editable
     }
     
@@ -117,13 +107,9 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkerViewController.keyboardWillChangeFrameNotification(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         if let profile = profile {
             emailTextField.text = profile.email
-            passwordTextField.text = profile.password
-            confirmPasswordTextField.text = profile.password
             usernameTextField.text = profile.userName
             
             emailLabel.text = profile.email
-            passwordLabel.text = profile.password
-            confirmLabel.text = profile.password
             usernameLabel.text = profile.userName
         }
         profile?.syncFromFirebase({ (profile) in
@@ -188,23 +174,6 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
                 Utility.showToastWithMessage("Email is not valid")
                 return false
             }
-        }
-        if let password = passwordTextField.text where password.count() < 6 {
-            Utility.showToastWithMessage("Password should be at least 6 characters")
-            return false
-        }
-        else {
-            let password = passwordTextField.text
-            let numberRegEx  = ".*[0-9]+.*"
-            let passwordTest = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
-            if !passwordTest.evaluateWithObject(password) {
-                Utility.showToastWithMessage("Password should include at least 1 number")
-                return false
-            }
-        }
-        if let password = passwordTextField.text, let confirm = confirmPasswordTextField.text where password != confirm {
-            Utility.showToastWithMessage("Confirm password doesn't match")
-            return false
         }
         return true
         

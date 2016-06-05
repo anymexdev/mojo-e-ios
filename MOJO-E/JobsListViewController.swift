@@ -258,11 +258,16 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             for job in self.jobs {
                 let stringTo = kDateddMMYY.stringFromDate(job.createTime)
                 let stringFrom = kDateddMMYY.stringFromDate(date)
-                print("**** \(stringTo) \(stringFrom)")
+//                print("**** \(stringTo) \(stringFrom)")
                 if stringTo == stringFrom {
                     let ekEvent = EKEvent(eventStore: EKEventStore())
                     ekEvent.title = job.businessName
-                    ekEvent.startDate = NSDate()
+                    let dStr = kDateddMMMMYY.stringFromDate(NSDate())
+                    let hStr = kDatehhMM.stringFromDate(job.createTime)
+//                    print("\(dStr) \(hStr)")
+                    let dateF = kDateJobTime.dateFromString("\(dStr) \(hStr)")!
+                    print("^^^^^^ \(dateF)")
+                    ekEvent.startDate = dateF
                     ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
                     let ddEvent = DDCalendarEvent()
                     ddEvent.title = ekEvent.title
@@ -284,7 +289,13 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
 //        let vc = EKEventViewController()
 //        vc.event = ekEvent
 //        self.presentViewController(vc, animated: true, completion: nil)
-        goToDetails(jobSelected)
+        for job in self.jobs {
+            if job.businessName == event.title {
+                jobSelected = job
+                goToDetails(jobSelected)
+                return
+            }
+        }
     }
     
     func calendarView(view: DDCalendarView, allowEditingEvent event: DDCalendarEvent) -> Bool {
@@ -303,7 +314,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: DDCalendar'sdataSource
     
     func calendarView(view: DDCalendarView, eventsForDay date: NSDate) -> [AnyObject]? {
-        print("====== eventsForDay \(date.daysFromDate(NSDate()))")
+//        print("====== eventsForDay \(date.daysFromDate(NSDate()))")
         return dict[date.daysFromDate(NSDate())]
     }
     
