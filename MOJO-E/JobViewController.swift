@@ -91,6 +91,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         var data = Dictionary<String, Double>()
         data["latitude"] = locValue.latitude
         data["longitude"] = locValue.longitude
+        data["updated_at"] = round(NSDate().timeIntervalSince1970)
         if let profile = Profile.get() {
             myRootRef.child("users").child(profile.authenID).child("location").setValue(data)
         }
