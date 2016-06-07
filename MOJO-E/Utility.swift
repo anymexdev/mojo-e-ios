@@ -138,16 +138,22 @@ class Utility {
         let imgURL: NSURL = NSURL(string: imageUrl)!
         let request: NSURLRequest = NSURLRequest(URL: imgURL)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-            if error == nil {
-                if let imageV = UIImage(data: data!) {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        viewToDisplay.image = imageV
-                    })
+            Utility.backgroundThread(0.0, background: { 
+                if error == nil {
+                    if let imageV = UIImage(data: data!) {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            viewToDisplay.image = imageV
+                        })
+                    }
                 }
-            }
-            else {
-                print("Error: \(error!.localizedDescription)")
-            }
+                else {
+                    print("Error: \(error!.localizedDescription)")
+                }
+                
+                }, completion: { 
+                    // do nothing
+            })
+            
         })
     }
     
@@ -166,6 +172,26 @@ class Utility {
         let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
+    }
+    
+    class func showIndicatorForView(view: UIView) {
+        let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        indicatorView.tag = 2601
+        indicatorView.center = view.center
+        indicatorView.startAnimating()
+        //view.userInteractionEnabled = false
+        view.addSubview(indicatorView)
+    }
+    
+    class func removeIndicatorForView(view: UIView) {
+        dispatch_async(dispatch_get_main_queue(),{
+            let view1 = view.viewWithTag(2601) as? UIActivityIndicatorView
+            if let indicator = view1 {
+                indicator.stopAnimating()
+                indicator.removeFromSuperview()
+            }
+            view.userInteractionEnabled = true
+        })
     }
 
 }

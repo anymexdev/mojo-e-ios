@@ -36,6 +36,7 @@ class Profile: NSObject, NSCoding {
     var isAvailibity = true
     var companies = ""
     var specialties = ""
+    var avatarPic: UIImage?
     
     required convenience init?(coder decoder: NSCoder) {
         guard let name = decoder.decodeObjectForKey("name") as? String,
@@ -60,6 +61,9 @@ class Profile: NSObject, NSCoding {
         self.location = location
         self.phone = phone
         self.email = email
+        if let avatarData = decoder.decodeObjectForKey("avatarPic") as? NSData {
+            self.avatarPic = UIImage(data: avatarData)
+        }
         self.password = password
         self.authenID = authenID
         self.isRemember = decoder.decodeBoolForKey("isRemember")
@@ -76,6 +80,10 @@ class Profile: NSObject, NSCoding {
     
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.companies, forKey: "companies")
+        if let image = self.avatarPic {
+            let data = UIImagePNGRepresentation(image)
+            coder.encodeObject(data, forKey: "avatarPic")
+        }
         coder.encodeObject(self.specialties, forKey: "specialties")
         coder.encodeObject(self.userName, forKey: "name")
         coder.encodeBool(self.isAvailibity, forKey: "isAvailibity")
@@ -115,6 +123,9 @@ class Profile: NSObject, NSCoding {
             if let data = snapshot.value as? NSDictionary {
                 if let phone = data.objectForKey("phone") as? String {
                     self.phone = phone
+                }
+                if let userName = data.objectForKey("userName") as? String {
+                    self.userName = userName
                 }
                 if let avai = data.objectForKey("current_availability") as? String {
                     if avai == "on" {
@@ -164,7 +175,8 @@ class Profile: NSObject, NSCoding {
     
     class func get() -> Profile? {
         if let profileData = kUserDefault.objectForKey(kUserProfile) as? NSData {
-            return NSKeyedUnarchiver.unarchiveObjectWithData(profileData) as? Profile
+            let profile = NSKeyedUnarchiver.unarchiveObjectWithData(profileData) as? Profile
+            return profile
         }
         return nil
     }

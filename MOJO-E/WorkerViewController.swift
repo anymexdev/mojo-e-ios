@@ -58,11 +58,14 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
             cancelButton.hidden = false
             toggleEditMode(true)
         }
-        else if let profile = profile where validateForSaving() && title == "Save" {
+        else if let profile = self.profile where validateForSaving() && title == "Save" {
             profile.email = emailTextField.text!
             profile.userName = usernameTextField.text!
             profile.phone = phoneTextField.text!
+            profile.avatarPic = avatarImage.image
             profile.syncToFirebase()
+            actionButton.setTitle("Edit", forState: .Normal)
+            self.toggleEditMode(false)
         }
     }
     
@@ -73,6 +76,9 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func backAction(sender: AnyObject) {
+        if let _ = self.profile {
+            self.profile!.avatarPic = self.avatarImage.image
+        }
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -120,7 +126,19 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
                 self.phoneLabel.text = profile.phone
                 self.phoneTextField.text = profile.phone
                 self.availableSwitch.on = profile.isAvailibity
-                Utility.downloadImage(profile.photoURL, viewToDisplay: self.avatarImage)
+                self.avatarImage.image = profile.avatarPic
+                self.avatarImage.contentMode = .ScaleAspectFit
+                let profileRef = storage.reference().child("images/\(self.profile!.authenID).png")
+                profileRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                    if let error = error {
+                        print(error.description)
+                    }
+                    else {
+                        if let data = data, let imageV = UIImage(data: data) {
+                            self.avatarImage.image = imageV
+                        }
+                    }
+                })
             }
         })
     }
@@ -185,13 +203,11 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
         avatarImage.contentMode = .ScaleAspectFit
         self.dismissViewControllerAnimated(true) { 
             self.toggleEditMode(true)
-            // Data in memory
+            Utility.showIndicatorForView(self.view)
             let data = UIImagePNGRepresentation(image)
-            // Create a reference to the file you want to upload
             let profilePicRef = storage.reference().child("images/\(self.profile!.authenID).png")
-            
-            // Upload the file to the path "images/rivers.jpg"
             _ = profilePicRef.putData(data!, metadata: nil) { metadata, error in
+                Utility.removeIndicatorForView(self.view)
                 if (error != nil) {
                     // Uh-oh, an error occurred!
                 } else {
