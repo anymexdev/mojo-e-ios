@@ -146,32 +146,66 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     func syncJobsWithType(type: String)
     {
-         myRootRef.child("jobs").observeEventType(.Value, withBlock: {
-            snapshot in
-            self.jobs.removeAll()
-            if let arrayData = snapshot.value as? NSArray {
-                print(arrayData)
-                for value in arrayData {
-                    if let value = value as? NSDictionary {
-                        let job = Job.createJobFromDict(value)
-                        if job.type.lowercaseString == type {
-                            self.jobs.append(Job.createJobFromDict(value))
+        self.jobs.removeAll()
+        let profile = Profile.get()
+        profile?.jobsFromFirebase({ (arrayIDs) in
+            if let arrayIDs = arrayIDs where arrayIDs.count > 0 {
+                let max = arrayIDs.count
+                var run = 0
+                for id in arrayIDs {
+                    myRootRef.child("jobs").child(id).observeEventType(.Value, withBlock: {
+                                snapshot in
+                        run = run + 1
+                        if let value = snapshot.value as? NSDictionary {
+                            let job = Job.createJobFromDict(value)
+                            if job.type.lowercaseString == type {
+                                self.jobs.append(Job.createJobFromDict(value))
+                            }
+                            else if type.lowercaseString == "new" && job.type.lowercaseString == "assigned" {
+                                self.jobs.append(Job.createJobFromDict(value))
+                            }
+                            else if type.lowercaseString == "assigned" && job.type.lowercaseString == "accepted" {
+                                self.jobs.append(Job.createJobFromDict(value))
+                            }
+                            else if type.lowercaseString == "assigned" && job.type.lowercaseString == "started" {
+                                self.jobs.append(Job.createJobFromDict(value))
+                            }
                         }
-                        else if type.lowercaseString == "new" && job.type.lowercaseString == "assigned" {
-                            self.jobs.append(Job.createJobFromDict(value))
+                        if run == max {
+                            self.tableView.reloadData()
+                            self.renderJobInDate(NSDate())
                         }
-                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "accepted" {
-                            self.jobs.append(Job.createJobFromDict(value))
-                        }
-                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "started" {
-                            self.jobs.append(Job.createJobFromDict(value))
-                        }
-                    }
+                    })
+                    
                 }
-                self.tableView.reloadData()
-                self.renderJobInDate(NSDate())
             }
         })
+//         myRootRef.child("jobs").observeEventType(.Value, withBlock: {
+//            snapshot in
+//            self.jobs.removeAll()
+//            if let arrayData = snapshot.value as? NSArray {
+//                print(arrayData)
+//                for value in arrayData {
+//                    if let value = value as? NSDictionary {
+//                        let job = Job.createJobFromDict(value)
+//                        if job.type.lowercaseString == type {
+//                            self.jobs.append(Job.createJobFromDict(value))
+//                        }
+//                        else if type.lowercaseString == "new" && job.type.lowercaseString == "assigned" {
+//                            self.jobs.append(Job.createJobFromDict(value))
+//                        }
+//                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "accepted" {
+//                            self.jobs.append(Job.createJobFromDict(value))
+//                        }
+//                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "started" {
+//                            self.jobs.append(Job.createJobFromDict(value))
+//                        }
+//                    }
+//                }
+//                self.tableView.reloadData()
+//                self.renderJobInDate(NSDate())
+//            }
+//        })
     }
     
     // MARK: UITableViewDataSource

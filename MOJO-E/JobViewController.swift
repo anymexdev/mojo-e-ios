@@ -136,7 +136,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             acceptButton.setTitle("Start", forState: .Normal)
         }
         else if jobSelected?.type.lowercaseString == "finished" {
-                acceptButton.hidden = true
+            acceptButton.hidden = true
         }
         loadJobInfo()
     }

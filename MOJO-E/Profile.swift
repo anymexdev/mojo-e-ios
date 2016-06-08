@@ -167,6 +167,22 @@ class Profile: NSObject, NSCoding {
         })
     }
     
+    func jobsFromFirebase(completionBlock: (arrayIDs: [String]?) -> Void) {
+        myRootRef.child("users").child(self.authenID).child("jobs").observeEventType(.Value, withBlock: {
+            snapshot in
+            if let jobsArr = snapshot.value as? NSDictionary {
+                var arrayIDs = [String]()
+                for (id, _) in jobsArr {
+                    arrayIDs.append("\(id)")
+                }
+                completionBlock(arrayIDs: arrayIDs)
+            }
+            else {
+                completionBlock(arrayIDs: nil)
+            }
+        })
+    }
+    
     func saveProfile() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         kUserDefault.setObject(data, forKey: kUserProfile)
