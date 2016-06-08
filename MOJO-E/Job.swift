@@ -28,14 +28,14 @@ class Job: NSObject, NSCoding {
     var longtitude: Double?
     var ticketNumber: Int?
     var dispatchTime = NSDate()
-    var createTime = NSDate()
+    var jobStartTime = NSDate()
     
     
     // MARK: NSCoding
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.businessName, forKey: "businessName")
         coder.encodeObject(self.dispatchTime, forKey: "dispatchTime")
-        coder.encodeObject(self.createTime, forKey: "createTime")
+        coder.encodeObject(self.jobStartTime, forKey: "jobStartTime")
         coder.encodeObject(self.address1, forKey: "address1")
         coder.encodeObject(self.city, forKey: "city")
         coder.encodeObject(self.type, forKey: "type")
@@ -66,7 +66,7 @@ class Job: NSObject, NSCoding {
             let address1 = decoder.decodeObjectForKey("address1") as? String,
             let city = decoder.decodeObjectForKey("city") as? String,
             let dispatchTime = decoder.decodeObjectForKey("dispatchTime") as? NSDate,
-            let createTime = decoder.decodeObjectForKey("createTime") as? NSDate,
+            let jobStartTime = decoder.decodeObjectForKey("jobStartTime") as? NSDate,
             let zip = decoder.decodeObjectForKey("zip") as? String,
             let state = decoder.decodeObjectForKey("state") as? String,
             let type = decoder.decodeObjectForKey("type") as? String
@@ -80,7 +80,7 @@ class Job: NSObject, NSCoding {
         self.state = state
         self.address1 = address1
         self.dispatchTime = dispatchTime
-        self.createTime = createTime
+        self.jobStartTime = jobStartTime
         self.city = city
         self.type = type
         self.companyID = decoder.decodeIntegerForKey("companyID")
@@ -125,18 +125,18 @@ class Job: NSObject, NSCoding {
         if let dispatchTime = dict.objectForKey("dispatch_time") as? NSTimeInterval {
             job.dispatchTime = NSDate(timeIntervalSince1970: dispatchTime)
         }
-        if let createTime = dict.objectForKey("created_at") as? NSTimeInterval {
-            job.createTime = NSDate(timeIntervalSince1970: createTime)
+        if let createTime = dict.objectForKey("job_scheduled_start_time") as? NSTimeInterval {
+            job.jobStartTime = NSDate(timeIntervalSince1970: createTime)
         }
         job.latitude = dict.objectForKey("latitude") as? Double
         job.longtitude = dict.objectForKey("longitude") as? Double
         return job
     }
     
-    func accepted() {
+    func setJobStatus(status: String) {
         if let id = self.id {
             let jobRef = myRootRef.child("jobs").child("\(id)")
-            jobRef.child("type").setValue("Accepted")
+            jobRef.child("type").setValue(status)
             if let profile = Profile.get() {
                 jobRef.child("user_id").setValue(profile.authenID)
             }

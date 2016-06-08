@@ -19,14 +19,12 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //MARK: UI Element
     @IBOutlet weak var businessName: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var widthOfMapConstraint: NSLayoutConstraint!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var createTimeLabel: UILabel!
-    @IBOutlet weak var dispatchTimeLabel: UILabel!
     @IBOutlet weak var mainScroll: UIScrollView!
     
     //MARK: View lifecycle
@@ -56,8 +54,19 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     @IBAction func acceptAction(sender: AnyObject) {
+        var status = "Accepted"
+        let title = acceptButton.titleLabel?.text
+        if title == "Accepted" {
+            status = "Accepted"
+        }
+        else if title == "Start" {
+            status = "Started"
+        }
+        else if title == "Finished" {
+            status = "Finished"
+        }
         if let job = jobSelected {
-            job.accepted()
+            job.setJobStatus(status)
         }
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -119,15 +128,16 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         appDelegate.mainVC = self
-        if jobSelected?.type == "Started" {
-//            acceptButton.hidden = false
-            acceptButton.setTitle("Finish", forState: .Normal)
+        acceptButton.hidden = false
+        if jobSelected?.type.lowercaseString == "en route" || jobSelected?.type.lowercaseString == "started" {
+            acceptButton.setTitle("Finished", forState: .Normal)
         }
-        else if jobSelected?.type == "assigned" || jobSelected?.type == "Accepted" {
-//            acceptButton.hidden = true
+        else if jobSelected?.type.lowercaseString == "assigned" || jobSelected?.type.lowercaseString == "accepted" {
             acceptButton.setTitle("Start", forState: .Normal)
         }
-        acceptButton.hidden = false
+        else if jobSelected?.type.lowercaseString == "finished" {
+                acceptButton.hidden = true
+        }
         loadJobInfo()
     }
     
@@ -147,11 +157,9 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             fullAddress += ", " + zip
         }
         addressLabel.text = fullAddress
-        cityLabel.text = jobSelected?.city
         typeLabel.text = jobSelected?.type
-        if let dispatchTime = jobSelected?.dispatchTime, let createTime = jobSelected?.createTime {
-            dispatchTimeLabel.text = kDateJobTime.stringFromDate(dispatchTime)
-            createTimeLabel.text = kDateJobTime.stringFromDate(createTime)
+        if let jobStartTime = jobSelected?.jobStartTime {
+            createTimeLabel.text = kDateJobTime.stringFromDate(jobStartTime)
         }
     }
     

@@ -154,10 +154,16 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                 for value in arrayData {
                     if let value = value as? NSDictionary {
                         let job = Job.createJobFromDict(value)
-                        if job.type == type {
+                        if job.type.lowercaseString == type {
                             self.jobs.append(Job.createJobFromDict(value))
                         }
-                        else if type == "assigned" && job.type == "Accepted" {
+                        else if type.lowercaseString == "new" && job.type.lowercaseString == "assigned" {
+                            self.jobs.append(Job.createJobFromDict(value))
+                        }
+                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "accepted" {
+                            self.jobs.append(Job.createJobFromDict(value))
+                        }
+                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "started" {
                             self.jobs.append(Job.createJobFromDict(value))
                         }
                     }
@@ -219,8 +225,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: Friend request protocol
     func acceptJob(job: Job?) {
         if let job = job {
-            job.accepted()
-            self.syncJobsWithType("Incoming")
+            job.setJobStatus("Accepted")
+            self.syncJobsWithType("new")
         }
     }
     
@@ -256,14 +262,14 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         if self.jobs.count > 0 {
             var ddEvents = [DDCalendarEvent]()
             for job in self.jobs {
-                let stringTo = kDateddMMYY.stringFromDate(job.createTime)
+                let stringTo = kDateddMMYY.stringFromDate(job.jobStartTime)
                 let stringFrom = kDateddMMYY.stringFromDate(date)
 //                print("**** \(stringTo) \(stringFrom)")
                 if stringTo == stringFrom {
                     let ekEvent = EKEvent(eventStore: EKEventStore())
                     ekEvent.title = job.businessName
                     let dStr = kDateddMMMMYY.stringFromDate(NSDate())
-                    let hStr = kDatehhMM.stringFromDate(job.createTime)
+                    let hStr = kDatehhMM.stringFromDate(job.jobStartTime)
 //                    print("\(dStr) \(hStr)")
                     let dateF = kDateJobTime.dateFromString("\(dStr) \(hStr)")!
                     print("^^^^^^ \(dateF)")
