@@ -760,7 +760,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aKN-Qf-se8">
-                                <rect key="frame" x="0.0" y="336" width="414" height="400"/>
+                                <rect key="frame" x="0.0" y="316" width="414" height="320"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ListTimeCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListTimeCell" id="uyO-Vc-Wja" customClass="ListTimeCell" customModule="MOJO_E" customModuleProvider="target">
@@ -816,11 +816,11 @@
                                 </connections>
                             </tableView>
                             <datePicker contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="OGc-0N-Doa">
-                                <rect key="frame" x="30" y="216" width="354" height="120"/>
+                                <rect key="frame" x="30" y="216" width="354" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="d4U-4A-f48"/>
+                                    <constraint firstAttribute="height" constant="100" id="d4U-4A-f48"/>
                                     <constraint firstAttribute="height" constant="100" id="juD-pr-o9a"/>
                                 </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="479840976.43168098">
@@ -879,9 +879,29 @@
                                     <action selector="tofromAction:" destination="6b5-dX-rag" eventType="touchUpInside" id="di1-m8-GS9"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUT-4L-3Ot" userLabel="close keyboard">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <connections>
+                                    <action selector="closeKeyboardAction:" destination="6b5-dX-rag" eventType="touchUpInside" id="Ddg-XB-S57"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Note for your personal time" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OR0-Sz-kRp">
+                                <rect key="frame" x="0.0" y="636" width="414" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="xiY-75-wp6"/>
+                                </constraints>
+                                <color key="textColor" red="0.27058823529999998" green="0.4823529412" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="6b5-dX-rag" id="frF-FR-m39"/>
+                                </connections>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.54901960780000003" green="0.76862745099999996" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="nUT-4L-3Ot" firstAttribute="top" secondItem="rwf-zP-dYM" secondAttribute="bottom" id="06R-N5-2Pi"/>
                             <constraint firstItem="vr3-tY-YWY" firstAttribute="centerY" secondItem="B9f-9Y-BQs" secondAttribute="centerY" id="3Bp-QW-edT"/>
                             <constraint firstItem="vAu-qa-TsZ" firstAttribute="top" secondItem="OGc-0N-Doa" secondAttribute="bottom" id="3Cn-d1-tSy"/>
                             <constraint firstItem="pCK-Oi-1yr" firstAttribute="top" secondItem="OGc-0N-Doa" secondAttribute="top" id="3HC-IJ-ScF"/>
@@ -900,11 +920,14 @@
                             <constraint firstAttribute="trailing" secondItem="aKN-Qf-se8" secondAttribute="trailing" id="GIc-qy-dOs"/>
                             <constraint firstItem="vr3-tY-YWY" firstAttribute="leading" secondItem="B9f-9Y-BQs" secondAttribute="trailing" constant="20" id="Ger-jF-MyM"/>
                             <constraint firstItem="Jr0-Jd-gmO" firstAttribute="top" secondItem="U7d-Hu-lo9" secondAttribute="bottom" id="HE5-1A-Qgo"/>
+                            <constraint firstItem="vAu-qa-TsZ" firstAttribute="top" secondItem="nUT-4L-3Ot" secondAttribute="bottom" id="I2p-Ue-7Qb"/>
                             <constraint firstItem="aKN-Qf-se8" firstAttribute="leading" secondItem="jch-Zl-fv1" secondAttribute="leading" id="IvY-qd-ppP"/>
                             <constraint firstItem="pCK-Oi-1yr" firstAttribute="top" secondItem="aKN-Qf-se8" secondAttribute="bottom" id="K6j-fD-KDu"/>
                             <constraint firstItem="OGc-0N-Doa" firstAttribute="bottom" secondItem="gR2-6R-B84" secondAttribute="bottom" id="KOa-8v-BeA"/>
                             <constraint firstItem="OGc-0N-Doa" firstAttribute="leading" secondItem="jch-Zl-fv1" secondAttribute="leading" constant="30" id="MRy-m3-Acj"/>
+                            <constraint firstAttribute="trailing" secondItem="OR0-Sz-kRp" secondAttribute="trailing" id="OkQ-4o-8y9"/>
                             <constraint firstItem="vr3-tY-YWY" firstAttribute="centerX" secondItem="xPy-kB-B73" secondAttribute="centerX" id="Pb8-Ir-yRt"/>
+                            <constraint firstAttribute="trailing" secondItem="nUT-4L-3Ot" secondAttribute="trailing" id="UCN-fo-Nae"/>
                             <constraint firstItem="qKd-T5-ivm" firstAttribute="top" secondItem="Jr0-Jd-gmO" secondAttribute="bottom" constant="10" id="UPh-ER-ieS"/>
                             <constraint firstItem="aKN-Qf-se8" firstAttribute="leading" secondItem="jch-Zl-fv1" secondAttribute="leading" id="Uia-Uk-VDp"/>
                             <constraint firstAttribute="trailing" secondItem="OGc-0N-Doa" secondAttribute="trailing" constant="30" id="UxQ-pM-fWZ"/>
@@ -916,6 +939,9 @@
                             <constraint firstItem="pCK-Oi-1yr" firstAttribute="centerY" secondItem="B9f-9Y-BQs" secondAttribute="centerY" id="avW-tt-jTW"/>
                             <constraint firstItem="vr3-tY-YWY" firstAttribute="centerY" secondItem="xPy-kB-B73" secondAttribute="centerY" id="bj1-Nu-vzF"/>
                             <constraint firstItem="qKd-T5-ivm" firstAttribute="centerX" secondItem="jch-Zl-fv1" secondAttribute="centerX" id="cry-9P-i26"/>
+                            <constraint firstItem="nUT-4L-3Ot" firstAttribute="leading" secondItem="jch-Zl-fv1" secondAttribute="leading" id="ez5-Yu-az7"/>
+                            <constraint firstItem="OR0-Sz-kRp" firstAttribute="leading" secondItem="jch-Zl-fv1" secondAttribute="leading" id="fKl-6a-rJX"/>
+                            <constraint firstItem="OR0-Sz-kRp" firstAttribute="top" secondItem="aKN-Qf-se8" secondAttribute="bottom" id="gBJ-8L-6xP"/>
                             <constraint firstItem="gR2-6R-B84" firstAttribute="top" secondItem="qKd-T5-ivm" secondAttribute="bottom" constant="-12" id="h1A-MY-T6E"/>
                             <constraint firstItem="U7d-Hu-lo9" firstAttribute="leading" secondItem="jch-Zl-fv1" secondAttribute="leading" id="h1C-KA-WeI"/>
                             <constraint firstItem="vAu-qa-TsZ" firstAttribute="top" secondItem="gR2-6R-B84" secondAttribute="bottom" id="hOo-s2-MEZ"/>
@@ -925,6 +951,7 @@
                             <constraint firstItem="xPy-kB-B73" firstAttribute="leading" secondItem="pCK-Oi-1yr" secondAttribute="leading" id="iNZ-UB-xK3"/>
                             <constraint firstItem="vAu-qa-TsZ" firstAttribute="top" secondItem="aKN-Qf-se8" secondAttribute="bottom" id="iTW-AH-aDf"/>
                             <constraint firstItem="vAu-qa-TsZ" firstAttribute="top" secondItem="B9f-9Y-BQs" secondAttribute="bottom" constant="72" id="kVZ-L8-BL3"/>
+                            <constraint firstItem="vAu-qa-TsZ" firstAttribute="top" secondItem="OR0-Sz-kRp" secondAttribute="bottom" id="keb-6I-B0b"/>
                             <constraint firstAttribute="trailing" secondItem="qKd-T5-ivm" secondAttribute="trailing" constant="30" id="l7E-PK-WMf"/>
                             <constraint firstItem="Jr0-Jd-gmO" firstAttribute="leading" secondItem="jch-Zl-fv1" secondAttribute="leading" id="lBj-UM-lOB"/>
                             <constraint firstItem="pCK-Oi-1yr" firstAttribute="leading" secondItem="OGc-0N-Doa" secondAttribute="trailing" constant="10" id="lG3-AR-UGh"/>
@@ -960,6 +987,7 @@
                                 <exclude reference="hOo-s2-MEZ"/>
                                 <exclude reference="iTW-AH-aDf"/>
                                 <exclude reference="kVZ-L8-BL3"/>
+                                <exclude reference="wFU-Vb-XZp"/>
                             </mask>
                         </variation>
                     </view>
@@ -969,12 +997,15 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="addButton" destination="gR2-6R-B84" id="Pzz-yg-fJG"/>
+                        <outlet property="bottomTextConstraint" destination="keb-6I-B0b" id="mUK-rt-m75"/>
+                        <outlet property="closeKeyboardButton" destination="nUT-4L-3Ot" id="OPK-3a-rM2"/>
                         <outlet property="currentDateSelectedLabel" destination="qKd-T5-ivm" id="Slh-ts-JAX"/>
                         <outlet property="dateTimePicker" destination="OGc-0N-Doa" id="yO4-nx-hAw"/>
                         <outlet property="fromButton" destination="pCK-Oi-1yr" id="eKR-wc-lpl"/>
                         <outlet property="fromLabel" destination="B9f-9Y-BQs" id="Rq7-Lt-5Rf"/>
                         <outlet property="listDayCollection" destination="Jr0-Jd-gmO" id="q02-A1-ANu"/>
                         <outlet property="listTimeTableView" destination="aKN-Qf-se8" id="4Cb-Yy-kHf"/>
+                        <outlet property="noteTextView" destination="OR0-Sz-kRp" id="Gka-Dg-IVn"/>
                         <outlet property="toButton" destination="xPy-kB-B73" id="pa1-di-Gos"/>
                         <outlet property="toLabel" destination="vr3-tY-YWY" id="gGz-id-jVf"/>
                         <segue destination="6uP-h6-YAa" kind="show" identifier="SampleViewSegue" id="vOE-Xy-1Pu"/>
@@ -1498,8 +1529,8 @@
         <image name="SideMenu" width="26" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7lT-OQ-7qL"/>
-        <segue reference="Ii5-wm-iRX"/>
-        <segue reference="Z1g-To-cwV"/>
+        <segue reference="1Im-5Y-8BB"/>
+        <segue reference="AMb-6G-SWd"/>
+        <segue reference="vOE-Xy-1Pu"/>
     </inferredMetricsTieBreakers>
 </document>

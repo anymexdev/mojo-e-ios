@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,
-    UITableViewDataSource, UITableViewDelegate , TimeCellProtocol
+    UITableViewDataSource, UITableViewDelegate , TimeCellProtocol, UITextViewDelegate
 {
     //MARK: UI Element
     @IBOutlet weak var listDayCollection: UICollectionView!
@@ -21,14 +21,19 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var toButton: UIButton!
     @IBOutlet weak var fromButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var bottomTextConstraint: NSLayoutConstraint!
+    @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet weak var closeKeyboardButton: UIButton!
     
     //MARK: properties
     var dateList: [DateInfo]?
     var currentSelect: NSIndexPath?
     var currentTimeSlot: [TimeSlot] = [TimeSlot]()
+    var globalTimeSlot: [TimeSlot] = [TimeSlot]()
     var timeSelectedLabel: UILabel?
     var timeSelectedButton: UIButton?
     var timeslotSelected: TimeSlot = TimeSlot(to: NSDate(), from: NSDate())
+    let defaultSentence = "Note for your personal time"
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -36,20 +41,8 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.initialize()
     }
     
-    func initialize() {
-        appDelegate.mainVC = self
-        setUnSelectedBackgoundLabel()
-        dateTimePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
-        if let _ = dateList {
-            // do something
-        } else {
-            dateList = DateInfo.create30Day()
-        }
-        //set current select
-        tofromAction(fromButton)
-        currentTimeSlot = (dateList?.first?.mTimeSlot)!
-        currentSelect = NSIndexPath(forRow: 0, inSection: 0)
-        collectionView(listDayCollection, didSelectItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -163,10 +156,15 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.timeZone = NSTimeZone.systemTimeZone()
                     dateFormatter.dateFormat = "h:mm a"
+                    if let currentSelect = currentSelect {
+                        dateFormatter.defaultDate = dateList![currentSelect.row].mDate
+                        print(dateFormatter.defaultDate)
+                    }
                     let toTimeAdd = dateFormatter.dateFromString(toLabel.text!)
                     let fromTimeAdd = dateFormatter.dateFromString(fromLabel.text!)
                     let temp = TimeSlot(to: toTimeAdd!, from: fromTimeAdd!)
                     currentTimeSlot.append(temp)
+                    globalTimeSlot.append(temp)
                     listTimeTableView.reloadData()
                 } else {
                     Utility.showToastWithMessage(kErrorTimeSlotShortDistance)
@@ -221,16 +219,84 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBAction func addButtonAction(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
+        if let profile = Profile.get() where globalTimeSlot.count > 0 {
+            var index = 1
+            for timeslot in globalTimeSlot {
+                if let from = timeslot.fromTime, let to = timeslot.toTime {
+                    var data = Dictionary<String, AnyObject>()
+                    data["startTime"] = round(from.timeIntervalSince1970)
+                    data["endTime"] = round(to.timeIntervalSince1970)
+                    data["note"] = (noteTextView.text == defaultSentence) ? "" : noteTextView.text
+                    myRootRef.child("users").child(profile.authenID).child("personal_time").child("\(index)").setValue(data)
+                    index = index + 1
+                }
+            }
+        }
     }
     
+    @IBAction func closeKeyboardAction(sender: AnyObject) {
+        view.endEditing(true)
+    }
+    
+    
+    // MARK: functions
+    func initialize() {
+        appDelegate.mainVC = self
+        setUnSelectedBackgoundLabel()
+        dateTimePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
+        if let _ = dateList {
+            // do something
+        } else {
+            dateList = DateInfo.create30Day()
+        }
+        //set current select
+        tofromAction(fromButton)
+        currentTimeSlot = (dateList?.first?.mTimeSlot)!
+        currentSelect = NSIndexPath(forRow: 0, inSection: 0)
+        collectionView(listDayCollection, didSelectItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimeSlotViewController.keyboardWillChangeFrameNotification(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+    }
     
     func setUnSelectedBackgoundLabel() {
         toLabel.backgroundColor = addButton.backgroundColor!
         fromLabel.backgroundColor = addButton.backgroundColor!
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    func keyboardWillChangeFrameNotification(notification: NSNotification) {
+        let n = KeyboardNotification(notification)
+        let keyboardFrame = n.frameEndForView(self.view)
+        let animationDuration = n.animationDuration
+        let animationCurve = n.animationCurve
+        let viewFrame = self.view.frame
+        let newBottomOffset = viewFrame.maxY - keyboardFrame.minY
+        print("newBottomOffset is \(newBottomOffset)")
+        self.view.layoutIfNeeded()
+        UIView.animateWithDuration(animationDuration,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions(rawValue: UInt(animationCurve << 16)),
+                                   animations: {
+                                    if newBottomOffset > 0 {
+                                        // Keyboard will show
+                                        self.bottomTextConstraint.constant = newBottomOffset
+                                        self.closeKeyboardButton.hidden = false
+                                    }
+                                    else {
+                                        // keyboard will hide
+                                        self.bottomTextConstraint.constant = 0
+                                        self.closeKeyboardButton.hidden = true
+                                        
+                                    }
+                                    self.view.layoutIfNeeded()
+            },
+                                   completion: nil
+        )
+    }
+    
+    // MARK: TextView delegate's methods
+    func textViewDidBeginEditing(textView: UITextView) {
+        if textView.text == defaultSentence {
+            textView.text = ""
+        }
     }
 }
 
