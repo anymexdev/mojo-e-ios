@@ -65,7 +65,12 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let job = jobSelected {
             job.setJobStatus(status)
         }
-        self.navigationController?.popViewControllerAnimated(true)
+        if title == JobStatus.Finished.rawValue {
+            // display upload pics
+        }
+        else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     // MARK: MapKit's methods
@@ -120,6 +125,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     //MARK: Other functions
     func initialize() {
+        acceptButton.layer.borderColor = UIColor.whiteColor().CGColor
+        acceptButton.layer.borderWidth = 2
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()

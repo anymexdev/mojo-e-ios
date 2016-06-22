@@ -161,7 +161,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             if job.status == type {
                                 self.jobs.append(Job.createJobFromDict(value))
                             }
-                            else if type == .Accepted && (job.status == .EnRoute || job.status == .Assigned) {
+                            else if type == .Accepted && (job.status == .EnRoute || job.status == .Assigned || job.status == .Started) {
                                 self.jobs.append(Job.createJobFromDict(value))
                             }
                         }

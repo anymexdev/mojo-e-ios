@@ -63,6 +63,7 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
             profile.userName = usernameTextField.text!
             profile.phone = phoneTextField.text!
             profile.avatarPic = avatarImage.image
+            profile.isAvailibity = availableSwitch.on
             profile.syncToFirebase()
             actionButton.setTitle("Edit", forState: .Normal)
             self.toggleEditMode(false)
