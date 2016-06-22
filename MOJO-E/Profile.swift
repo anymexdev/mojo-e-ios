@@ -107,13 +107,11 @@ class Profile: NSObject, NSCoding {
     }
     
     func syncToFirebase() {
-        var data = Dictionary<String, String>()
-        data["userName"] = self.userName
-        data["email"] = self.email
-        data["phone"] = self.phone
-        data["current_availability"] = self.isAvailibity ? "on" : "off"
-        data["profile_picture"] = self.photoURL
-        myRootRef.child("users").child(self.authenID).setValue(data)
+        myRootRef.child("users").child(self.authenID).child("userName").setValue(self.userName)
+        myRootRef.child("users").child(self.authenID).child("email").setValue(self.email)
+        myRootRef.child("users").child(self.authenID).child("phone").setValue(self.phone)
+        myRootRef.child("users").child(self.authenID).child("current_availability").setValue(self.isAvailibity ? "on" : "off")
+        myRootRef.child("users").child(self.authenID).child("profile_picture").setValue(self.photoURL)
         self.saveProfile()
     }
     

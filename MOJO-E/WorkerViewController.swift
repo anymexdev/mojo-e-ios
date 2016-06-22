@@ -65,8 +65,9 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
             profile.avatarPic = avatarImage.image
             profile.isAvailibity = availableSwitch.on
             profile.syncToFirebase()
-            actionButton.setTitle("Edit", forState: .Normal)
-            self.toggleEditMode(false)
+//            actionButton.setTitle("Edit", forState: .Normal)
+//            self.toggleEditMode(false)
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     
