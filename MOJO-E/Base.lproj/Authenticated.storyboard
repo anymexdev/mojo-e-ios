@@ -540,6 +540,26 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fs4-2m-kiy">
+                                        <rect key="frame" x="30" y="548" width="414" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="IIe-zl-d7O"/>
+                                        </constraints>
+                                    </scrollView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgn-vi-ZIN">
+                                        <rect key="frame" x="162" y="503" width="150" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="BTm-il-ezn"/>
+                                            <constraint firstAttribute="height" constant="35" id="zuS-x5-f1P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="16"/>
+                                        <state key="normal" title="Upload pictures">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="uploadPicturesAction:" destination="Tns-i7-nsI" eventType="touchUpInside" id="nZY-P4-Gmr"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -550,6 +570,7 @@
                                     <constraint firstItem="dPP-1E-Hds" firstAttribute="leading" secondItem="avC-mh-LvA" secondAttribute="leading" id="5GQ-Qj-oes"/>
                                     <constraint firstItem="b2Y-gl-FyU" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="7I9-8h-Yve"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="height" secondItem="2jf-Zy-i9C" secondAttribute="height" id="8ZH-5o-hLf"/>
+                                    <constraint firstItem="Jgn-vi-ZIN" firstAttribute="top" secondItem="dPP-1E-Hds" secondAttribute="bottom" id="8ch-cu-0Ks"/>
                                     <constraint firstItem="zfJ-uD-ANd" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="9wx-8Z-BzU"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" id="Bhg-tG-P2p"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="leading" secondItem="sSP-bC-6ae" secondAttribute="leading" id="DYl-3z-96R"/>
@@ -557,7 +578,10 @@
                                     <constraint firstItem="sSP-bC-6ae" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="Exj-sy-SDS"/>
                                     <constraint firstItem="gQJ-xh-V0b" firstAttribute="leading" secondItem="b2Y-gl-FyU" secondAttribute="leading" id="Fku-bB-Fon"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="top" secondItem="sSP-bC-6ae" secondAttribute="bottom" constant="20" id="G0V-16-Gjt"/>
+                                    <constraint firstItem="fs4-2m-kiy" firstAttribute="leading" secondItem="sSP-bC-6ae" secondAttribute="leading" id="G7F-4B-dPl"/>
+                                    <constraint firstItem="Jgn-vi-ZIN" firstAttribute="centerX" secondItem="sSP-bC-6ae" secondAttribute="centerX" id="Gwy-vt-sBs"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="HHH-rq-hhP"/>
+                                    <constraint firstItem="fs4-2m-kiy" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="LI2-91-eF8"/>
                                     <constraint firstItem="XTq-ea-fGi" firstAttribute="top" secondItem="gQJ-xh-V0b" secondAttribute="bottom" constant="20" id="Lrx-Fg-enf"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="leading" secondItem="2jf-Zy-i9C" secondAttribute="leading" id="NcE-bK-7oq"/>
                                     <constraint firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" constant="30" id="TFu-HD-FyM"/>
@@ -573,6 +597,7 @@
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="trailing" secondItem="50O-7z-pMW" secondAttribute="trailing" id="lyX-U2-xl3"/>
                                     <constraint firstItem="3A1-FL-bDH" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="mZS-Ce-7GQ"/>
                                     <constraint firstItem="dPP-1E-Hds" firstAttribute="trailing" secondItem="avC-mh-LvA" secondAttribute="trailing" id="mvc-TY-nBa"/>
+                                    <constraint firstItem="fs4-2m-kiy" firstAttribute="top" secondItem="Jgn-vi-ZIN" secondAttribute="bottom" constant="10" id="q3u-po-J7u"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="centerY" secondItem="gQJ-xh-V0b" secondAttribute="centerY" id="sX5-Gh-iHI"/>
                                     <constraint firstItem="XTq-ea-fGi" firstAttribute="leading" secondItem="6o5-d7-Mlb" secondAttribute="leading" id="uI6-eI-pzV"/>
                                     <constraint firstItem="dPP-1E-Hds" firstAttribute="centerY" secondItem="XTq-ea-fGi" secondAttribute="centerY" id="w0a-ah-HAh"/>
@@ -629,9 +654,11 @@
                         <outlet property="businessName" destination="zfJ-uD-ANd" id="okR-bP-ctc"/>
                         <outlet property="createTimeLabel" destination="dPP-1E-Hds" id="syb-jr-BhE"/>
                         <outlet property="distanceLabel" destination="avC-mh-LvA" id="fK9-Em-eiO"/>
+                        <outlet property="imageScroll" destination="fs4-2m-kiy" id="ySU-Hw-a29"/>
                         <outlet property="mainScroll" destination="Thd-Yx-fKt" id="vgd-ed-aVR"/>
                         <outlet property="mapView" destination="sSP-bC-6ae" id="aBK-cU-ZcW"/>
                         <outlet property="typeLabel" destination="2jf-Zy-i9C" id="YR0-xq-Jf0"/>
+                        <outlet property="uploadPicturesButton" destination="Jgn-vi-ZIN" id="f0O-gO-TxQ"/>
                         <outlet property="widthOfMapConstraint" destination="Ort-rV-oa1" id="XtK-HC-SpN"/>
                         <segue destination="6uP-h6-YAa" kind="show" identifier="SampleViewSegue" id="7lT-OQ-7qL"/>
                         <segue destination="83h-mR-jDa" kind="show" identifier="WorkerSegue" id="Ii5-wm-iRX"/>
@@ -1529,8 +1556,8 @@
         <image name="SideMenu" width="26" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1Im-5Y-8BB"/>
-        <segue reference="AMb-6G-SWd"/>
-        <segue reference="vOE-Xy-1Pu"/>
+        <segue reference="Z1g-To-cwV"/>
+        <segue reference="Ii5-wm-iRX"/>
+        <segue reference="7lT-OQ-7qL"/>
     </inferredMetricsTieBreakers>
 </document>

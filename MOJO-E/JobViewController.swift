@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import JPSThumbnailAnnotation
+import DKImagePickerController
 
 class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -26,6 +27,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var createTimeLabel: UILabel!
     @IBOutlet weak var mainScroll: UIScrollView!
+    @IBOutlet weak var uploadPicturesButton: UIButton!
+    @IBOutlet weak var imageScroll: UIScrollView!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -62,17 +65,54 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         else if title == JobStatus.Finished.rawValue {
             status = JobStatus.Finished
         }
+        else if title == "Submit" {
+            status = JobStatus.Finished
+        }
         if let job = jobSelected {
             job.setJobStatus(status)
         }
         if title == JobStatus.Finished.rawValue {
             // display upload pics
+            imageScroll.hidden = false
+            uploadPicturesButton.hidden = false
+            acceptButton.setTitle("Submit", forState: .Normal)
         }
         else {
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
     
+    @IBAction func uploadPicturesAction(sender: AnyObject) {
+        let pickerController = DKImagePickerController()
+        pickerController.maxSelectableCount = 5
+        pickerController.assetType = .AllPhotos
+        pickerController.navigationBar.backgroundColor = Utility.greenL3Color()
+        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+            //print("didSelectAssets")
+            if assets.count > 0 {
+                for view in self.imageScroll.subviews {
+                    view.removeFromSuperview()
+                }
+                for (index, asset) in assets.enumerate() {
+                    asset.fetchImageWithSize(CGSizeMake(200, 200), completeBlock: {
+                        image, info in
+                        if let image = image {
+                            let imageV = UIImageView(frame: CGRectMake(CGFloat(index) * 105.0, 0, 100, 100))
+                            imageV.image = image
+                            self.imageScroll.addSubview(imageV)
+                        }
+                    })
+                }
+                var contentSize = self.imageScroll.contentSize
+                contentSize.width = CGFloat(assets.count) * 105
+                contentSize.height = self.imageScroll.frame.size.height
+                self.imageScroll.contentSize = contentSize
+                self.mainScroll.contentSize = CGSizeMake(self.widthOfMapConstraint.constant, self.view.bounds.size.height + 20.0)
+            }
+        }
+        
+        self.presentViewController(pickerController, animated: true) {}
+    }
     // MARK: MapKit's methods
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? JPSThumbnailAnnotation {
@@ -127,6 +167,9 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func initialize() {
         acceptButton.layer.borderColor = UIColor.whiteColor().CGColor
         acceptButton.layer.borderWidth = 2
+        
+        uploadPicturesButton.layer.borderColor = UIColor.whiteColor().CGColor
+        uploadPicturesButton.layer.borderWidth = 2
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()

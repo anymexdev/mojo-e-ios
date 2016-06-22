@@ -14,6 +14,7 @@ target 'MOJO-E' do
     pod 'SideMenu'
     pod 'CVCalendar'
     pod 'JPSThumbnailAnnotation'
+    pod 'DKImagePickerController'
 end
 
 target 'MOJO-ETests' do
