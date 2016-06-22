@@ -36,6 +36,16 @@ let kUserDefault = NSUserDefaults.standardUserDefaults()
 let kGeoKey = "firebase-geoMojo"
 let kUserProfile = "kUserProfile"
 
+enum JobStatus: String {
+    case New = "New"
+    case Accepted = "Accepted"
+    case Assigned = "Assigned"
+    case EnRoute = "En Route"
+    case Started = "Started"
+    case Finished = "Finished"
+    case Canceled = "Canceled"
+}
+
 let areaCodes: NSDictionary =  [
      "Canada"                                       :  "+1",
      "China"                                        :  "+86",

@@ -96,13 +96,13 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBAction func typeChangedAction(sender: AnyObject) {
         if let segment = sender as? UISegmentedControl {
             if segment.selectedSegmentIndex == 0 {
-                self.syncJobsWithType("new")
+                self.syncJobsWithType(.New)
             }
             else if segment.selectedSegmentIndex == 1 {
-                self.syncJobsWithType("assigned")
+                self.syncJobsWithType(.Accepted)
             }
             else if segment.selectedSegmentIndex == 2 {
-                self.syncJobsWithType("finished")
+                self.syncJobsWithType(.Finished)
             }
         }
     }
@@ -140,11 +140,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         SideMenuManager.menuRightNavigationController = menuRightNavigationController
         SideMenuManager.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
-        self.syncJobsWithType("new")
+        self.syncJobsWithType(.New)
         changeViewAction(weekButton)
     }
     
-    func syncJobsWithType(type: String)
+    func syncJobsWithType(type: JobStatus)
     {
         self.jobs.removeAll()
         let profile = Profile.get()
@@ -158,16 +158,10 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                         run = run + 1
                         if let value = snapshot.value as? NSDictionary {
                             let job = Job.createJobFromDict(value)
-                            if job.type.lowercaseString == type {
+                            if job.status == type {
                                 self.jobs.append(Job.createJobFromDict(value))
                             }
-                            else if type.lowercaseString == "new" && job.type.lowercaseString == "assigned" {
-                                self.jobs.append(Job.createJobFromDict(value))
-                            }
-                            else if type.lowercaseString == "assigned" && job.type.lowercaseString == "accepted" {
-                                self.jobs.append(Job.createJobFromDict(value))
-                            }
-                            else if type.lowercaseString == "assigned" && job.type.lowercaseString == "started" {
+                            else if type == .Accepted && (job.status == .EnRoute || job.status == .Assigned) {
                                 self.jobs.append(Job.createJobFromDict(value))
                             }
                         }
@@ -180,32 +174,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                 }
             }
         })
-//         myRootRef.child("jobs").observeEventType(.Value, withBlock: {
-//            snapshot in
-//            self.jobs.removeAll()
-//            if let arrayData = snapshot.value as? NSArray {
-//                print(arrayData)
-//                for value in arrayData {
-//                    if let value = value as? NSDictionary {
-//                        let job = Job.createJobFromDict(value)
-//                        if job.type.lowercaseString == type {
-//                            self.jobs.append(Job.createJobFromDict(value))
-//                        }
-//                        else if type.lowercaseString == "new" && job.type.lowercaseString == "assigned" {
-//                            self.jobs.append(Job.createJobFromDict(value))
-//                        }
-//                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "accepted" {
-//                            self.jobs.append(Job.createJobFromDict(value))
-//                        }
-//                        else if type.lowercaseString == "assigned" && job.type.lowercaseString == "started" {
-//                            self.jobs.append(Job.createJobFromDict(value))
-//                        }
-//                    }
-//                }
-//                self.tableView.reloadData()
-//                self.renderJobInDate(NSDate())
-//            }
-//        })
     }
     
     // MARK: UITableViewDataSource
@@ -259,8 +227,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: Friend request protocol
     func acceptJob(job: Job?) {
         if let job = job {
-            job.setJobStatus("Accepted")
-            self.syncJobsWithType("new")
+            job.setJobStatus(.Accepted)
+            self.syncJobsWithType(.New)
         }
     }
     
@@ -306,7 +274,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                     let hStr = kDatehhMM.stringFromDate(job.jobStartTime)
 //                    print("\(dStr) \(hStr)")
                     let dateF = kDateJobTime.dateFromString("\(dStr) \(hStr)")!
-                    print("^^^^^^ \(dateF)")
+//                    print("^^^^^^ \(dateF)")
                     ekEvent.startDate = dateF
                     ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
                     let ddEvent = DDCalendarEvent()

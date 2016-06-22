@@ -23,7 +23,7 @@ class Job: NSObject, NSCoding {
     var address1 = ""
     var city = ""
     var companyID: Int?
-    var type = "new"
+    var status = JobStatus.New
     var latitude: Double?
     var longtitude: Double?
     var ticketNumber: Int?
@@ -38,7 +38,7 @@ class Job: NSObject, NSCoding {
         coder.encodeObject(self.jobStartTime, forKey: "jobStartTime")
         coder.encodeObject(self.address1, forKey: "address1")
         coder.encodeObject(self.city, forKey: "city")
-        coder.encodeObject(self.type, forKey: "type")
+        coder.encodeObject(self.status.rawValue, forKey: "status")
         coder.encodeObject(self.zip, forKey: "zip")
         coder.encodeObject(self.state, forKey: "state")
         if let latitude = self.latitude {
@@ -68,8 +68,8 @@ class Job: NSObject, NSCoding {
             let dispatchTime = decoder.decodeObjectForKey("dispatchTime") as? NSDate,
             let jobStartTime = decoder.decodeObjectForKey("jobStartTime") as? NSDate,
             let zip = decoder.decodeObjectForKey("zip") as? String,
-            let state = decoder.decodeObjectForKey("state") as? String,
-            let type = decoder.decodeObjectForKey("type") as? String
+            let status = decoder.decodeObjectForKey("status") as? String,
+            let state = decoder.decodeObjectForKey("state") as? String
             else {
                 return nil
         }
@@ -82,7 +82,12 @@ class Job: NSObject, NSCoding {
         self.dispatchTime = dispatchTime
         self.jobStartTime = jobStartTime
         self.city = city
-        self.type = type
+        if let status = JobStatus(rawValue: status) {
+            self.status = status
+        }
+        else {
+            self.status = JobStatus.New
+        }
         self.companyID = decoder.decodeIntegerForKey("companyID")
         self.latitude = decoder.decodeDoubleForKey("latitude")
         self.longtitude = decoder.decodeDoubleForKey("longtitude")
@@ -98,8 +103,10 @@ class Job: NSObject, NSCoding {
         if let state = dict.objectForKey("state") as? String {
             job.state = state
         }
-        if let type = dict.objectForKey("type") as? String {
-            job.type = type
+        if let status = dict.objectForKey("status") as? String {
+            if let status = JobStatus(rawValue: status) {
+                job.status = status
+            }
         }
         if let businessName = dict.objectForKey("business_name") as? String {
             job.businessName = businessName
@@ -133,10 +140,10 @@ class Job: NSObject, NSCoding {
         return job
     }
     
-    func setJobStatus(status: String) {
+    func setJobStatus(status: JobStatus) {
         if let id = self.id {
             let jobRef = myRootRef.child("jobs").child("\(id)")
-            jobRef.child("type").setValue(status)
+            jobRef.child("status").setValue(status.rawValue)
             if let profile = Profile.get() {
                 jobRef.child("user_id").setValue(profile.authenID)
             }

@@ -54,16 +54,13 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     @IBAction func acceptAction(sender: AnyObject) {
-        var status = "Accepted"
+        var status = JobStatus.Accepted
         let title = acceptButton.titleLabel?.text
-        if title == "Accepted" {
-            status = "Accepted"
+        if title == "Start" {
+            status = JobStatus.Started
         }
-        else if title == "Start" {
-            status = "Started"
-        }
-        else if title == "Finished" {
-            status = "Finished"
+        else if title == JobStatus.Finished.rawValue {
+            status = JobStatus.Finished
         }
         if let job = jobSelected {
             job.setJobStatus(status)
@@ -128,15 +125,14 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         appDelegate.mainVC = self
-        acceptButton.hidden = false
-        if jobSelected?.type.lowercaseString == "en route" || jobSelected?.type.lowercaseString == "started" {
-            acceptButton.setTitle("Finished", forState: .Normal)
+        if jobSelected?.status == JobStatus.EnRoute || jobSelected?.status == JobStatus.Started {
+            acceptButton.setTitle(JobStatus.Finished.rawValue, forState: .Normal)
         }
-        else if jobSelected?.type.lowercaseString == "assigned" || jobSelected?.type.lowercaseString == "accepted" {
+        else if jobSelected?.status == JobStatus.Assigned || jobSelected?.status == JobStatus.Accepted {
             acceptButton.setTitle("Start", forState: .Normal)
         }
-        else if jobSelected?.type.lowercaseString == "finished" {
-            acceptButton.hidden = true
+        else if jobSelected?.status == JobStatus.Finished {
+            acceptButton.setTitle("Submit", forState: .Normal)
         }
         loadJobInfo()
     }
@@ -157,7 +153,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             fullAddress += ", " + zip
         }
         addressLabel.text = fullAddress
-        typeLabel.text = jobSelected?.type
+        typeLabel.text = jobSelected?.status.rawValue
         if let jobStartTime = jobSelected?.jobStartTime {
             createTimeLabel.text = kDateJobTime.stringFromDate(jobStartTime)
         }

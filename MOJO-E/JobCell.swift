@@ -65,7 +65,7 @@ class JobCell: MGSwipeTableCell {
         if let job = self.job {
             self.businessNameLabel.text = job.businessName
             self.addressLabel.text = job.address1
-            if job.type.lowercaseString == "new" || job.type.lowercaseString == "assigned" {
+            if job.status == JobStatus.New || job.status == JobStatus.Assigned {
                 acceptButton.hidden = false
             }
             else {
