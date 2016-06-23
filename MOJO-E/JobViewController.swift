@@ -16,6 +16,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var jobSelected: Job?
     var locationManager = CLLocationManager()
     var pinLocation: CLLocation?
+    var imagesList = [UIImage]()
 
     //MARK: UI Element
     @IBOutlet weak var businessName: UILabel!
@@ -67,10 +68,25 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         else if title == "Submit" {
             status = JobStatus.Finished
+            var imageURLList = [String]()
+            for (index, image) in imagesList.enumerate() {
+                let data = UIImagePNGRepresentation(image)
+                let profilePicRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)").child("\(index).png")
+                _ = profilePicRef.putData(data!, metadata: nil) { metadata, error in
+                    if (error != nil) {
+                        // Uh-oh, an error occurred!
+                    } else {
+                        // Metadata contains file metadata such as size, content-type, and download URL.
+                        let downloadURL = metadata!.downloadURL
+                        if let url = downloadURL()?.absoluteString {
+                            imageURLList.append(url)
+                            self.jobSelected!.setJobPictures(imageURLList)
+                        }
+                    }
+                }
+            }
         }
-        if let job = jobSelected {
-            job.setJobStatus(status)
-        }
+        jobSelected!.setJobStatus(status)
         if title == JobStatus.Finished.rawValue {
             // display upload pics
             imageScroll.hidden = false
@@ -84,7 +100,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBAction func uploadPicturesAction(sender: AnyObject) {
         let pickerController = DKImagePickerController()
-        pickerController.maxSelectableCount = 5
+        pickerController.maxSelectableCount = 10
         pickerController.assetType = .AllPhotos
         pickerController.navigationBar.backgroundColor = Utility.greenL3Color()
         pickerController.didSelectAssets = { (assets: [DKAsset]) in
@@ -93,21 +109,24 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 for view in self.imageScroll.subviews {
                     view.removeFromSuperview()
                 }
+                self.imagesList.removeAll()
                 for (index, asset) in assets.enumerate() {
-                    asset.fetchImageWithSize(CGSizeMake(200, 200), completeBlock: {
+                    asset.fetchOriginalImage(true, completeBlock: {
                         image, info in
-                        if let image = image {
-                            let imageV = UIImageView(frame: CGRectMake(CGFloat(index) * 105.0, 0, 100, 100))
-                            imageV.image = image
-                            self.imageScroll.addSubview(imageV)
+                            if let image = image {
+                                let imageV = UIImageView(frame: CGRectMake(CGFloat(index) * 105.0, 0, 100, 100))
+                                imageV.image = image
+                                imageV.contentMode = .ScaleAspectFit
+                                self.imagesList.append(image)
+                                self.imageScroll.addSubview(imageV)
+                            }
                         }
-                    })
+                    )
                 }
                 var contentSize = self.imageScroll.contentSize
                 contentSize.width = CGFloat(assets.count) * 105
                 contentSize.height = self.imageScroll.frame.size.height
                 self.imageScroll.contentSize = contentSize
-                self.mainScroll.contentSize = CGSizeMake(self.widthOfMapConstraint.constant, self.view.bounds.size.height + 20.0)
             }
         }
         
@@ -241,7 +260,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let distance = anotationLocation.distanceFromLocation(userLocation)
         let stringMiles  = NSString(format: "%.1f miles", distance/1609.344)
         distanceLabel.text = "\(stringMiles)"
-        mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, self.view.bounds.size.height - 55.0)
+        mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, 700)
     }
     
 }

@@ -150,5 +150,12 @@ class Job: NSObject, NSCoding {
             }
         }
     }
+    
+    func setJobPictures(arrayImageURL: [String]) {
+        if let id = self.id {
+            let jobRef = myRootRef.child("jobs").child("\(id)")
+            jobRef.child("pictures").setValue(arrayImageURL)
+        }
+    }
 }
 
