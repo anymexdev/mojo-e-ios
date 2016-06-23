@@ -27,9 +27,9 @@ let monthOfYear = ["1": "Janaury", "2": "February", "3": "March", "4": "April" ,
 let kDateMMMYYYY = DateFormatter(format: "MMMM-yyyy")
 let kDateddMMYY = DateFormatter(format: "dd-MM-YY")
 let kDateddMMMMYY = DateFormatter(format: "dd-MMMM-yyyy")
-let kDateJobConvert = DateFormatter(format: "dd-MM-YY hh:mm")
-let kDateJobTime = DateFormatter(format: "dd-MMMM-yyyy hh:mm")
-let kDatehhMM = DateFormatter(format: "hh:mm")
+let kDateJobConvert = DateFormatter(format: "dd-MM-YY HH:mm")
+let kDateJobTime = DateFormatter(format: "dd-MMMM-yyyy HH:mm")
+let kDatehhMM = DateFormatter(format: "HH:mm")
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 let kUserDefault = NSUserDefaults.standardUserDefaults()

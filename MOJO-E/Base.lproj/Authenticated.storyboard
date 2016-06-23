@@ -540,14 +540,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fs4-2m-kiy">
-                                        <rect key="frame" x="30" y="548" width="414" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="IIe-zl-d7O"/>
-                                        </constraints>
-                                    </scrollView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgn-vi-ZIN">
-                                        <rect key="frame" x="162" y="503" width="150" height="35"/>
+                                        <rect key="frame" x="162" y="555" width="150" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="BTm-il-ezn"/>
                                             <constraint firstAttribute="height" constant="35" id="zuS-x5-f1P"/>
@@ -560,18 +554,42 @@
                                             <action selector="uploadPicturesAction:" destination="Tns-i7-nsI" eventType="touchUpInside" id="nZY-P4-Gmr"/>
                                         </connections>
                                     </button>
+                                    <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fs4-2m-kiy">
+                                        <rect key="frame" x="30" y="600" width="414" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="IIe-zl-d7O"/>
+                                        </constraints>
+                                    </scrollView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Q9-2a-0zy">
+                                        <rect key="frame" x="30" y="522" width="71" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="71" id="f9u-zt-tln"/>
+                                            <constraint firstAttribute="height" constant="22" id="mcS-gp-qM7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-MediumItalic" family="Avenir Next" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KH3-A7-PeE">
+                                        <rect key="frame" x="120" y="521" width="324" height="24"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="leading" secondItem="zfJ-uD-ANd" secondAttribute="leading" id="0aV-La-RPP"/>
                                     <constraint firstItem="5gc-YA-c3U" firstAttribute="leading" secondItem="Thd-Yx-fKt" secondAttribute="leading" constant="30" id="0qJ-wy-lTp"/>
                                     <constraint firstItem="zfJ-uD-ANd" firstAttribute="centerY" secondItem="6o5-d7-Mlb" secondAttribute="centerY" id="1S4-cv-tv6"/>
+                                    <constraint firstItem="KH3-A7-PeE" firstAttribute="centerY" secondItem="2Q9-2a-0zy" secondAttribute="centerY" id="2Ce-f9-uaB"/>
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="centerY" secondItem="b2Y-gl-FyU" secondAttribute="centerY" id="4G4-mU-DDf"/>
+                                    <constraint firstItem="KH3-A7-PeE" firstAttribute="height" secondItem="dPP-1E-Hds" secondAttribute="height" id="4eD-hX-Jvm"/>
                                     <constraint firstItem="dPP-1E-Hds" firstAttribute="leading" secondItem="avC-mh-LvA" secondAttribute="leading" id="5GQ-Qj-oes"/>
                                     <constraint firstItem="b2Y-gl-FyU" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="7I9-8h-Yve"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="height" secondItem="2jf-Zy-i9C" secondAttribute="height" id="8ZH-5o-hLf"/>
-                                    <constraint firstItem="Jgn-vi-ZIN" firstAttribute="top" secondItem="dPP-1E-Hds" secondAttribute="bottom" id="8ch-cu-0Ks"/>
                                     <constraint firstItem="zfJ-uD-ANd" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="9wx-8Z-BzU"/>
+                                    <constraint firstItem="2Q9-2a-0zy" firstAttribute="top" secondItem="XTq-ea-fGi" secondAttribute="bottom" constant="20" id="Ban-o0-ka2"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" id="Bhg-tG-P2p"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="leading" secondItem="sSP-bC-6ae" secondAttribute="leading" id="DYl-3z-96R"/>
                                     <constraint firstItem="sSP-bC-6ae" firstAttribute="top" secondItem="5gc-YA-c3U" secondAttribute="bottom" constant="10" id="Dn2-Wq-vSi"/>
@@ -581,9 +599,11 @@
                                     <constraint firstItem="fs4-2m-kiy" firstAttribute="leading" secondItem="sSP-bC-6ae" secondAttribute="leading" id="G7F-4B-dPl"/>
                                     <constraint firstItem="Jgn-vi-ZIN" firstAttribute="centerX" secondItem="sSP-bC-6ae" secondAttribute="centerX" id="Gwy-vt-sBs"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="HHH-rq-hhP"/>
+                                    <constraint firstItem="KH3-A7-PeE" firstAttribute="centerY" secondItem="2Q9-2a-0zy" secondAttribute="centerY" id="L4D-J9-68v"/>
                                     <constraint firstItem="fs4-2m-kiy" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="LI2-91-eF8"/>
                                     <constraint firstItem="XTq-ea-fGi" firstAttribute="top" secondItem="gQJ-xh-V0b" secondAttribute="bottom" constant="20" id="Lrx-Fg-enf"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="leading" secondItem="2jf-Zy-i9C" secondAttribute="leading" id="NcE-bK-7oq"/>
+                                    <constraint firstItem="2Q9-2a-0zy" firstAttribute="leading" secondItem="XTq-ea-fGi" secondAttribute="leading" id="Nof-KV-oRj"/>
                                     <constraint firstAttribute="trailing" secondItem="zfJ-uD-ANd" secondAttribute="trailing" constant="30" id="TFu-HD-FyM"/>
                                     <constraint firstItem="3A1-FL-bDH" firstAttribute="top" secondItem="6o5-d7-Mlb" secondAttribute="bottom" constant="20" id="TGy-tf-uOn"/>
                                     <constraint firstItem="6o5-d7-Mlb" firstAttribute="leading" secondItem="5gc-YA-c3U" secondAttribute="leading" id="UEC-Ps-eT2"/>
@@ -591,6 +611,8 @@
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="Zg2-hZ-NSk"/>
                                     <constraint firstItem="zfJ-uD-ANd" firstAttribute="leading" secondItem="6o5-d7-Mlb" secondAttribute="trailing" constant="15" id="a9F-Of-FQV"/>
                                     <constraint firstItem="b2Y-gl-FyU" firstAttribute="top" secondItem="3A1-FL-bDH" secondAttribute="bottom" constant="20" id="bBt-FL-sfo"/>
+                                    <constraint firstItem="KH3-A7-PeE" firstAttribute="width" secondItem="dPP-1E-Hds" secondAttribute="width" id="cFU-cO-dsY"/>
+                                    <constraint firstItem="Jgn-vi-ZIN" firstAttribute="top" secondItem="KH3-A7-PeE" secondAttribute="bottom" constant="10" id="cKT-yb-u8X"/>
                                     <constraint firstItem="2jf-Zy-i9C" firstAttribute="leading" secondItem="50O-7z-pMW" secondAttribute="leading" id="j0M-dX-n3S"/>
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="width" secondItem="2jf-Zy-i9C" secondAttribute="width" id="l1K-iC-His"/>
                                     <constraint firstItem="5gc-YA-c3U" firstAttribute="top" secondItem="Thd-Yx-fKt" secondAttribute="top" constant="30" id="lTH-Qd-J4i"/>
@@ -601,6 +623,7 @@
                                     <constraint firstItem="avC-mh-LvA" firstAttribute="centerY" secondItem="gQJ-xh-V0b" secondAttribute="centerY" id="sX5-Gh-iHI"/>
                                     <constraint firstItem="XTq-ea-fGi" firstAttribute="leading" secondItem="6o5-d7-Mlb" secondAttribute="leading" id="uI6-eI-pzV"/>
                                     <constraint firstItem="dPP-1E-Hds" firstAttribute="centerY" secondItem="XTq-ea-fGi" secondAttribute="centerY" id="w0a-ah-HAh"/>
+                                    <constraint firstItem="KH3-A7-PeE" firstAttribute="leading" secondItem="zfJ-uD-ANd" secondAttribute="leading" id="xRA-jZ-UGN"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="centerY" secondItem="3A1-FL-bDH" secondAttribute="centerY" id="yEg-gj-pCx"/>
                                     <constraint firstItem="50O-7z-pMW" firstAttribute="trailing" secondItem="sSP-bC-6ae" secondAttribute="trailing" id="yRq-tS-fPn"/>
                                 </constraints>
@@ -609,6 +632,7 @@
                                         <exclude reference="Exj-sy-SDS"/>
                                         <exclude reference="Bhg-tG-P2p"/>
                                         <exclude reference="lyX-U2-xl3"/>
+                                        <exclude reference="2Ce-f9-uaB"/>
                                     </mask>
                                 </variation>
                             </scrollView>
@@ -654,7 +678,9 @@
                         <outlet property="businessName" destination="zfJ-uD-ANd" id="okR-bP-ctc"/>
                         <outlet property="createTimeLabel" destination="dPP-1E-Hds" id="syb-jr-BhE"/>
                         <outlet property="distanceLabel" destination="avC-mh-LvA" id="fK9-Em-eiO"/>
+                        <outlet property="endTimeLabel" destination="KH3-A7-PeE" id="XlD-3V-lvJ"/>
                         <outlet property="imageScroll" destination="fs4-2m-kiy" id="ySU-Hw-a29"/>
+                        <outlet property="jobEndLabel" destination="2Q9-2a-0zy" id="mGV-rU-eSd"/>
                         <outlet property="mainScroll" destination="Thd-Yx-fKt" id="vgd-ed-aVR"/>
                         <outlet property="mapView" destination="sSP-bC-6ae" id="aBK-cU-ZcW"/>
                         <outlet property="typeLabel" destination="2jf-Zy-i9C" id="YR0-xq-Jf0"/>

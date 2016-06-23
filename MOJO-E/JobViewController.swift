@@ -30,6 +30,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var mainScroll: UIScrollView!
     @IBOutlet weak var uploadPicturesButton: UIButton!
     @IBOutlet weak var imageScroll: UIScrollView!
+    @IBOutlet weak var jobEndLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -62,6 +64,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let title = acceptButton.titleLabel?.text
         if title == "Start" {
             status = JobStatus.Started
+            self.jobSelected!.setJobStartTime()
         }
         else if title == JobStatus.Finished.rawValue {
             status = JobStatus.Finished
@@ -85,6 +88,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     }
                 }
             }
+            self.jobSelected!.setJobSubmitTime()
         }
         jobSelected!.setJobStatus(status)
         if title == JobStatus.Finished.rawValue {
@@ -92,6 +96,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             imageScroll.hidden = false
             uploadPicturesButton.hidden = false
             acceptButton.setTitle("Submit", forState: .Normal)
+//            loadImagesFromJob()
         }
         else {
             self.navigationController?.popViewControllerAnimated(true)
@@ -201,7 +206,10 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             acceptButton.setTitle("Start", forState: .Normal)
         }
         else if jobSelected?.status == JobStatus.Finished {
-            acceptButton.setTitle("Submit", forState: .Normal)
+//            acceptButton.setTitle("Submit", forState: .Normal)
+            acceptButton.hidden = true
+            endTimeLabel.hidden = false
+            jobEndLabel.hidden = false
         }
         loadJobInfo()
     }
@@ -225,6 +233,9 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         typeLabel.text = jobSelected?.status.rawValue
         if let jobStartTime = jobSelected?.jobStartTime {
             createTimeLabel.text = kDateJobTime.stringFromDate(jobStartTime)
+        }
+        if let jobEndTime = jobSelected?.jobEndTime {
+            endTimeLabel.text = kDateJobTime.stringFromDate(jobEndTime)
         }
     }
     
@@ -261,6 +272,20 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let stringMiles  = NSString(format: "%.1f miles", distance/1609.344)
         distanceLabel.text = "\(stringMiles)"
         mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, 700)
+    }
+    
+    private func loadImagesFromJob() {
+        let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)")
+        jobPicturesRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+            if let error = error {
+                print(error.description)
+            }
+            else {
+                if let data = data, let imageV = UIImage(data: data) {
+                    
+                }
+            }
+        })
     }
     
 }
