@@ -257,10 +257,10 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             acceptButton.hidden = true
             endTimeLabel.hidden = false
             jobEndLabel.hidden = false
+            loadImagesFromJob()
+            loadSignatureFromJob()
         }
         loadJobInfo()
-        loadImagesFromJob()
-        loadSignatureFromJob()
     }
     
     func loadJobInfo() {
@@ -325,9 +325,11 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     private func loadImagesFromJob() {
         imageScroll.hidden = false
+        uploadPicturesButton.hidden = false
+        uploadPicturesButton.enabled = false
         for index in 0...jobSelected!.pictureCount {
-            let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)").child("\(index)")
-            jobPicturesRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+            let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)").child("\(index).png")
+            jobPicturesRef.dataWithMaxSize(20 * 1024 * 1024, completion: { (data, error) in
                 if let error = error {
                     print(error.description)
                 }
@@ -349,6 +351,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     private func loadSignatureFromJob() {
+        signatureButton.hidden = false
+        signatureButton.enabled = false
         signatureImage.hidden = false
         let jobSignatureRef = storage.reference().child("Signatures").child("\(self.jobSelected!.id!).png")
         jobSignatureRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
