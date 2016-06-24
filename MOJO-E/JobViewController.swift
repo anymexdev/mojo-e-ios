@@ -9,8 +9,9 @@ import UIKit
 import MapKit
 import JPSThumbnailAnnotation
 import DKImagePickerController
+import EPSignature
 
-class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, EPSignatureDelegate {
     
     //MARK: private property
     var jobSelected: Job?
@@ -32,6 +33,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var imageScroll: UIScrollView!
     @IBOutlet weak var jobEndLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
+    @IBOutlet weak var signatureButton: UIButton!
+    @IBOutlet weak var signatureImage: UIImageView!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -88,6 +91,21 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     }
                 }
             }
+            if let image = signatureImage.image {
+                let data = UIImagePNGRepresentation(image)
+                let signaturePicRef = storage.reference().child("Signatures").child("\(self.jobSelected!.id!).png")
+                _ = signaturePicRef.putData(data!, metadata: nil) { metadata, error in
+                    if (error != nil) {
+                        // Uh-oh, an error occurred!
+                    } else {
+                        // Metadata contains file metadata such as size, content-type, and download URL.
+                        let downloadURL = metadata!.downloadURL
+                        if let url = downloadURL()?.absoluteString {
+                            self.jobSelected!.setJobSignature(url)
+                        }
+                    }
+                }
+            }
             self.jobSelected!.setJobSubmitTime()
         }
         jobSelected!.setJobStatus(status)
@@ -96,6 +114,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             imageScroll.hidden = false
             uploadPicturesButton.hidden = false
             acceptButton.setTitle("Submit", forState: .Normal)
+            signatureButton.hidden = false
+            signatureImage.hidden = false
 //            loadImagesFromJob()
         }
         else {
@@ -137,6 +157,17 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         self.presentViewController(pickerController, animated: true) {}
     }
+    
+    @IBAction func signatureAction(sender: AnyObject) {
+        let signatureVC = EPSignatureViewController(signatureDelegate: self, showsDate: true, showsSaveSignatureOption: false)
+//        signatureVC.subtitleText = "I agree to the terms and conditions"
+        signatureVC.title = "My Signature"
+        signatureVC.tintColor = Utility.greenL1Color()
+        let nav = UINavigationController(rootViewController: signatureVC)
+        presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    
     // MARK: MapKit's methods
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? JPSThumbnailAnnotation {
@@ -187,13 +218,29 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print(error.description)
     }
     
+    // MARK: Signature
+    func epSignature(_: EPSignature.EPSignatureViewController, didCancel error: NSError) {
+    
+    }
+    
+    func epSignature(_: EPSignatureViewController, didSign signatureImage: UIImage, boundingRect: CGRect) {
+        self.signatureImage.image = signatureImage
+        self.signatureImage.contentMode = .ScaleAspectFit
+        self.signatureImage.backgroundColor = UIColor.whiteColor()
+    }
+    
+    
     //MARK: Other functions
     func initialize() {
+        signatureButton.layer.borderColor = UIColor.whiteColor().CGColor
+        signatureButton.layer.borderWidth = 1
+        
         acceptButton.layer.borderColor = UIColor.whiteColor().CGColor
-        acceptButton.layer.borderWidth = 2
+        acceptButton.layer.borderWidth = 1
         
         uploadPicturesButton.layer.borderColor = UIColor.whiteColor().CGColor
-        uploadPicturesButton.layer.borderWidth = 2
+        uploadPicturesButton.layer.borderWidth = 1
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -212,6 +259,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             jobEndLabel.hidden = false
         }
         loadJobInfo()
+        loadImagesFromJob()
+        loadSignatureFromJob()
     }
     
     func loadJobInfo() {
@@ -271,18 +320,46 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let distance = anotationLocation.distanceFromLocation(userLocation)
         let stringMiles  = NSString(format: "%.1f miles", distance/1609.344)
         distanceLabel.text = "\(stringMiles)"
-        mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, 700)
+        mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, 900)
     }
     
     private func loadImagesFromJob() {
-        let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)")
-        jobPicturesRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+        imageScroll.hidden = false
+        for index in 0...jobSelected!.pictureCount {
+            let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)").child("\(index)")
+            jobPicturesRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                if let error = error {
+                    print(error.description)
+                }
+                else {
+                    if let data = data, let image = UIImage(data: data) {
+                        let imageV = UIImageView(frame: CGRectMake(CGFloat(index) * 105.0, 0, 100, 100))
+                        imageV.image = image
+                        imageV.contentMode = .ScaleAspectFit
+                        self.imageScroll.addSubview(imageV)
+                    }
+                }
+            })
+        }
+        
+        var contentSize = self.imageScroll.contentSize
+        contentSize.width = CGFloat(jobSelected!.pictureCount) * 105
+        contentSize.height = self.imageScroll.frame.size.height
+        self.imageScroll.contentSize = contentSize
+    }
+    
+    private func loadSignatureFromJob() {
+        signatureImage.hidden = false
+        let jobSignatureRef = storage.reference().child("Signatures").child("\(self.jobSelected!.id!).png")
+        jobSignatureRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
             if let error = error {
                 print(error.description)
             }
             else {
                 if let data = data, let imageV = UIImage(data: data) {
-                    
+                    self.signatureImage.image = imageV
+                    self.signatureImage.contentMode = .ScaleAspectFit
+                    self.signatureImage.backgroundColor = UIColor.whiteColor()
                 }
             }
         })

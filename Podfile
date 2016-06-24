@@ -15,6 +15,7 @@ target 'MOJO-E' do
     pod 'CVCalendar'
     pod 'JPSThumbnailAnnotation'
     pod 'DKImagePickerController'
+    pod 'EPSignature'
 end
 
 target 'MOJO-ETests' do

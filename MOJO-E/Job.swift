@@ -30,6 +30,7 @@ class Job: NSObject, NSCoding {
     var dispatchTime = NSDate()
     var jobStartTime = NSDate()
     var jobEndTime = NSDate()
+    var pictureCount: Int = 0
     
     
     // MARK: NSCoding
@@ -43,6 +44,7 @@ class Job: NSObject, NSCoding {
         coder.encodeObject(self.status.rawValue, forKey: "status")
         coder.encodeObject(self.zip, forKey: "zip")
         coder.encodeObject(self.state, forKey: "state")
+        coder.encodeInteger(self.pictureCount, forKey: "pictureCount")
         if let latitude = self.latitude {
             coder.encodeDouble(latitude, forKey: "latitude")
         }
@@ -96,6 +98,7 @@ class Job: NSObject, NSCoding {
         self.latitude = decoder.decodeDoubleForKey("latitude")
         self.longtitude = decoder.decodeDoubleForKey("longtitude")
         self.ticketNumber = decoder.decodeIntegerForKey("ticketNumber")
+        self.pictureCount = decoder.decodeIntegerForKey("pictureCount")
         self.id = decoder.decodeIntegerForKey("id")
     }
     
@@ -132,6 +135,9 @@ class Job: NSObject, NSCoding {
         }
         if let ticketNumber = dict.objectForKey("ticket_number") as? Int {
             job.ticketNumber = ticketNumber
+        }
+        if let pictures = dict.objectForKey("pictures") as? NSArray {
+            job.pictureCount = pictures.count
         }
         if let dispatchTime = dict.objectForKey("dispatch_time") as? NSTimeInterval {
             job.dispatchTime = NSDate(timeIntervalSince1970: dispatchTime)
@@ -176,6 +182,13 @@ class Job: NSObject, NSCoding {
         if let id = self.id {
             let jobRef = myRootRef.child("jobs").child("\(id)")
             jobRef.child("pictures").setValue(arrayImageURL)
+        }
+    }
+    
+    func setJobSignature(url: String) {
+        if let id = self.id {
+            let jobRef = myRootRef.child("jobs").child("\(id)")
+            jobRef.child("signature").setValue(url)
         }
     }
 }
