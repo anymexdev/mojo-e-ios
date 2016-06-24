@@ -35,6 +35,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var signatureButton: UIButton!
     @IBOutlet weak var signatureImage: UIImageView!
+    @IBOutlet weak var jobHeaderLabel: UILabel!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -107,6 +108,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 }
             }
             self.jobSelected!.setJobSubmitTime()
+            self.jobHeaderLabel.text = "Job was completed"
         }
         jobSelected!.setJobStatus(status)
         if title == JobStatus.Finished.rawValue {
@@ -116,7 +118,6 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             acceptButton.setTitle("Submit", forState: .Normal)
             signatureButton.hidden = false
             signatureImage.hidden = false
-//            loadImagesFromJob()
         }
         else {
             self.navigationController?.popViewControllerAnimated(true)
@@ -253,14 +254,15 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             acceptButton.setTitle("Start", forState: .Normal)
         }
         else if jobSelected?.status == JobStatus.Finished {
-//            acceptButton.setTitle("Submit", forState: .Normal)
             acceptButton.hidden = true
             endTimeLabel.hidden = false
             jobEndLabel.hidden = false
             loadImagesFromJob()
             loadSignatureFromJob()
+            self.jobHeaderLabel.text = "Job was completed"
         }
         loadJobInfo()
+        Profile.get()!.registerForJobsAdded()
     }
     
     func loadJobInfo() {

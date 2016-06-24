@@ -706,6 +706,7 @@
                         <outlet property="endTimeLabel" destination="KH3-A7-PeE" id="XlD-3V-lvJ"/>
                         <outlet property="imageScroll" destination="fs4-2m-kiy" id="ySU-Hw-a29"/>
                         <outlet property="jobEndLabel" destination="2Q9-2a-0zy" id="mGV-rU-eSd"/>
+                        <outlet property="jobHeaderLabel" destination="ifu-NB-5HB" id="dM7-ai-7mU"/>
                         <outlet property="mainScroll" destination="Thd-Yx-fKt" id="vgd-ed-aVR"/>
                         <outlet property="mapView" destination="sSP-bC-6ae" id="aBK-cU-ZcW"/>
                         <outlet property="signatureButton" destination="sVh-am-Y2K" id="Deg-tb-C1d"/>

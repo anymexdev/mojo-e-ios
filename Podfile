@@ -16,6 +16,7 @@ target 'MOJO-E' do
     pod 'JPSThumbnailAnnotation'
     pod 'DKImagePickerController'
     pod 'EPSignature'
+    pod 'CWStatusBarNotification'
 end
 
 target 'MOJO-ETests' do

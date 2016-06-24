@@ -194,5 +194,19 @@ class Utility {
             view.userInteractionEnabled = true
         })
     }
+    
+    class func showInAppNotification() {
+        let notification = CWStatusBarNotification()
+        notification.notificationStyle = .NavigationBarNotification
+        notification.notificationLabelBackgroundColor = UIColor.blueColor()
+        notification.notificationLabelTextColor = UIColor.whiteColor()
+        notification.displayNotificationWithMessage("New job was assigned", forDuration: 3.0)
+        notification.notificationTappedClosure = {
+            if !notification.notificationIsDismissing {
+                notification.dismissNotification()
+            }
+            
+        }
+    }
 
 }

@@ -33,6 +33,8 @@
 		821CD8481CEF2539004EC52E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8471CEF2539004EC52E /* Profile.swift */; };
 		821CD84A1CFD7D8C004EC52E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 821CD8491CFD7D8C004EC52E /* GoogleService-Info.plist */; };
 		821CD84C1CFFD119004EC52E /* KeyboardNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CD84B1CFFD119004EC52E /* KeyboardNotification.swift */; };
+		825716381D1D3CBC0030EC34 /* CWStatusBarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825716361D1D3CBC0030EC34 /* CWStatusBarNotification.swift */; };
+		825716391D1D3CBC0030EC34 /* CWStatusBarNotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825716371D1D3CBC0030EC34 /* CWStatusBarNotificationUtils.swift */; };
 		8275C8141CE48FCE007B2D19 /* TimeSlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */; };
 		8275C8161CE4900F007B2D19 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8151CE4900F007B2D19 /* TimeSlot.swift */; };
 		8275C8181CE4908B007B2D19 /* ListTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275C8171CE4908B007B2D19 /* ListTimeCell.swift */; };
@@ -124,6 +126,8 @@
 		821CD8471CEF2539004EC52E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		821CD8491CFD7D8C004EC52E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		821CD84B1CFFD119004EC52E /* KeyboardNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotification.swift; sourceTree = "<group>"; };
+		825716361D1D3CBC0030EC34 /* CWStatusBarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotification.swift; sourceTree = "<group>"; };
+		825716371D1D3CBC0030EC34 /* CWStatusBarNotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotificationUtils.swift; sourceTree = "<group>"; };
 		8275C8131CE48FCE007B2D19 /* TimeSlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlotViewController.swift; sourceTree = "<group>"; };
 		8275C8151CE4900F007B2D19 /* TimeSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
 		8275C8171CE4908B007B2D19 /* ListTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeCell.swift; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 		821CD80C1CEB2167004EC52E /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				8257163A1D1D3CC40030EC34 /* In app notification */,
 				821CD84B1CFFD119004EC52E /* KeyboardNotification.swift */,
 				821CD8161CEC4EC6004EC52E /* DDCalendarView_objc */,
 			);
@@ -299,6 +304,15 @@
 				821CD8421CEC4F2D004EC52E /* EventView.swift */,
 			);
 			name = DDCalendar;
+			sourceTree = "<group>";
+		};
+		8257163A1D1D3CC40030EC34 /* In app notification */ = {
+			isa = PBXGroup;
+			children = (
+				825716361D1D3CBC0030EC34 /* CWStatusBarNotification.swift */,
+				825716371D1D3CBC0030EC34 /* CWStatusBarNotificationUtils.swift */,
+			);
+			name = "In app notification";
 			sourceTree = "<group>";
 		};
 		8275C8231CE5CA95007B2D19 /* Authentication */ = {
@@ -660,6 +674,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				825716381D1D3CBC0030EC34 /* CWStatusBarNotification.swift in Sources */,
 				821CD8461CEF0D83004EC52E /* WorkerViewController.swift in Sources */,
 				821CD83A1CEC4EC7004EC52E /* UILabel+FFCustomMethods.m in Sources */,
 				821CD8371CEC4EC6004EC52E /* DDCalendarView.m in Sources */,
@@ -687,6 +702,7 @@
 				821CD83E1CEC4EC7004EC52E /* UIGestureRecognizer+OBDragDrop.m in Sources */,
 				8275C8201CE5B520007B2D19 /* MenuViewController.swift in Sources */,
 				821CD8441CEC4F2D004EC52E /* EventView.swift in Sources */,
+				825716391D1D3CBC0030EC34 /* CWStatusBarNotificationUtils.swift in Sources */,
 				829CE12B1CE313A300030E47 /* SignUpViewController.swift in Sources */,
 				829CE1231CE30BBC00030E47 /* Extension.swift in Sources */,
 				8275C8221CE5C08A007B2D19 /* SampleViewController.swift in Sources */,
