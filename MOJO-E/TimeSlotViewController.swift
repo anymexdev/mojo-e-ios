@@ -255,7 +255,7 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
         currentSelect = NSIndexPath(forRow: 0, inSection: 0)
         collectionView(listDayCollection, didSelectItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimeSlotViewController.keyboardWillChangeFrameNotification(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
-        Profile.get()!.registerForJobsAdded()
+//        Profile.get()!.registerForJobsAdded()
     }
     
     func setUnSelectedBackgoundLabel() {

@@ -262,7 +262,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             self.jobHeaderLabel.text = "Job was completed"
         }
         loadJobInfo()
-        Profile.get()!.registerForJobsAdded()
+//        Profile.get()!.registerForJobsAdded()
     }
     
     func loadJobInfo() {

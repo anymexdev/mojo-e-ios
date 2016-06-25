@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var mainVC: UIViewController?
-
+    var isRegisterNotiFirstTime = true
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         JLToastView.setDefaultValue(
             UIColor.blackColor(),
@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         if let profile = Profile.get() {
             if profile.isLogged {
+                profile.registerForJobsAdded()
                 Utility.openAuthenticatedFlow()
             }
 //            if let email = kUserDefault.objectForKey(kUsernameRemember) as? String, let password = kUserDefault.objectForKey(kPasswordRemember) as? String {

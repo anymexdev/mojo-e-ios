@@ -184,7 +184,9 @@ class Profile: NSObject, NSCoding {
     func registerForJobsAdded() {
         myRootRef.child("users").child(self.authenID).child("jobs").observeEventType(.ChildAdded, withBlock: {
             snapshot in
-            Utility.showInAppNotification()
+            if !appDelegate.isRegisterNotiFirstTime {
+                Utility.showInAppNotification()
+            }
         })
     }
     

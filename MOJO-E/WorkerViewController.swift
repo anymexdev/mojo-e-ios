@@ -143,7 +143,7 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
                 })
             }
         })
-        profile?.registerForJobsAdded()
+//        profile?.registerForJobsAdded()
     }
     
     func endEditing() {

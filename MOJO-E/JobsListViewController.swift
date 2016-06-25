@@ -142,7 +142,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
         self.syncJobsWithType(.New)
         changeViewAction(weekButton)
-        Profile.get()!.registerForJobsAdded()
+//        Profile.get()!.registerForJobsAdded()
     }
     
     func syncJobsWithType(type: JobStatus)
@@ -174,6 +174,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                     
                 }
             }
+            appDelegate.isRegisterNotiFirstTime = false
         })
     }
     

@@ -200,7 +200,7 @@ class Utility {
         notification.notificationStyle = .NavigationBarNotification
         notification.notificationLabelBackgroundColor = UIColor.blueColor()
         notification.notificationLabelTextColor = UIColor.whiteColor()
-        notification.displayNotificationWithMessage("New job was assigned", forDuration: 3.0)
+        notification.displayNotificationWithMessage("New job was assigned", forDuration: 2.0)
         notification.notificationTappedClosure = {
             if !notification.notificationIsDismissing {
                 notification.dismissNotification()
