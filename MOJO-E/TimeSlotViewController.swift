@@ -28,11 +28,12 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
     //MARK: properties
     var dateList: [DateInfo]?
     var currentSelect: NSIndexPath?
-    var currentTimeSlot: [TimeSlot] = [TimeSlot]()
-    var globalTimeSlot: [TimeSlot] = [TimeSlot]()
+    var currentTimeSlot = [TimeSlot]()
+    var globalTimeSlot = [TimeSlot]()
+    var globalNoteSlot = [String]()
     var timeSelectedLabel: UILabel?
     var timeSelectedButton: UIButton?
-    var timeslotSelected: TimeSlot = TimeSlot(to: NSDate(), from: NSDate())
+    var timeslotSelected = TimeSlot(to: NSDate(), from: NSDate())
     let defaultSentence = "Note for your personal time"
     
     //MARK: View life cycle
@@ -165,6 +166,8 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                     let temp = TimeSlot(to: toTimeAdd!, from: fromTimeAdd!)
                     currentTimeSlot.append(temp)
                     globalTimeSlot.append(temp)
+                    globalNoteSlot.append((noteTextView.text == defaultSentence) ? "" : noteTextView.text)
+                    noteTextView.text = defaultSentence
                     listTimeTableView.reloadData()
                 } else {
                     Utility.showToastWithMessage(kErrorTimeSlotShortDistance)
@@ -226,7 +229,7 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                     var data = Dictionary<String, AnyObject>()
                     data["startTime"] = round(from.timeIntervalSince1970)
                     data["endTime"] = round(to.timeIntervalSince1970)
-                    data["note"] = (noteTextView.text == defaultSentence) ? "" : noteTextView.text
+                    data["note"] = globalNoteSlot[index - 1]
                     myRootRef.child("users").child(profile.authenID).child("personal_time").child("\(index)").setValue(data)
                     index = index + 1
                 }
