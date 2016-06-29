@@ -18,6 +18,8 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var locationManager = CLLocationManager()
     var pinLocation: CLLocation?
     var imagesList = [UIImage]()
+    var fLatLong = "saddr=%f,%f"
+    var toLatLong = "daddr=%f,%f"
 
     //MARK: UI Element
     @IBOutlet weak var businessName: UILabel!
@@ -168,6 +170,10 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         presentViewController(nav, animated: true, completion: nil)
     }
     
+    @IBAction func showDirctionsAction(sender: AnyObject) {
+        let url = "http://maps.google.com/maps?\(fLatLong)&\(toLatLong)"
+        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+    }
     
     // MARK: MapKit's methods
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -199,6 +205,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         data["latitude"] = locValue.latitude
         data["longitude"] = locValue.longitude
         data["updated_at"] = round(NSDate().timeIntervalSince1970)
+        fLatLong = "saddr=\(locValue.latitude),\(locValue.longitude)"
         if let profile = Profile.get() {
             myRootRef.child("users").child(profile.authenID).child("location").setValue(data)
         }
@@ -314,6 +321,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             mapView.addAnnotation(JPSThumbnailAnnotation(thumbnail: pin))
             self.pinLocation = CLLocation(latitude: lat, longitude: long)
+            toLatLong = "daddr=\(lat),\(long)"
         }
     }
     
