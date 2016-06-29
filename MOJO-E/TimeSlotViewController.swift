@@ -31,10 +31,9 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
     var currentTimeSlot = [TimeSlot]()
     var globalTimeSlot = [TimeSlot]()
     var occupiedTimeSlot = [TimeSlot]()
-    var globalNoteSlot = [String]()
     var timeSelectedLabel: UILabel?
     var timeSelectedButton: UIButton?
-    var timeslotSelected = TimeSlot(to: NSDate(), from: NSDate())
+    var timeslotSelected = TimeSlot(to: NSDate(), from: NSDate(), note: "")
     let defaultSentence = "Note for your personal time"
     
     //MARK: View life cycle
@@ -164,11 +163,10 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                     }
                     let toTimeAdd = dateFormatter.dateFromString(toLabel.text!)
                     let fromTimeAdd = dateFormatter.dateFromString(fromLabel.text!)
-                    let slot = TimeSlot(to: toTimeAdd!, from: fromTimeAdd!)
+                    let slot = TimeSlot(to: toTimeAdd!, from: fromTimeAdd!, note: (noteTextView.text == defaultSentence) ? "" : noteTextView.text)
                     if !slot.slotWasOccupied(occupiedTimeSlot) {
                         currentTimeSlot.append(slot)
                         globalTimeSlot.append(slot)
-                        globalNoteSlot.append((noteTextView.text == defaultSentence) ? "" : noteTextView.text)
                         noteTextView.text = defaultSentence
                         listTimeTableView.reloadData()
                     }
@@ -235,7 +233,7 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                     var data = Dictionary<String, AnyObject>()
                     data["startTime"] = round(from.timeIntervalSince1970)
                     data["endTime"] = round(to.timeIntervalSince1970)
-                    data["note"] = globalNoteSlot[index - 1]
+                    data["note"] = timeslot.note
                     myRootRef.child("users").child(profile.authenID).child("personal_time").child("\(index)").setValue(data)
                     index = index + 1
                 }
@@ -275,7 +273,7 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                         if let value = snapshot.value as? NSDictionary {
                             let job = Job.createJobFromDict(value)
                             if job.status == .Accepted || job.status == .EnRoute || job.status == .Started || job.status == .Assigned {
-                                let timeS = TimeSlot(to: job.jobStartTime, from: job.jobSchedultedEndTime)
+                                let timeS = TimeSlot(to: job.jobStartTime, from: job.jobSchedultedEndTime, note: "")
                                 self.occupiedTimeSlot.append(timeS)
                             }
                         }

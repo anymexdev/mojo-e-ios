@@ -36,6 +36,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     var jobSelected: Job?
     var calendarViewType = CalendarMode.MonthView
     var dateSelectedOfMonth = NSDate()
+    var personalTimeSlots = [TimeSlot]()
     
     //MARK: View did load
     override func viewDidLoad() {
@@ -139,6 +140,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         self.syncJobsWithType(.New)
         changeViewAction(weekButton)
         todayLabel.text = kDateMMMYYYY.stringFromDate(dateSelectedOfMonth)
+        TimeSlot.allPersonalTimeslots { (timeslots) in
+            if timeslots.count > 0 {
+                self.personalTimeSlots = timeslots
+            }
+        }
     }
     
     func syncJobsWithType(type: JobStatus)
@@ -267,20 +273,17 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     func renderJobInDate(date: NSDate) {
-        if self.jobs.count > 0 {
+        if jobs.count > 0 || personalTimeSlots.count > 0 {
             var ddEvents = [DDCalendarEvent]()
             for job in self.jobs {
                 let stringTo = kDateddMMYY.stringFromDate(job.jobStartTime)
                 let stringFrom = kDateddMMYY.stringFromDate(date)
-//                print("**** \(stringTo) \(stringFrom)")
                 if stringTo == stringFrom {
                     let ekEvent = EKEvent(eventStore: EKEventStore())
                     ekEvent.title = job.businessName
                     let dStr = kDateddMMMMYY.stringFromDate(NSDate())
                     let hStr = kDatehhMM.stringFromDate(job.jobStartTime)
-//                    print("\(dStr) \(hStr)")
                     let dateF = kDateJobTime.dateFromString("\(dStr) \(hStr)")!
-//                    print("^^^^^^ \(dateF)")
                     ekEvent.startDate = dateF
                     ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
                     let ddEvent = DDCalendarEvent()
@@ -291,7 +294,27 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                     ddEvents.append(ddEvent)
                 }
             }
-//            print(ddEvents.count)
+            if personalTimeSlots.count > 0 {
+                for slot in personalTimeSlots {
+                    let stringTo = kDateddMMYY.stringFromDate(slot.fromTime!)
+                    let stringFrom = kDateddMMYY.stringFromDate(date)
+                    if stringTo == stringFrom {
+                        let ekEvent = EKEvent(eventStore: EKEventStore())
+                        ekEvent.title = slot.note
+                        let dStr = kDateddMMMMYY.stringFromDate(NSDate())
+                        let hStr = kDatehhMM.stringFromDate(slot.fromTime!)
+                        let dateF = kDateJobTime.dateFromString("\(dStr) \(hStr)")!
+                        ekEvent.startDate = dateF
+                        ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
+                        let ddEvent = DDCalendarEvent()
+                        ddEvent.title = "- Personal Time - " + ekEvent.title
+                        ddEvent.dateBegin = ekEvent.startDate
+                        ddEvent.dateEnd = ekEvent.endDate
+                        ddEvent.userInfo = ["event" : ekEvent]
+                        ddEvents.append(ddEvent)
+                    }
+                }
+            }
             dict[0] = ddEvents
             self.ddCalendarView.reloadData()
         }
@@ -333,7 +356,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     func calendarView(view: DDCalendarView, viewForEvent event: DDCalendarEvent) -> DDCalendarEventView? {
-        return EventView(event: event)
+        let eventV = EventView(event: event)
+        if event.title.containsString("- Personal Time -") {
+            eventV.backgroundColor = UIColor.orangeColor()
+        }
+        return eventV
     }
     
     // MARK: CVCalendarViewDelegate's methods

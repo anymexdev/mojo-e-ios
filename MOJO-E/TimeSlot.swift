@@ -13,11 +13,13 @@ class TimeSlot : NSObject, NSCoding {
     var toTime: NSDate?
     var fromTime: NSDate?
     var selected: Int = 0
+    var note: String = ""
     
     //MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder) {
         //
         aCoder.encodeObject(self.toTime,forKey: "toTime")
+        aCoder.encodeObject(self.note,forKey: "note")
         aCoder.encodeObject(self.fromTime, forKey: "fromTime")
         aCoder.encodeInteger(self.selected, forKey: "selected")
         
@@ -25,18 +27,20 @@ class TimeSlot : NSObject, NSCoding {
     required convenience init?(coder decoder: NSCoder) {
         guard
             let toTime = decoder.decodeObjectForKey("toTime") as? NSDate ,
+            let note = decoder.decodeObjectForKey("note") as? String ,
             let fromTime = decoder.decodeObjectForKey("fromTime") as? NSDate
             else { return nil }
         
         self.init(
             to: toTime,
             from: fromTime,
+            note: note,
             select: decoder.decodeIntegerForKey("selected")
         )
     }
     
     //MARK: Contructor
-    init(to: NSDate , from: NSDate, select: Int = 0) {
+    init(to: NSDate , from: NSDate, note: String, select: Int = 0) {
         self.toTime = to
         self.fromTime = from
         self.selected = select
@@ -72,10 +76,10 @@ class TimeSlot : NSObject, NSCoding {
             {
                 toTime = tTime
                 fromTime = fTime
-                return TimeSlot(to: toTime,from: fromTime,select: select)
+                return TimeSlot(to: toTime,from: fromTime, note: "", select: select)
             }
         }
-        return TimeSlot(to: toTime,from: fromTime)
+        return TimeSlot(to: toTime,from: fromTime, note: "")
     }
     
     func slotWasOccupied(occupiedList: [TimeSlot]) -> Bool {
@@ -93,5 +97,36 @@ class TimeSlot : NSObject, NSCoding {
             }
         }
         return false
+    }
+    
+    class func allPersonalTimeslots(completionBlock: (timeslots: [TimeSlot]) -> Void) {
+        if let profile = Profile.get() {
+            myRootRef.child("users").child(profile.authenID).child("personal_time").observeEventType(.Value, withBlock: {
+                snapshot in
+                var arraySlot = [TimeSlot]()
+                if let slotArr = snapshot.value as? NSArray {
+                    for slot in slotArr {
+                        if let dict = slot as? NSDictionary {
+                            arraySlot.append(TimeSlot.createTimeSlotFromDict(dict))
+                        }
+                    }
+                }
+                completionBlock(timeslots: arraySlot)
+            })
+        }
+    }
+    
+    class func createTimeSlotFromDict(dict: NSDictionary) -> TimeSlot {
+        let slot = TimeSlot(to: NSDate(), from: NSDate(), note: "")
+        if let note = dict.objectForKey("note") as? String {
+            slot.note = note
+        }
+        if let startTime = dict.objectForKey("startTime") as? NSTimeInterval {
+            slot.fromTime = NSDate(timeIntervalSince1970: startTime)
+        }
+        if let endTime = dict.objectForKey("endTime") as? NSTimeInterval {
+            slot.toTime = NSDate(timeIntervalSince1970: endTime)
+        }
+        return slot
     }
 }
