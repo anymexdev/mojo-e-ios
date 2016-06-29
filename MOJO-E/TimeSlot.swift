@@ -129,4 +129,13 @@ class TimeSlot : NSObject, NSCoding {
         }
         return slot
     }
+    
+    class func hasPersonTimeInDate(personalTimes: [TimeSlot], date: NSDate) -> Bool {
+        for slot in personalTimes {
+            if kDateddMMMMYY.stringFromDate(date) == kDateddMMMMYY.stringFromDate(slot.fromTime!) {
+                return true
+            }
+        }
+        return false
+    }
 }

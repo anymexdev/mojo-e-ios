@@ -176,10 +176,10 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                                 let caComponentMonthF = NSCalendar.currentCalendar().components(.Month, fromDate: (firstJ?.jobStartTime)!).month
                                 let caComponentMonthT = NSCalendar.currentCalendar().components(.Month, fromDate: (self.dateSelectedOfMonth)).month
                                 if caComponentMonthF < caComponentMonthT {
-                                    self.cvMonthCalendarView.loadPreviousView()
+//                                    self.cvMonthCalendarView.loadPreviousView()
                                 }
                                 else if caComponentMonthF > caComponentMonthT {
-                                    self.cvMonthCalendarView.loadNextView()
+//                                    self.cvMonthCalendarView.loadNextView()
                                 }
                             }
                         }
@@ -377,10 +377,26 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         return false
     }
     
+    func supplementaryView(shouldDisplayOnDayView dayView: DayView) -> Bool {
+        if let cDate = dayView.date, let date = cDate.convertedDate() {
+            return TimeSlot.hasPersonTimeInDate(personalTimeSlots, date: date)
+        }
+        return false
+    }
+    
     func preliminaryView(viewOnDayView dayView: DayView) -> UIView {
         let dot = UIView(frame: CGRectMake(5, 10, 8, 8))
         dot.backgroundColor = UIColor.whiteColor()
         dot.layer.cornerRadius = 4
         return dot
     }
+    
+    func supplementaryView(viewOnDayView dayView: DayView) -> UIView {
+        let dot = UIView(frame: CGRectMake(5, 20, 8, 8))
+        dot.backgroundColor = UIColor.orangeColor()
+        dot.layer.cornerRadius = 4
+        return dot
+    }
 }
+
+
