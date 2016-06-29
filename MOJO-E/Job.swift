@@ -29,6 +29,7 @@ class Job: NSObject, NSCoding {
     var ticketNumber: Int?
     var dispatchTime = NSDate()
     var jobStartTime = NSDate()
+    var jobSchedultedEndTime = NSDate()
     var jobEndTime = NSDate()
     var pictureCount: Int = 0
     
@@ -38,6 +39,7 @@ class Job: NSObject, NSCoding {
         coder.encodeObject(self.businessName, forKey: "businessName")
         coder.encodeObject(self.dispatchTime, forKey: "dispatchTime")
         coder.encodeObject(self.jobStartTime, forKey: "jobStartTime")
+        coder.encodeObject(self.jobSchedultedEndTime, forKey: "jobSchedultedEndTime")
         coder.encodeObject(self.jobEndTime, forKey: "jobEndTime")
         coder.encodeObject(self.address1, forKey: "address1")
         coder.encodeObject(self.city, forKey: "city")
@@ -71,6 +73,7 @@ class Job: NSObject, NSCoding {
             let city = decoder.decodeObjectForKey("city") as? String,
             let dispatchTime = decoder.decodeObjectForKey("dispatchTime") as? NSDate,
             let jobStartTime = decoder.decodeObjectForKey("jobStartTime") as? NSDate,
+            let jobSchedultedEndTime = decoder.decodeObjectForKey("jobSchedultedEndTime") as? NSDate,
             let jobEndTime = decoder.decodeObjectForKey("jobEndTime") as? NSDate,
             let zip = decoder.decodeObjectForKey("zip") as? String,
             let status = decoder.decodeObjectForKey("status") as? String,
@@ -86,6 +89,7 @@ class Job: NSObject, NSCoding {
         self.address1 = address1
         self.dispatchTime = dispatchTime
         self.jobStartTime = jobStartTime
+        self.jobSchedultedEndTime = jobSchedultedEndTime
         self.jobEndTime = jobEndTime
         self.city = city
         if let status = JobStatus(rawValue: status) {
@@ -147,6 +151,9 @@ class Job: NSObject, NSCoding {
         }
         if let createTime = dict.objectForKey("job_scheduled_start_time") as? NSTimeInterval {
             job.jobStartTime = NSDate(timeIntervalSince1970: createTime)
+        }
+        if let scheduleEndTime = dict.objectForKey("job_scheduled_end_time") as? NSTimeInterval {
+            job.jobSchedultedEndTime = NSDate(timeIntervalSince1970: scheduleEndTime)
         }
         job.latitude = dict.objectForKey("latitude") as? Double
         job.longtitude = dict.objectForKey("longitude") as? Double

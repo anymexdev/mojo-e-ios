@@ -30,6 +30,7 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
     var currentSelect: NSIndexPath?
     var currentTimeSlot = [TimeSlot]()
     var globalTimeSlot = [TimeSlot]()
+    var occupiedTimeSlot = [TimeSlot]()
     var globalNoteSlot = [String]()
     var timeSelectedLabel: UILabel?
     var timeSelectedButton: UIButton?
@@ -163,12 +164,17 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
                     }
                     let toTimeAdd = dateFormatter.dateFromString(toLabel.text!)
                     let fromTimeAdd = dateFormatter.dateFromString(fromLabel.text!)
-                    let temp = TimeSlot(to: toTimeAdd!, from: fromTimeAdd!)
-                    currentTimeSlot.append(temp)
-                    globalTimeSlot.append(temp)
-                    globalNoteSlot.append((noteTextView.text == defaultSentence) ? "" : noteTextView.text)
-                    noteTextView.text = defaultSentence
-                    listTimeTableView.reloadData()
+                    let slot = TimeSlot(to: toTimeAdd!, from: fromTimeAdd!)
+                    if !slot.slotWasOccupied(occupiedTimeSlot) {
+                        currentTimeSlot.append(slot)
+                        globalTimeSlot.append(slot)
+                        globalNoteSlot.append((noteTextView.text == defaultSentence) ? "" : noteTextView.text)
+                        noteTextView.text = defaultSentence
+                        listTimeTableView.reloadData()
+                    }
+                    else {
+                        Utility.showToastWithMessage(kOccupiedTimesloteWithJob)
+                    }
                 } else {
                     Utility.showToastWithMessage(kErrorTimeSlotShortDistance)
                 }
@@ -259,6 +265,25 @@ class TimeSlotViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionView(listDayCollection, didSelectItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimeSlotViewController.keyboardWillChangeFrameNotification(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
 //        Profile.get()!.registerForJobsAdded()
+        // get occupied Timeslots
+        let profile = Profile.get()
+        profile?.jobsFromFirebase({ (arrayIDs) in
+            if let arrayIDs = arrayIDs where arrayIDs.count > 0 {
+                for id in arrayIDs {
+                    myRootRef.child("jobs").child(id).observeEventType(.Value, withBlock: {
+                        snapshot in
+                        if let value = snapshot.value as? NSDictionary {
+                            let job = Job.createJobFromDict(value)
+                            if job.status == .Accepted || job.status == .EnRoute || job.status == .Started || job.status == .Assigned {
+                                let timeS = TimeSlot(to: job.jobStartTime, from: job.jobSchedultedEndTime)
+                                self.occupiedTimeSlot.append(timeS)
+                            }
+                        }
+                    })
+                    
+                }
+            }
+        })
     }
     
     func setUnSelectedBackgoundLabel() {

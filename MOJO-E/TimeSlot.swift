@@ -77,4 +77,21 @@ class TimeSlot : NSObject, NSCoding {
         }
         return TimeSlot(to: toTime,from: fromTime)
     }
+    
+    func slotWasOccupied(occupiedList: [TimeSlot]) -> Bool {
+        for oSlot in occupiedList {
+//            print("-------------")
+//            print(oSlot.fromTime!)
+//            print(oSlot.toTime!)
+//            print(self.fromTime!)
+//            print(self.toTime!)
+            if self.fromTime!.compare(oSlot.toTime!) == .OrderedAscending && self.toTime!.compare(oSlot.fromTime!) == .OrderedDescending {
+                return true
+            }
+            else if oSlot.fromTime!.compare(self.toTime!) == .OrderedAscending && oSlot.toTime!.compare(self.fromTime!) == .OrderedDescending {
+                return true
+            }
+        }
+        return false
+    }
 }
