@@ -198,5 +198,14 @@ class Job: NSObject, NSCoding {
             jobRef.child("signature").setValue(url)
         }
     }
+    
+    class func hasJobsInDate(jobList: [Job], date: NSDate) -> Bool {
+        for job in jobList {
+            if kDateddMMMMYY.stringFromDate(date) == kDateddMMMMYY.stringFromDate(job.jobStartTime) {
+                return true
+            }
+        }
+        return false
+    }
 }
 

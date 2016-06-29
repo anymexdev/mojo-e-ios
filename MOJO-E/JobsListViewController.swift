@@ -21,14 +21,13 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBOutlet weak var jobViewStyleButton: UIButton!
     
     @IBOutlet weak var menuView: CVCalendarMenuView!
-    @IBOutlet weak var calendarView: CVCalendarView!
+    @IBOutlet weak var cvMonthCalendarView: CVCalendarView!
     
     @IBOutlet weak var calendarContainerView: UIView!
     @IBOutlet weak var todayLabel: UILabel!
     @IBOutlet weak var weekButton: UIButton!
     @IBOutlet weak var todayButton: UIButton!
     
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet var ddCalendarView: DDCalendarView!
     var dict = Dictionary<Int, [DDCalendarEvent]>()
     
@@ -36,6 +35,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     var jobs = [Job]()
     var jobSelected: Job?
     var calendarViewType = CalendarMode.MonthView
+    var dateSelectedOfMonth = NSDate()
     
     //MARK: View did load
     override func viewDidLoad() {
@@ -69,9 +69,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         self.menuView.commitMenuViewUpdate()
-        self.calendarView.commitCalendarViewUpdate()
+        self.cvMonthCalendarView.commitCalendarViewUpdate()
     }
     
     //MARK: UI Action
@@ -85,11 +84,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             calendarViewType = CalendarMode.MonthView
             weekButton.setTitle("week", forState: .Normal)
         }
-        calendarView.changeMode(calendarViewType)
+        cvMonthCalendarView.changeMode(calendarViewType)
     }
     
     @IBAction func todayAction(sender: AnyObject) {
-        self.calendarView.toggleCurrentDayView()
+        self.cvMonthCalendarView.toggleCurrentDayView()
     }
     
     
@@ -113,13 +112,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     @IBAction func changeViewAction(sender: AnyObject) {
         if jobViewStyleButton.currentTitle == "Calendar" {
-//            topConstraint.constant = calendarView.frame.size.height + calendarView.frame.origin.y + 50
             jobViewStyleButton.setTitle("List", forState: .Normal)
             calendarContainerView.hidden = false
             tableView.hidden = true
         }
         else {
-//            topConstraint.constant = 15
             jobViewStyleButton.setTitle("Calendar", forState: .Normal)
             calendarContainerView.hidden = true
             tableView.hidden = false
@@ -129,7 +126,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     func initialize() {
         calendarContainerView.hidden = true
-//        topConstraint.constant = 15
         tableView.hidden = false
         appDelegate.mainVC = self
         Utility.borderRadiusView(addTimeslotView.frame.size.width / 2, view: addTimeslotView)
@@ -142,7 +138,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
         self.syncJobsWithType(.New)
         changeViewAction(weekButton)
-//        Profile.get()!.registerForJobsAdded()
+        todayLabel.text = kDateMMMYYYY.stringFromDate(dateSelectedOfMonth)
     }
     
     func syncJobsWithType(type: JobStatus)
@@ -167,8 +163,19 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             }
                         }
                         if run == max {
-                            self.tableView.reloadData()
-                            self.renderJobInDate(NSDate())
+                            if self.jobs.count > 0 {
+                                self.tableView.reloadData()
+                                self.renderJobInDate(NSDate())
+                                let firstJ = self.jobs.first
+                                let caComponentMonthF = NSCalendar.currentCalendar().components(.Month, fromDate: (firstJ?.jobStartTime)!).month
+                                let caComponentMonthT = NSCalendar.currentCalendar().components(.Month, fromDate: (self.dateSelectedOfMonth)).month
+                                if caComponentMonthF < caComponentMonthT {
+                                    self.cvMonthCalendarView.loadPreviousView()
+                                }
+                                else if caComponentMonthF > caComponentMonthT {
+                                    self.cvMonthCalendarView.loadNextView()
+                                }
+                            }
                         }
                     })
                     
@@ -208,10 +215,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         return 60.0;
     }
     
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        jobSelected = self.jobs[indexPath.row]
-//        self.performSegueWithIdentifier("JobDetailsSegue", sender: nil)
-//    }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0;
@@ -253,7 +256,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     func presentedDateUpdated(date: Date) {
-        todayLabel.text = kDateMMMYYYY.stringFromDate(date.convertedDate()!)
+        dateSelectedOfMonth = date.convertedDate()!
+        todayLabel.text = kDateMMMYYYY.stringFromDate(dateSelectedOfMonth)
     }
     
     // MARK: DDCalendar's delegate
@@ -287,7 +291,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                     ddEvents.append(ddEvent)
                 }
             }
-            print(ddEvents.count)
+//            print(ddEvents.count)
             dict[0] = ddEvents
             self.ddCalendarView.reloadData()
         }
@@ -339,4 +343,17 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         }
     }
     
+    func preliminaryView(shouldDisplayOnDayView dayView: DayView) -> Bool {
+        if let cDate = dayView.date, let date = cDate.convertedDate() {
+            return Job.hasJobsInDate(self.jobs, date: date)
+        }
+        return false
+    }
+    
+    func preliminaryView(viewOnDayView dayView: DayView) -> UIView {
+        let dot = UIView(frame: CGRectMake(5, 10, 8, 8))
+        dot.backgroundColor = UIColor.whiteColor()
+        dot.layer.cornerRadius = 4
+        return dot
+    }
 }

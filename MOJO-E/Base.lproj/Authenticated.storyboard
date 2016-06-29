@@ -322,7 +322,7 @@
                         <outlet property="addTimeslotButton" destination="krF-uz-gdb" id="yIb-3o-4OV"/>
                         <outlet property="addTimeslotView" destination="6fn-B8-ZWv" id="JO9-a3-ZlV"/>
                         <outlet property="calendarContainerView" destination="Gjm-jy-VX4" id="Msc-GU-Nmj"/>
-                        <outlet property="calendarView" destination="ubJ-Dn-a6h" id="wBJ-fF-L9s"/>
+                        <outlet property="cvMonthCalendarView" destination="ubJ-Dn-a6h" id="quw-cy-NUl"/>
                         <outlet property="ddCalendarView" destination="B5S-Rf-lNR" id="2Sr-Re-ag0"/>
                         <outlet property="jobViewStyleButton" destination="gjS-RB-cXp" id="ODe-Jr-671"/>
                         <outlet property="menuView" destination="1G2-hA-MiL" id="9w7-Z7-CRS"/>
