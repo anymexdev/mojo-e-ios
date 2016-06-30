@@ -182,10 +182,16 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
 //                                    self.cvMonthCalendarView.loadNextView()
                                 }
                             }
+                            else {
+                                self.tableView.reloadData()
+                            }
                         }
                     })
                     
                 }
+            }
+            else {
+                self.tableView.reloadData()
             }
             appDelegate.isRegisterNotiFirstTime = false
         })
@@ -239,6 +245,14 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     func acceptJob(job: Job?) {
         if let job = job {
             job.setJobStatus(.Accepted)
+            self.syncJobsWithType(.New)
+        }
+    }
+    
+    func rejectJob(job: Job?) {
+        if let job = job {
+            job.setJobStatus(.New)
+            job.rejectJob(Profile.get()!.authenID)
             self.syncJobsWithType(.New)
         }
     }

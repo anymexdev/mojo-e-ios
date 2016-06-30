@@ -11,6 +11,7 @@ import Font_Awesome_Swift
 
 @objc protocol JobCellDelegate {
     func acceptJob(job: Job?)
+    func rejectJob(job: Job?)
     func goToDetails(job: Job?)
 }
 
@@ -20,6 +21,7 @@ class JobCell: MGSwipeTableCell {
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var rejectButton: UIButton!
     
     
     // MARK: Class's properties
@@ -67,9 +69,11 @@ class JobCell: MGSwipeTableCell {
             self.addressLabel.text = job.address1
             if job.status == JobStatus.New {
                 acceptButton.hidden = false
+                rejectButton.hidden = false
             }
             else {
                 acceptButton.hidden = true
+                rejectButton.hidden = true
             }
         }
     }
@@ -78,11 +82,16 @@ class JobCell: MGSwipeTableCell {
         self.businessNameLabel.text = ""
         self.addressLabel.text = ""
         acceptButton.hidden = true
+        rejectButton.hidden = true
     }
     
     
     @IBAction func acceptAction(sender: AnyObject) {
         delegateCell?.acceptJob(job)
+    }
+    
+    @IBAction func rejectAction(sender: AnyObject) {
+        delegateCell?.rejectJob(job)
     }
     
     @IBAction func goDetailsAction(sender: AnyObject) {

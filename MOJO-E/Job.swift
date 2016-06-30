@@ -199,6 +199,13 @@ class Job: NSObject, NSCoding {
         }
     }
     
+    func rejectJob(userID: String) {
+        if let id = self.id {
+            myRootRef.child("jobs").child("\(id)").child("user_id").setValue("")
+            myRootRef.child("users").child(userID).child("jobs").child("\(id)").removeValue()
+        }
+    }
+    
     class func hasJobsInDate(jobList: [Job], date: NSDate) -> Bool {
         for job in jobList {
             if kDateddMMMMYY.stringFromDate(date) == kDateddMMMMYY.stringFromDate(job.jobStartTime) {

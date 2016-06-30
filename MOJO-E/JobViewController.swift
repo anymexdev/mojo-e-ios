@@ -28,6 +28,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var widthOfMapConstraint: NSLayoutConstraint!
     @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var rejectButton: UIButton!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var createTimeLabel: UILabel!
     @IBOutlet weak var mainScroll: UIScrollView!
@@ -62,6 +63,12 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     //MARK: Button's action
     @IBAction func backAction(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func rejectAction(sender: AnyObject) {
+        self.jobSelected!.setJobStatus(.New)
+        self.jobSelected!.rejectJob(Profile.get()!.authenID)
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -246,6 +253,9 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         acceptButton.layer.borderColor = UIColor.whiteColor().CGColor
         acceptButton.layer.borderWidth = 1
         
+        rejectButton.layer.borderColor = UIColor.redColor().CGColor
+        rejectButton.layer.borderWidth = 1
+        
         uploadPicturesButton.layer.borderColor = UIColor.whiteColor().CGColor
         uploadPicturesButton.layer.borderWidth = 1
         
@@ -254,6 +264,9 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         appDelegate.mainVC = self
+        if jobSelected?.status == JobStatus.New || jobSelected?.status == JobStatus.Assigned {
+            rejectButton.hidden = false
+        }
         if jobSelected?.status == JobStatus.EnRoute || jobSelected?.status == JobStatus.Started {
             acceptButton.setTitle(JobStatus.Finished.rawValue, forState: .Normal)
         }
