@@ -33,9 +33,10 @@ class Profile: NSObject, NSCoding {
     var authenID = ""
     var isRemember = false
     var isLogged = false
+    var isAdmin = false
     var isAvailibity = true
     var companies = ""
-    var specialties = ""
+    var specialties = "Software developer"
     var avatarPic: UIImage?
     
     required convenience init?(coder decoder: NSCoder) {
@@ -68,6 +69,7 @@ class Profile: NSObject, NSCoding {
         self.authenID = authenID
         self.isRemember = decoder.decodeBoolForKey("isRemember")
         self.isAvailibity = decoder.decodeBoolForKey("isAvailibity")
+        self.isAdmin = decoder.decodeBoolForKey("isAdmin")
         self.companies = companies
         self.specialties = specialties
         self.isLogged = decoder.decodeBoolForKey("isLogged")
@@ -87,6 +89,7 @@ class Profile: NSObject, NSCoding {
         coder.encodeObject(self.specialties, forKey: "specialties")
         coder.encodeObject(self.userName, forKey: "name")
         coder.encodeBool(self.isAvailibity, forKey: "isAvailibity")
+        coder.encodeBool(self.isAdmin, forKey: "isAdmin")
         coder.encodeBool(self.isRemember, forKey: "isRemember")
         coder.encodeBool(self.isLogged, forKey: "isLogged")
         coder.encodeObject(self.email, forKey: "email")
@@ -122,6 +125,9 @@ class Profile: NSObject, NSCoding {
                 if let phone = data.objectForKey("phone") as? String {
                     self.phone = phone
                 }
+                if let isAdmin = data.objectForKey("admin") as? Bool {
+                    self.isAdmin = isAdmin
+                }
                 if let userName = data.objectForKey("userName") as? String {
                     self.userName = userName
                 }
@@ -136,11 +142,18 @@ class Profile: NSObject, NSCoding {
                 if let photoURL = data.objectForKey("profile_picture") as? String {
                     self.photoURL = photoURL
                 }
-                if let companies = data.objectForKey("companies") as? NSArray {
+                if let companies = data.objectForKey("companies") as? NSDictionary {
                     print(companies)
+                    self.companies = ""
+                    for (_, dict) in companies {
+                        if let dict = dict as? NSDictionary {
+                            self.companies = self.companies + " " + (dict.objectForKey("name") as! String)
+                        }
+                    }
+                    print(self.companies)
                 }
-                if let specialties = data.objectForKey("specialties") as? NSArray {
-                    for value in specialties {
+                if let specialties = data.objectForKey("specialties") as? NSDictionary {
+                    for (_, value) in specialties {
                         if let value = value as? Int {
                             if value == 1 {
                                 self.specialties += "telecommunication, "

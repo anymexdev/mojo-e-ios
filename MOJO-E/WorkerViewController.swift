@@ -28,6 +28,8 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var availableSwitch: UISwitch!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var adminImage: UIImageView!
+    
     // Mark: Class's properties
     var profile = Profile.get()
     
@@ -130,6 +132,8 @@ class WorkerViewController: UIViewController, UIImagePickerControllerDelegate, U
                 self.availableSwitch.on = profile.isAvailibity
                 self.avatarImage.image = profile.avatarPic
                 self.avatarImage.contentMode = .ScaleAspectFit
+                self.adminImage.hidden = !profile.isAdmin
+                
                 let profileRef = storage.reference().child("images/\(self.profile!.authenID).png")
                 profileRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
                     if let error = error {

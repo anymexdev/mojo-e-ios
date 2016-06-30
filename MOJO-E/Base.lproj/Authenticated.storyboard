@@ -1403,10 +1403,19 @@
                                             <action selector="backAction:" destination="83h-mR-jDa" eventType="touchUpInside" id="PgP-00-eHX"/>
                                         </connections>
                                     </button>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Admin" translatesAutoresizingMaskIntoConstraints="NO" id="PaZ-Wn-5DC">
+                                        <rect key="frame" x="354" y="39" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="5Oj-xb-4OI"/>
+                                            <constraint firstAttribute="height" constant="40" id="MYZ-20-9Zi"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.41960784309999999" green="0.65490196079999996" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="9Gx-2w-wqN" firstAttribute="centerX" secondItem="OAf-xM-3Sa" secondAttribute="centerX" id="E3b-p2-lzg"/>
+                                    <constraint firstItem="PaZ-Wn-5DC" firstAttribute="centerY" secondItem="9Gx-2w-wqN" secondAttribute="centerY" id="FQP-71-ka6"/>
+                                    <constraint firstAttribute="trailing" secondItem="PaZ-Wn-5DC" secondAttribute="trailing" constant="20" id="Pvj-dD-dhs"/>
                                     <constraint firstItem="9qJ-eG-MbT" firstAttribute="top" secondItem="OAf-xM-3Sa" secondAttribute="top" constant="20" id="Wgz-pe-nKh"/>
                                     <constraint firstAttribute="height" constant="86" id="ZDn-BE-4wU"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="e4J-zN-vPJ"/>
@@ -1648,6 +1657,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="actionButton" destination="xTU-Uz-Llt" id="jAt-qx-8vf"/>
+                        <outlet property="adminImage" destination="PaZ-Wn-5DC" id="Tmm-Ji-Pwp"/>
                         <outlet property="availableSwitch" destination="w5C-yf-4so" id="eHz-4v-0h9"/>
                         <outlet property="avatarImage" destination="vg5-EV-Zd1" id="Xt1-QY-vZh"/>
                         <outlet property="bottomConstraint" destination="wYQ-r3-am4" id="Or4-nO-X1D"/>
@@ -1669,6 +1679,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Admin" width="256" height="256"/>
         <image name="SideMenu" width="26" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
