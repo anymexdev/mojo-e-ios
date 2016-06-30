@@ -392,7 +392,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     func supplementaryView(viewOnDayView dayView: DayView) -> UIView {
-        let dot = UIView(frame: CGRectMake(5, 20, 8, 8))
+        var yCoor: CGFloat = 20.0
+        if let cDate = dayView.date, let date = cDate.convertedDate() where Job.hasJobsInDate(self.jobs, date: date) == false {
+            yCoor = 10.0
+        }
+        let dot = UIView(frame: CGRectMake(5, yCoor, 8, 8))
         dot.backgroundColor = UIColor.orangeColor()
         dot.layer.cornerRadius = 4
         return dot
