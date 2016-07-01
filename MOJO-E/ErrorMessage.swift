@@ -30,3 +30,5 @@ let kErrorTimeSlotShortDistance = "The interval could be least at 15 minute"
 let kErrorTimeSlotPreToTimeLaterThanFromTime = "From time must be sooner than To time"
 
 let kOccupiedTimesloteWithJob = "You have job to do at this timeslot"
+
+let kJobFromRegional = "Job is from Regional companies, need to accept to see details"

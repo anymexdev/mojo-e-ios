@@ -315,6 +315,10 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     func goToDetails(job: Job?) {
+        if let job = job where job.isRegional {
+            Utility.showAlertWithMessage(kJobFromRegional)
+            return
+        }
         jobSelected = job
         self.performSegueWithIdentifier("JobDetailsSegue", sender: nil)
     }
