@@ -17,6 +17,7 @@ class Job: NSObject, NSCoding {
     // MARK: Class's properties
     var id: Int?
     var businessName = ""
+    var jobID = ""
     var zip = ""
     var state = ""
     var businessID: Int?
@@ -38,6 +39,7 @@ class Job: NSObject, NSCoding {
     // MARK: NSCoding
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.businessName, forKey: "businessName")
+        coder.encodeObject(self.jobID, forKey: "jobID")
         coder.encodeObject(self.dispatchTime, forKey: "dispatchTime")
         coder.encodeObject(self.jobStartTime, forKey: "jobStartTime")
         coder.encodeObject(self.jobSchedultedEndTime, forKey: "jobSchedultedEndTime")
@@ -72,6 +74,7 @@ class Job: NSObject, NSCoding {
     required convenience init?(coder decoder: NSCoder) {
         guard let businessName = decoder.decodeObjectForKey("businessName") as? String,
             let address1 = decoder.decodeObjectForKey("address1") as? String,
+            let jobID = decoder.decodeObjectForKey("jobID") as? String,
             let city = decoder.decodeObjectForKey("city") as? String,
             let dispatchTime = decoder.decodeObjectForKey("dispatchTime") as? NSDate,
             let jobStartTime = decoder.decodeObjectForKey("jobStartTime") as? NSDate,
@@ -95,6 +98,7 @@ class Job: NSObject, NSCoding {
         self.jobEndTime = jobEndTime
         self.isRegional = decoder.decodeBoolForKey("isRegional")
         self.city = city
+        self.jobID = jobID
         if let status = JobStatus(rawValue: status) {
             self.status = status
         }
@@ -207,6 +211,13 @@ class Job: NSObject, NSCoding {
             myRootRef.child("jobs").child("\(id)").child("user_id").setValue("")
             myRootRef.child("users").child(userID).child("jobs").child("\(id)").removeValue()
         }
+    }
+    
+    func getTheRegionalJob(userID: String, jobID: String) {
+        var data = Dictionary<String, AnyObject>()
+        data["assigned"] = true
+        data["timestamp"] = round(NSDate().timeIntervalSince1970)
+        myRootRef.child("users").child(userID).child("jobs").child(jobID).setValue(data)
     }
     
     class func hasJobsInDate(jobList: [Job], date: NSDate) -> Bool {

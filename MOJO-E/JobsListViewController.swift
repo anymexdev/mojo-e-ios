@@ -214,6 +214,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             if let value = snapshot.value as? NSDictionary {
                                 let job = Job.createJobFromDict(value)
                                 job.isRegional = true
+                                job.jobID = id
                                 self.jobs.append(job)
                             }
                             if run == max {
@@ -282,16 +283,34 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: Friend request protocol
     func acceptJob(job: Job?) {
         if let job = job {
-            job.setJobStatus(.Accepted)
-            self.syncJobsWithType(.New)
+            if job.isRegional {
+                job.isRegional = false
+                job.getTheRegionalJob(Profile.get()!.authenID, jobID: job.jobID)
+                self.tableView.reloadData()
+            }
+            else {
+                job.setJobStatus(.Accepted)
+                self.syncJobsWithType(.New)
+            }
         }
     }
     
     func rejectJob(job: Job?) {
         if let job = job {
-            job.setJobStatus(.New)
-            job.rejectJob(Profile.get()!.authenID)
-            self.syncJobsWithType(.New)
+            if job.isRegional {
+                for (index, jobE) in self.jobs.enumerate() {
+                    if job.businessName == jobE.businessName {
+                        self.jobs.removeAtIndex(index)
+                        break
+                    }
+                }
+                self.tableView.reloadData()
+            }
+            else {
+                job.setJobStatus(.New)
+                job.rejectJob(Profile.get()!.authenID)
+                self.syncJobsWithType(.New)
+            }
         }
     }
     
