@@ -32,6 +32,7 @@ class Job: NSObject, NSCoding {
     var jobSchedultedEndTime = NSDate()
     var jobEndTime = NSDate()
     var pictureCount: Int = 0
+    var isRegional = false
     
     
     // MARK: NSCoding
@@ -47,6 +48,7 @@ class Job: NSObject, NSCoding {
         coder.encodeObject(self.zip, forKey: "zip")
         coder.encodeObject(self.state, forKey: "state")
         coder.encodeInteger(self.pictureCount, forKey: "pictureCount")
+        coder.encodeBool(self.isRegional, forKey: "isRegional")
         if let latitude = self.latitude {
             coder.encodeDouble(latitude, forKey: "latitude")
         }
@@ -91,6 +93,7 @@ class Job: NSObject, NSCoding {
         self.jobStartTime = jobStartTime
         self.jobSchedultedEndTime = jobSchedultedEndTime
         self.jobEndTime = jobEndTime
+        self.isRegional = decoder.decodeBoolForKey("isRegional")
         self.city = city
         if let status = JobStatus(rawValue: status) {
             self.status = status

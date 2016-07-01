@@ -213,6 +213,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             run = run + 1
                             if let value = snapshot.value as? NSDictionary {
                                 let job = Job.createJobFromDict(value)
+                                job.isRegional = true
                                 self.jobs.append(job)
                             }
                             if run == max {

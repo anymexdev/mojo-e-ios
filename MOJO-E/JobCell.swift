@@ -22,6 +22,7 @@ class JobCell: MGSwipeTableCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var rejectButton: UIButton!
+    @IBOutlet weak var regionalCompanyImage: UIImageView!
     
     
     // MARK: Class's properties
@@ -75,6 +76,7 @@ class JobCell: MGSwipeTableCell {
                 acceptButton.hidden = true
                 rejectButton.hidden = true
             }
+            regionalCompanyImage.hidden = !job.isRegional
         }
     }
     
@@ -83,6 +85,8 @@ class JobCell: MGSwipeTableCell {
         self.addressLabel.text = ""
         acceptButton.hidden = true
         rejectButton.hidden = true
+        regionalCompanyImage.hidden = true
+        regionalCompanyImage.setFAIconWithName(.FABuilding, textColor: Utility.greenL0Color())
     }
     
     
