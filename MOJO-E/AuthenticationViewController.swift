@@ -85,6 +85,11 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
                     profile.email = email
                     profile.password = password
                     profile.saveProfile()
+                    profile.syncFromFirebase({ (profile) in
+                        if let profile = profile {
+                            profile.saveProfile()
+                        }
+                    })
                     Utility.openAuthenticatedFlow()
                 }
             })

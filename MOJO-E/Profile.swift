@@ -36,6 +36,7 @@ class Profile: NSObject, NSCoding {
     var isAdmin = false
     var isAvailibity = true
     var companies = ""
+    var companyID = ""
     var specialties = "Software developer"
     var avatarPic: UIImage?
     
@@ -47,6 +48,7 @@ class Profile: NSObject, NSCoding {
             let authenID = decoder.decodeObjectForKey("authenID") as? String,
             let location = decoder.decodeObjectForKey("location") as? String,
             let companies = decoder.decodeObjectForKey("companies") as? String,
+            let companyID = decoder.decodeObjectForKey("companyID") as? String,
             let specialties = decoder.decodeObjectForKey("specialties") as? String,
             let phone = decoder.decodeObjectForKey("phone") as? String,
             let createAt = decoder.decodeObjectForKey("createAt") as? String
@@ -71,6 +73,7 @@ class Profile: NSObject, NSCoding {
         self.isAvailibity = decoder.decodeBoolForKey("isAvailibity")
         self.isAdmin = decoder.decodeBoolForKey("isAdmin")
         self.companies = companies
+        self.companyID = companyID
         self.specialties = specialties
         self.isLogged = decoder.decodeBoolForKey("isLogged")
         self.rate1 = decoder.decodeFloatForKey("rate1")
@@ -82,6 +85,7 @@ class Profile: NSObject, NSCoding {
     
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.companies, forKey: "companies")
+        coder.encodeObject(self.companyID, forKey: "companyID")
         if let image = self.avatarPic {
             let data = UIImagePNGRepresentation(image)
             coder.encodeObject(data, forKey: "avatarPic")
@@ -143,9 +147,11 @@ class Profile: NSObject, NSCoding {
                     self.photoURL = photoURL
                 }
                 if let companies = data.objectForKey("companies") as? NSDictionary {
-                    print(companies)
+//                    print(companies)
                     self.companies = ""
-                    for (_, dict) in companies {
+                    for (key, dict) in companies {
+//                        print(key)
+                        self.companyID = "\(key)"
                         if let dict = dict as? NSDictionary {
                             self.companies = self.companies + " " + (dict.objectForKey("name") as! String)
                         }
@@ -193,6 +199,35 @@ class Profile: NSObject, NSCoding {
             }
         })
     }
+    
+    func getRegionalJobs(arrayIDs: [String]?, completionBlock: (arrIDs: [String]) -> Void) {
+        myRootRef.child("companies").child(self.companyID).child("jobs").observeEventType(.Value, withBlock: {
+            snapshot in
+            print(snapshot.value)
+             var arrIDs = [String]()
+            if let jobsArr = snapshot.value as? NSArray {
+                for dict in jobsArr {
+                    if let dict = dict as? NSDictionary, let id = dict.objectForKey("id") as? String, let status = dict.objectForKey("status") as? String where status == "new" {
+                        print(id)
+                        if let arrayIDs = arrayIDs {
+                            if !arrayIDs.contains(id) {
+                                arrIDs.append("\(id)")
+                            }
+                        }
+                        else {
+                            arrIDs.append("\(id)")
+                        }
+                    }
+                }
+                completionBlock(arrIDs: arrIDs)
+            }
+            else {
+                completionBlock(arrIDs: arrIDs)
+            }
+        })
+    }
+    
+    
     
     func registerForJobsAdded() {
         myRootRef.child("users").child(self.authenID).child("jobs").observeEventType(.ChildAdded, withBlock: {
