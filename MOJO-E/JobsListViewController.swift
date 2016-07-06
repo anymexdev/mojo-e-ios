@@ -266,7 +266,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     // MARK: UITableViewDelegate.
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60.0;
+        return 85.0;
     }
     
     

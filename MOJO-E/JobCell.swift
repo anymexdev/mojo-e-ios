@@ -20,6 +20,7 @@ class JobCell: MGSwipeTableCell {
     // MARK: UI's elements
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var rejectButton: UIButton!
     @IBOutlet weak var regionalCompanyImage: UIImageView!
@@ -68,6 +69,7 @@ class JobCell: MGSwipeTableCell {
         if let job = self.job {
             self.businessNameLabel.text = job.businessName
             self.addressLabel.text = job.address1
+            self.timeLabel.text = kDateJobTime.stringFromDate(job.jobStartTime)
             if job.status == JobStatus.New || job.status == JobStatus.Assigned {
                 acceptButton.hidden = false
                 rejectButton.hidden = false
