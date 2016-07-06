@@ -39,6 +39,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var signatureButton: UIButton!
     @IBOutlet weak var signatureImage: UIImageView!
     @IBOutlet weak var jobHeaderLabel: UILabel!
+    @IBOutlet weak var workscopeLabel: UILabel!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -204,7 +205,6 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-//        print("locations = \(locValue.latitude) \(locValue.longitude)")
         if let pin = self.pinLocation {
             updateDistanceToAnotation(pin, userLocation: locValue)
         }
@@ -216,13 +216,6 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let profile = Profile.get() {
             myRootRef.child("users").child(profile.authenID).child("location").setValue(data)
         }
-//            let key = "j\(userID)/location"
-//            geoFire.setLocation(CLLocation(latitude: locValue.latitude, longitude: locValue.longitude), forKey: userID) { (error) in
-//                if (error != nil) {
-//                    print("An error occured: \(error)")
-//                } else {
-//                    print("Saved location successfully!")
-//                }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -308,6 +301,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let jobEndTime = jobSelected?.jobEndTime {
             endTimeLabel.text = kDateJobTime.stringFromDate(jobEndTime)
         }
+        workscopeLabel.text = jobSelected?.workScope
     }
     
     private func drawPinsOfRequest() {
@@ -343,7 +337,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let distance = anotationLocation.distanceFromLocation(userLocation)
         let stringMiles  = NSString(format: "%.1f miles", distance/1609.344)
         distanceLabel.text = "\(stringMiles)"
-        mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, 900)
+        mainScroll.contentSize = CGSizeMake(widthOfMapConstraint.constant, 950)
     }
     
     private func loadImagesFromJob() {

@@ -164,7 +164,10 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             if job.status == type {
                                 self.jobs.append(Job.createJobFromDict(value))
                             }
-                            else if type == .Accepted && (job.status == .EnRoute || job.status == .Assigned || job.status == .Started) {
+                            else if type == .Accepted && (job.status == .EnRoute || job.status == .Started) {
+                                self.jobs.append(Job.createJobFromDict(value))
+                            }
+                            else if type == .New && job.status == .Assigned {
                                 self.jobs.append(Job.createJobFromDict(value))
                             }
                         }
@@ -286,12 +289,10 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             if job.isRegional {
                 job.isRegional = false
                 job.getTheRegionalJob(Profile.get()!.authenID, jobID: job.jobID)
-                self.tableView.reloadData()
+                job.setRegionalJobStatus(.Assigned, companyID: Profile.get()!.companyID)
             }
-            else {
-                job.setJobStatus(.Accepted)
-                self.syncJobsWithType(.New)
-            }
+            job.setJobStatus(.Accepted)
+            self.syncJobsWithType(.New)
         }
     }
     

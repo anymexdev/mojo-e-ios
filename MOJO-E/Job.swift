@@ -34,11 +34,13 @@ class Job: NSObject, NSCoding {
     var jobEndTime = NSDate()
     var pictureCount: Int = 0
     var isRegional = false
+    var workScope = ""
     
     
     // MARK: NSCoding
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.businessName, forKey: "businessName")
+        coder.encodeObject(self.workScope, forKey: "workScope")
         coder.encodeObject(self.jobID, forKey: "jobID")
         coder.encodeObject(self.dispatchTime, forKey: "dispatchTime")
         coder.encodeObject(self.jobStartTime, forKey: "jobStartTime")
@@ -74,6 +76,7 @@ class Job: NSObject, NSCoding {
     required convenience init?(coder decoder: NSCoder) {
         guard let businessName = decoder.decodeObjectForKey("businessName") as? String,
             let address1 = decoder.decodeObjectForKey("address1") as? String,
+            let workScope = decoder.decodeObjectForKey("workScope") as? String,
             let jobID = decoder.decodeObjectForKey("jobID") as? String,
             let city = decoder.decodeObjectForKey("city") as? String,
             let dispatchTime = decoder.decodeObjectForKey("dispatchTime") as? NSDate,
@@ -89,6 +92,7 @@ class Job: NSObject, NSCoding {
         self.init()
         self.businessID = decoder.decodeIntegerForKey("businessID")
         self.businessName = businessName
+        self.workScope = workScope
         self.zip = zip
         self.state = state
         self.address1 = address1
@@ -128,6 +132,9 @@ class Job: NSObject, NSCoding {
         }
         if let businessName = dict.objectForKey("business_name") as? String {
             job.businessName = businessName
+        }
+        if let workScope = dict.objectForKey("work_scope") as? String {
+            job.workScope = workScope
         }
         if let address1 = dict.objectForKey("address1") as? String {
             job.address1 = address1
@@ -175,6 +182,12 @@ class Job: NSObject, NSCoding {
                 self.status = status
                 jobRef.child("user_id").setValue(profile.authenID)
             }
+        }
+    }
+    
+    func setRegionalJobStatus(status: JobStatus, companyID: String) {
+        if let id = self.id {
+            myRootRef.child("companies").child(companyID).child("jobs").child("\(id)").child("status").setValue(status.rawValue)
         }
     }
     
