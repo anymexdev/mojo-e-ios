@@ -29,6 +29,7 @@ let kErrorTimeSlotDateExist = "The timeslot's been existed. Please pick another"
 let kErrorTimeSlotShortDistance = "The interval could be least at 15 minute"
 let kErrorTimeSlotPreToTimeLaterThanFromTime = "From time must be sooner than To time"
 
-let kOccupiedTimesloteWithJob = "You have job to do at this timeslot"
+let kOccupiedTimesloteWithJob = "You have a job to do at this timeslot"
+let kOccupiedTimesloteWithPersonal = "Due to your personal time, you'll be busy at this timing"
 
 let kJobFromRegional = "Job is from Regional companies, need to accept to see details"

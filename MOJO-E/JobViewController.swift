@@ -20,6 +20,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var imagesList = [UIImage]()
     var fLatLong = "saddr=%f,%f"
     var toLatLong = "daddr=%f,%f"
+    var personalTimeSlots = [TimeSlot]()
 
     //MARK: UI Element
     @IBOutlet weak var businessName: UILabel!
@@ -77,6 +78,11 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         var status = JobStatus.Accepted
         let title = acceptButton.titleLabel?.text
         if title == "Start" {
+            let slot = TimeSlot(to: self.jobSelected!.jobSchedultedEndTime, from: self.jobSelected!.jobStartTime, note: "")
+            if slot.slotWasOccupied(personalTimeSlots) {
+                Utility.showAlertWithMessage(kOccupiedTimesloteWithPersonal)
+                return
+            }
             status = JobStatus.Started
             self.jobSelected!.setJobStartTime()
         }
@@ -275,6 +281,11 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             self.jobHeaderLabel.text = "Job was completed"
         }
         loadJobInfo()
+        TimeSlot.allPersonalTimeslots { (timeslots) in
+            if timeslots.count > 0 {
+                self.personalTimeSlots = timeslots
+            }
+        }
 //        Profile.get()!.registerForJobsAdded()
     }
     

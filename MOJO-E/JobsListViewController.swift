@@ -286,6 +286,11 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     // MARK: Friend request protocol
     func acceptJob(job: Job?) {
         if let job = job {
+            let slot = TimeSlot(to: job.jobSchedultedEndTime, from: job.jobStartTime, note: "")
+            if slot.slotWasOccupied(personalTimeSlots) {
+                Utility.showAlertWithMessage(kOccupiedTimesloteWithPersonal)
+                return
+            }
             if job.isRegional {
                 job.isRegional = false
                 job.getTheRegionalJob(Profile.get()!.authenID, jobID: job.jobID)
