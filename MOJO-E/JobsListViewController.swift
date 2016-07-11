@@ -161,6 +161,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         }
         else {
             mainSegment.removeSegmentAtIndex(0, animated: false)
+            mainSegment.selectedSegmentIndex = 0
             self.syncJobsWithType(.Assigned)
         }
     }
