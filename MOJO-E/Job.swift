@@ -15,7 +15,7 @@ class Job: NSObject, NSCoding {
     }
     
     // MARK: Class's properties
-    var id: Int?
+    var id: Int = 1
     var businessName = ""
     var jobID = ""
     var zip = ""
@@ -62,9 +62,7 @@ class Job: NSObject, NSCoding {
         if let ticketNumber = self.ticketNumber {
             coder.encodeInteger(ticketNumber, forKey: "ticketNumber")
         }
-        if let id = self.id {
-            coder.encodeInteger(id, forKey: "id")
-        }
+        coder.encodeInteger(self.id, forKey: "id")
         if let businessID = self.businessID {
             coder.encodeInteger(businessID, forKey: "businessID")
         }
@@ -175,55 +173,41 @@ class Job: NSObject, NSCoding {
     }
     
     func setJobStatus(status: JobStatus) {
-        if let id = self.id {
-            let jobRef = myRootRef.child("jobs").child("\(id)")
-            jobRef.child("status").setValue(status.rawValue)
-            if let profile = Profile.get() {
-                self.status = status
-                jobRef.child("user_id").setValue(profile.authenID)
-            }
+        let jobRef = myRootRef.child("jobs").child("\(id)")
+        jobRef.child("status").setValue(status.rawValue)
+        if let profile = Profile.get() {
+            self.status = status
+            jobRef.child("user_id").setValue(profile.authenID)
         }
     }
     
     func setRegionalJobStatus(status: JobStatus, companyID: String) {
-        if let id = self.id {
-            myRootRef.child("companies").child(companyID).child("jobs").child("\(id)").child("status").setValue(status.rawValue)
-        }
+        myRootRef.child("companies").child(companyID).child("jobs").child("\(id)").child("status").setValue(status.rawValue)
     }
     
     func setJobSubmitTime() {
-        if let id = self.id {
-            let jobRef = myRootRef.child("jobs").child("\(id)")
-            jobRef.child("submit_time").setValue(round(NSDate().timeIntervalSince1970))
-        }
+        let jobRef = myRootRef.child("jobs").child("\(id)")
+        jobRef.child("submit_time").setValue(round(NSDate().timeIntervalSince1970))
     }
     
     func setJobStartTime() {
-        if let id = self.id {
-            let jobRef = myRootRef.child("jobs").child("\(id)")
-            jobRef.child("job_scheduled_start_time").setValue(round(NSDate().timeIntervalSince1970))
-        }
+        let jobRef = myRootRef.child("jobs").child("\(id)")
+        jobRef.child("job_scheduled_start_time").setValue(round(NSDate().timeIntervalSince1970))
     }
     
     func setJobPictures(arrayImageURL: [String]) {
-        if let id = self.id {
-            let jobRef = myRootRef.child("jobs").child("\(id)")
-            jobRef.child("pictures").setValue(arrayImageURL)
-        }
+        let jobRef = myRootRef.child("jobs").child("\(id)")
+        jobRef.child("pictures").setValue(arrayImageURL)
     }
     
     func setJobSignature(url: String) {
-        if let id = self.id {
-            let jobRef = myRootRef.child("jobs").child("\(id)")
-            jobRef.child("signature").setValue(url)
-        }
+        let jobRef = myRootRef.child("jobs").child("\(id)")
+        jobRef.child("signature").setValue(url)
     }
     
     func rejectJob(userID: String) {
-        if let id = self.id {
-            myRootRef.child("jobs").child("\(id)").child("user_id").setValue("")
-            myRootRef.child("users").child(userID).child("jobs").child("\(id)").removeValue()
-        }
+        myRootRef.child("jobs").child("\(id)").child("user_id").setValue("")
+        myRootRef.child("users").child(userID).child("jobs").child("\(id)").removeValue()
     }
     
     func getTheRegionalJob(userID: String, jobID: String) {

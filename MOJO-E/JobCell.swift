@@ -67,7 +67,7 @@ class JobCell: MGSwipeTableCell {
     
     func renderUI() {
         if let job = self.job {
-            self.businessNameLabel.text = job.businessName
+            self.businessNameLabel.text = "#\(job.id) - \(job.businessName)"
             self.addressLabel.text = job.address1
             self.timeLabel.text = kDateJobTime.stringFromDate(job.jobStartTime)
             if job.status == JobStatus.New || job.status == JobStatus.Assigned {

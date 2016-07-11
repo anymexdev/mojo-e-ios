@@ -40,7 +40,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var signatureButton: UIButton!
     @IBOutlet weak var signatureImage: UIImageView!
     @IBOutlet weak var jobHeaderLabel: UILabel!
-    @IBOutlet weak var workscopeLabel: UILabel!
+    @IBOutlet weak var workscopeView: UITextView!
     
     //MARK: View lifecycle
     override func viewDidLoad() {
@@ -94,7 +94,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             var imageURLList = [String]()
             for (index, image) in imagesList.enumerate() {
                 let data = UIImagePNGRepresentation(image)
-                let profilePicRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)").child("\(index).png")
+                let profilePicRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id)").child("\(index).png")
                 _ = profilePicRef.putData(data!, metadata: nil) { metadata, error in
                     if (error != nil) {
                         // Uh-oh, an error occurred!
@@ -110,7 +110,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             if let image = signatureImage.image {
                 let data = UIImagePNGRepresentation(image)
-                let signaturePicRef = storage.reference().child("Signatures").child("\(self.jobSelected!.id!).png")
+                let signaturePicRef = storage.reference().child("Signatures").child("\(self.jobSelected!.id).png")
                 _ = signaturePicRef.putData(data!, metadata: nil) { metadata, error in
                     if (error != nil) {
                         // Uh-oh, an error occurred!
@@ -312,7 +312,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let jobEndTime = jobSelected?.jobEndTime {
             endTimeLabel.text = kDateJobTime.stringFromDate(jobEndTime)
         }
-        workscopeLabel.text = jobSelected?.workScope
+        workscopeView.text = jobSelected?.workScope
     }
     
     private func drawPinsOfRequest() {
@@ -356,7 +356,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         uploadPicturesButton.hidden = false
         uploadPicturesButton.enabled = false
         for index in 0...jobSelected!.pictureCount {
-            let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id!)").child("\(index).png")
+            let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id)").child("\(index).png")
             jobPicturesRef.dataWithMaxSize(20 * 1024 * 1024, completion: { (data, error) in
                 if let error = error {
                     print(error.description)
@@ -382,7 +382,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         signatureButton.hidden = false
         signatureButton.enabled = false
         signatureImage.hidden = false
-        let jobSignatureRef = storage.reference().child("Signatures").child("\(self.jobSelected!.id!).png")
+        let jobSignatureRef = storage.reference().child("Signatures").child("\(self.jobSelected!.id).png")
         jobSignatureRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
             if let error = error {
                 print(error.description)

@@ -366,7 +366,8 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                     let hStr = kDatehhMM.stringFromDate(job.jobStartTime)
                     let dateF = kDateJobTime.dateFromString("\(dStr) \(hStr)")!
                     ekEvent.startDate = dateF
-                    ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
+                    ekEvent.endDate = job.jobSchedultedEndTime
+//                    ekEvent.endDate = ekEvent.startDate.dateByAddingTimeInterval(3600)
                     let ddEvent = DDCalendarEvent()
                     ddEvent.title = ekEvent.title
                     ddEvent.dateBegin = ekEvent.startDate

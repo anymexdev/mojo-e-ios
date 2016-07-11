@@ -868,7 +868,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "65afbb3d-f865-4846-9e49-334d86bc09e0";
+				PROVISIONING_PROFILE = "9014ea67-56db-4553-b6c8-5efb1432c2f8";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 			};
 			name = Debug;
@@ -884,7 +884,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "65afbb3d-f865-4846-9e49-334d86bc09e0";
+				PROVISIONING_PROFILE = "9014ea67-56db-4553-b6c8-5efb1432c2f8";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 			};
 			name = Release;
