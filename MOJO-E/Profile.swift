@@ -207,7 +207,7 @@ class Profile: NSObject, NSCoding {
              var arrIDs = [String]()
             if let jobsArr = snapshot.value as? NSArray {
                 for dict in jobsArr {
-                    if let dict = dict as? NSDictionary, let id = dict.objectForKey("id") as? String, let status = dict.objectForKey("status") as? String where status == "new" {
+                    if let dict = dict as? NSDictionary, let id = dict.objectForKey("id") as? String, let status = dict.objectForKey("status") as? String where status.lowercaseString == "new" {
                         print(id)
                         if let arrayIDs = arrayIDs {
                             if !arrayIDs.contains(id) {
@@ -227,7 +227,24 @@ class Profile: NSObject, NSCoding {
         })
     }
     
-    
+    func getJobsAsAdmin(completionBlock: (arrIDs: [String]) -> Void) {
+        myRootRef.child("companies").child(self.companyID).child("jobs").observeEventType(.Value, withBlock: {
+            snapshot in
+            var arrIDs = [String]()
+            if let jobsArr = snapshot.value as? NSArray {
+                for dict in jobsArr {
+                    if let dict = dict as? NSDictionary, let id = dict.objectForKey("id") as? String, let status = dict.objectForKey("status") as? String where status.lowercaseString == "new" {
+                        print(id)
+                        arrIDs.append("\(id)")
+                    }
+                }
+                completionBlock(arrIDs: arrIDs)
+            }
+            else {
+                completionBlock(arrIDs: arrIDs)
+            }
+        })
+    }
     
     func registerForJobsAdded() {
         myRootRef.child("users").child(self.authenID).child("jobs").observeEventType(.ChildAdded, withBlock: {

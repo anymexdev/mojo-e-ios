@@ -27,8 +27,9 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     @IBOutlet weak var todayLabel: UILabel!
     @IBOutlet weak var weekButton: UIButton!
     @IBOutlet weak var todayButton: UIButton!
-    
+    @IBOutlet weak var mainSegment: UISegmentedControl!
     @IBOutlet var ddCalendarView: DDCalendarView!
+    
     var dict = Dictionary<Int, [DDCalendarEvent]>()
     
     //MARK: private property
@@ -95,15 +96,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     @IBAction func typeChangedAction(sender: AnyObject) {
         if let segment = sender as? UISegmentedControl {
-            if segment.selectedSegmentIndex == 0 {
-                self.syncJobsWithType(.New)
-            }
-            else if segment.selectedSegmentIndex == 1 {
-                self.syncJobsWithType(.Accepted)
-            }
-            else if segment.selectedSegmentIndex == 2 {
-                self.syncJobsWithType(.Finished)
-            }
+            self.getJobTypeAction(segment.selectedSegmentIndex)
         }
     }
     
@@ -124,7 +117,27 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         }
     }
     // MARK: Functions
-    
+    func getJobTypeAction(actionType: Int) {
+        if let profile = Profile.get() where profile.isAdmin {
+            if actionType == 0 {
+                self.getAdminJobs()
+            }
+            else if actionType == 1 {
+                self.syncJobsWithType(.Assigned)
+            }
+            else if actionType == 2 {
+                self.syncJobsWithType(.Finished)
+            }
+        }
+        else {
+            if actionType == 0 {
+                self.syncJobsWithType(.Assigned)
+            }
+            else if actionType == 1 {
+                self.syncJobsWithType(.Finished)
+            }
+        }
+    }
     func initialize() {
         calendarContainerView.hidden = true
         tableView.hidden = false
@@ -133,17 +146,22 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         Utility.borderRadiusView(addTimeslotButton.frame.size.width / 2, view: addTimeslotButton)
         
         let menuRightNavigationController = Utility.getSideMenuNavigationC()
-
         SideMenuManager.menuRightNavigationController = menuRightNavigationController
         SideMenuManager.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
-        self.syncJobsWithType(.New)
         changeViewAction(weekButton)
         todayLabel.text = kDateMMMYYYY.stringFromDate(dateSelectedOfMonth)
         TimeSlot.allPersonalTimeslots { (timeslots) in
             if timeslots.count > 0 {
                 self.personalTimeSlots = timeslots
             }
+        }
+        if let profile = Profile.get() where profile.isAdmin {
+            self.getAdminJobs()
+        }
+        else {
+            mainSegment.removeSegmentAtIndex(0, animated: false)
+            self.syncJobsWithType(.Assigned)
         }
     }
     
@@ -172,9 +190,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             }
                         }
                         if run == max {
-                            if type == .New {
-                                self.getRegionalJobs(arrayIDs)
-                            }
                             if self.jobs.count > 0 {
                                 self.tableView.reloadData()
                                 self.renderJobInDate(NSDate())
@@ -182,10 +197,10 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                                 let caComponentMonthF = NSCalendar.currentCalendar().components(.Month, fromDate: (firstJ?.jobStartTime)!).month
                                 let caComponentMonthT = NSCalendar.currentCalendar().components(.Month, fromDate: (self.dateSelectedOfMonth)).month
                                 if caComponentMonthF < caComponentMonthT {
-//                                    self.cvMonthCalendarView.loadPreviousView()
+                                    self.cvMonthCalendarView.loadPreviousView()
                                 }
                                 else if caComponentMonthF > caComponentMonthT {
-//                                    self.cvMonthCalendarView.loadNextView()
+                                    self.cvMonthCalendarView.loadNextView()
                                 }
                             }
                             else {
@@ -208,6 +223,43 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             profile.getRegionalJobs(arrayIDs, completionBlock: { (arrIDs) in
                 print(arrIDs)
                 if arrIDs.count > 0 {
+                    let max = arrIDs.count
+                    var run = 0
+                    for id in arrIDs {
+                        myRootRef.child("jobs").child(id).observeEventType(.Value, withBlock: {
+                            snapshot in
+                            run = run + 1
+                            if let value = snapshot.value as? NSDictionary {
+                                let job = Job.createJobFromDict(value)
+                                job.isRegional = true
+                                job.jobID = id
+                                self.jobs.append(job)
+                            }
+                            if run == max {
+                                if self.jobs.count > 0 {
+                                    self.tableView.reloadData()
+                                    self.renderJobInDate(NSDate())
+                                }
+                                else {
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        })
+                    }
+                }
+                else {
+                    self.tableView.reloadData()
+                }
+            })
+        }
+    }
+    
+    private func getAdminJobs() {
+        if let profile = Profile.get() where profile.isAdmin {
+            profile.getJobsAsAdmin({ (arrIDs) in
+                print(arrIDs)
+                if arrIDs.count > 0 {
+                    self.jobs.removeAll()
                     let max = arrIDs.count
                     var run = 0
                     for id in arrIDs {
@@ -297,7 +349,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                 job.setRegionalJobStatus(.Assigned, companyID: Profile.get()!.companyID)
             }
             job.setJobStatus(.Accepted)
-            self.syncJobsWithType(.New)
+            self.getAdminJobs()
         }
     }
     
@@ -311,11 +363,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                     }
                 }
                 self.tableView.reloadData()
-            }
-            else {
-                job.setJobStatus(.New)
-                job.rejectJob(Profile.get()!.authenID)
-                self.syncJobsWithType(.New)
             }
         }
     }

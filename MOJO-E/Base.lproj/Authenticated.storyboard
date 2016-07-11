@@ -82,7 +82,7 @@
                                 </constraints>
                                 <segments>
                                     <segment title="Incoming"/>
-                                    <segment title="Accepted"/>
+                                    <segment title="Scheduled"/>
                                     <segment title="Completed"/>
                                 </segments>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -384,6 +384,7 @@
                         <outlet property="cvMonthCalendarView" destination="ubJ-Dn-a6h" id="quw-cy-NUl"/>
                         <outlet property="ddCalendarView" destination="B5S-Rf-lNR" id="2Sr-Re-ag0"/>
                         <outlet property="jobViewStyleButton" destination="gjS-RB-cXp" id="ODe-Jr-671"/>
+                        <outlet property="mainSegment" destination="7HU-Yn-OpD" id="cvW-Mj-1fa"/>
                         <outlet property="menuView" destination="1G2-hA-MiL" id="9w7-Z7-CRS"/>
                         <outlet property="tableView" destination="SZ1-99-zci" id="biY-OB-gBx"/>
                         <outlet property="todayButton" destination="bNg-cl-z91" id="O8l-M9-2nJ"/>
