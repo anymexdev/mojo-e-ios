@@ -359,9 +359,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         uploadPicturesButton.enabled = false
         for index in 0...(jobSelected!.pictureCount - 1) {
             let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id)").child("\(index).png")
-            Utility.showIndicatorForView(imageScroll)
             jobPicturesRef.dataWithMaxSize(20 * 1024 * 1024, completion: { (data, error) in
-                Utility.removeIndicatorForView(self.imageScroll)
                 if let error = error {
                     print(error.description)
                 }
