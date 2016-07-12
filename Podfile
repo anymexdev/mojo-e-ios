@@ -17,6 +17,7 @@ target 'MOJO-E' do
     pod 'DKImagePickerController'
     pod 'EPSignature'
     pod 'CWStatusBarNotification'
+    pod 'BFPaperButton'
 end
 
 target 'MOJO-ETests' do

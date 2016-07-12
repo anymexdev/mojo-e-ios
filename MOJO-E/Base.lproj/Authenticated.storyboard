@@ -102,8 +102,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2t-KW-woZ" userLabel="Go">
-                                                    <rect key="frame" x="0.0" y="0.0" width="261" height="65"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2t-KW-woZ" userLabel="Go" customClass="RectangleButton" customModule="MOJO_E" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
                                                     <connections>
                                                         <action selector="goDetailsAction:" destination="sDu-IF-g3n" eventType="touchUpInside" id="gzp-pz-qul"/>
                                                     </connections>
@@ -187,13 +187,14 @@
                                                 <constraint firstItem="FVB-ss-8lA" firstAttribute="leading" secondItem="MhH-7D-h6M" secondAttribute="leading" constant="30" id="6W3-wV-3Uw"/>
                                                 <constraint firstAttribute="bottom" secondItem="xBg-1P-qIT" secondAttribute="bottom" constant="2" id="7zl-qf-d1x"/>
                                                 <constraint firstItem="JaO-m3-FZM" firstAttribute="top" secondItem="oPl-s2-lwZ" secondAttribute="bottom" constant="5" id="F7i-SI-iL8"/>
-                                                <constraint firstAttribute="bottom" secondItem="D2t-KW-woZ" secondAttribute="bottom" constant="20" id="GDJ-DB-DQA"/>
+                                                <constraint firstAttribute="bottom" secondItem="D2t-KW-woZ" secondAttribute="bottom" id="GDJ-DB-DQA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="oPl-s2-lwZ" secondAttribute="trailing" constant="10" id="GwX-IW-pae"/>
                                                 <constraint firstItem="xBg-1P-qIT" firstAttribute="top" secondItem="FVB-ss-8lA" secondAttribute="bottom" constant="1" id="IT7-rE-h1y"/>
                                                 <constraint firstItem="jyK-FU-hsB" firstAttribute="centerY" secondItem="MhH-7D-h6M" secondAttribute="centerY" constant="-10" id="Lfu-5F-S6L"/>
                                                 <constraint firstItem="FVB-ss-8lA" firstAttribute="top" secondItem="MhH-7D-h6M" secondAttribute="top" constant="2" id="MKI-Uy-k7V"/>
                                                 <constraint firstItem="oPl-s2-lwZ" firstAttribute="centerY" secondItem="X7L-5W-nqO" secondAttribute="centerY" id="Pnl-RQ-798"/>
                                                 <constraint firstAttribute="trailing" secondItem="FVB-ss-8lA" secondAttribute="trailing" constant="20" id="QeV-7s-Vin"/>
+                                                <constraint firstAttribute="trailing" secondItem="D2t-KW-woZ" secondAttribute="trailing" id="U9n-qB-NVT"/>
                                                 <constraint firstAttribute="trailing" secondItem="JaO-m3-FZM" secondAttribute="trailing" constant="20" id="Ue4-aM-aBc"/>
                                                 <constraint firstItem="D2t-KW-woZ" firstAttribute="leading" secondItem="MhH-7D-h6M" secondAttribute="leading" id="UuJ-dC-f1M"/>
                                                 <constraint firstItem="xBg-1P-qIT" firstAttribute="leading" secondItem="FVB-ss-8lA" secondAttribute="leading" id="XB8-pJ-tDc"/>
@@ -213,6 +214,7 @@
                                                 <mask key="constraints">
                                                     <exclude reference="7zl-qf-d1x"/>
                                                     <exclude reference="F7i-SI-iL8"/>
+                                                    <exclude reference="c7f-rD-xJd"/>
                                                     <exclude reference="6Gh-yA-QRc"/>
                                                     <exclude reference="ZnS-lx-3nM"/>
                                                     <exclude reference="pnx-Ls-4ao"/>
@@ -653,7 +655,7 @@
                                             <action selector="showDirctionsAction:" destination="Tns-i7-nsI" eventType="touchUpInside" id="AVG-vq-t3M"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgn-vi-ZIN">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgn-vi-ZIN" customClass="RectangleButton" customModule="MOJO_E" customModuleProvider="target">
                                         <rect key="frame" x="162" y="653" width="150" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="BTm-il-ezn"/>
@@ -673,7 +675,7 @@
                                             <constraint firstAttribute="height" constant="100" id="IIe-zl-d7O"/>
                                         </constraints>
                                     </scrollView>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVh-am-Y2K">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVh-am-Y2K" customClass="RectangleButton" customModule="MOJO_E" customModuleProvider="target">
                                         <rect key="frame" x="162" y="818" width="150" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="d8W-h4-00O"/>
@@ -773,7 +775,7 @@
                                     </mask>
                                 </variation>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stz-WY-s2l">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stz-WY-s2l" customClass="RectangleButton" customModule="MOJO_E" customModuleProvider="target">
                                 <rect key="frame" x="157" y="686" width="100" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="AWa-N3-eTD"/>

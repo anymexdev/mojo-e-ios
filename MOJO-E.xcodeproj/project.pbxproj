@@ -54,6 +54,7 @@
 		829CE1311CE32D6F00030E47 /* JobCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1301CE32D6F00030E47 /* JobCell.swift */; };
 		829CE1331CE3305400030E47 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1321CE3305400030E47 /* Job.swift */; };
 		829CE1351CE478D500030E47 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1341CE478D500030E47 /* JobViewController.swift */; };
+		82F882711D34A9CF00BEFED0 /* AnimationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F882701D34A9CF00BEFED0 /* AnimationButton.swift */; };
 		EE1853824B281CEBDD0ED2F2 /* Pods_MOJO_EUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F395020595592585FC63EE /* Pods_MOJO_EUITests.framework */; };
 		F41415A6BC818C5C41E42FA1 /* Pods_MOJO_E.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FF7DB87811EA313F827CD6E /* Pods_MOJO_E.framework */; };
 /* End PBXBuildFile section */
@@ -147,6 +148,7 @@
 		829CE1301CE32D6F00030E47 /* JobCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobCell.swift; sourceTree = "<group>"; };
 		829CE1321CE3305400030E47 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		829CE1341CE478D500030E47 /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewController.swift; sourceTree = "<group>"; };
+		82F882701D34A9CF00BEFED0 /* AnimationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationButton.swift; sourceTree = "<group>"; };
 		8F013EB59C034643E19D4F19 /* Pods-MOJO-ETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOJO-ETests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MOJO-ETests/Pods-MOJO-ETests.release.xcconfig"; sourceTree = "<group>"; };
 		B1F395020595592585FC63EE /* Pods_MOJO_EUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MOJO_EUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7AEABC50724E4E1CCAC1D01 /* Pods-MOJO-E.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOJO-E.release.xcconfig"; path = "Pods/Target Support Files/Pods-MOJO-E/Pods-MOJO-E.release.xcconfig"; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 		829CE11D1CE30B7A00030E47 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				82F882701D34A9CF00BEFED0 /* AnimationButton.swift */,
 				821CD8401CEC4F12004EC52E /* DDCalendar */,
 				829CE12C1CE3150500030E47 /* ErrorMessage.swift */,
 				829CE11F1CE30BBC00030E47 /* Config.swift */,
@@ -674,6 +677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F882711D34A9CF00BEFED0 /* AnimationButton.swift in Sources */,
 				825716381D1D3CBC0030EC34 /* CWStatusBarNotification.swift in Sources */,
 				821CD8461CEF0D83004EC52E /* WorkerViewController.swift in Sources */,
 				821CD83A1CEC4EC7004EC52E /* UILabel+FFCustomMethods.m in Sources */,

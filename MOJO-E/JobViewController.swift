@@ -28,16 +28,16 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var widthOfMapConstraint: NSLayoutConstraint!
-    @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var acceptButton: RectangleButton!
     @IBOutlet weak var rejectButton: UIButton!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var createTimeLabel: UILabel!
     @IBOutlet weak var mainScroll: UIScrollView!
-    @IBOutlet weak var uploadPicturesButton: UIButton!
+    @IBOutlet weak var uploadPicturesButton: RectangleButton!
     @IBOutlet weak var imageScroll: UIScrollView!
     @IBOutlet weak var jobEndLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
-    @IBOutlet weak var signatureButton: UIButton!
+    @IBOutlet weak var signatureButton: RectangleButton!
     @IBOutlet weak var signatureImage: UIImageView!
     @IBOutlet weak var jobHeaderLabel: UILabel!
     @IBOutlet weak var workscopeView: UITextView!
@@ -75,22 +75,32 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     @IBAction func acceptAction(sender: AnyObject) {
-        var status = JobStatus.Accepted
         let title = acceptButton.titleLabel?.text
-        if title == "Start" {
+        if title == JobStatus.EnRoute.rawValue {
+            jobSelected!.setJobStatus(JobStatus.EnRoute)
+            acceptButton.setTitle("Start", forState: .Normal)
+            return
+        }
+        else if title == "Start" {
             let slot = TimeSlot(to: self.jobSelected!.jobSchedultedEndTime, from: self.jobSelected!.jobStartTime, note: "")
             if slot.slotWasOccupied(personalTimeSlots) {
                 Utility.showAlertWithMessage(kOccupiedTimesloteWithPersonal)
                 return
             }
-            status = JobStatus.Started
+            jobSelected!.setJobStatus(JobStatus.Started)
             self.jobSelected!.setJobStartTime()
+            acceptButton.setTitle(JobStatus.Finished.rawValue, forState: .Normal)
+            return
         }
         else if title == JobStatus.Finished.rawValue {
-            status = JobStatus.Finished
+            imageScroll.hidden = false
+            uploadPicturesButton.hidden = false
+            acceptButton.setTitle("Submit", forState: .Normal)
+            signatureButton.hidden = false
+            signatureImage.hidden = false
+            return
         }
         else if title == "Submit" {
-            status = JobStatus.Finished
             var imageURLList = [String]()
             for (index, image) in imagesList.enumerate() {
                 let data = UIImagePNGRepresentation(image)
@@ -123,19 +133,9 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     }
                 }
             }
+            jobSelected!.setJobStatus(JobStatus.Finished)
             self.jobSelected!.setJobSubmitTime()
             self.jobHeaderLabel.text = "Job was completed"
-        }
-        jobSelected!.setJobStatus(status)
-        if title == JobStatus.Finished.rawValue {
-            // display upload pics
-            imageScroll.hidden = false
-            uploadPicturesButton.hidden = false
-            acceptButton.setTitle("Submit", forState: .Normal)
-            signatureButton.hidden = false
-            signatureImage.hidden = false
-        }
-        else {
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
@@ -263,14 +263,17 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         appDelegate.mainVC = self
-        if jobSelected?.status == JobStatus.New || jobSelected?.status == JobStatus.Assigned {
-            rejectButton.hidden = false
+//        if jobSelected?.status == JobStatus.New || jobSelected?.status == JobStatus.Assigned {
+//            rejectButton.hidden = false
+//        }
+        if jobSelected?.status == JobStatus.Assigned {
+            acceptButton.setTitle(JobStatus.EnRoute.rawValue, forState: .Normal)
         }
-        if jobSelected?.status == JobStatus.EnRoute || jobSelected?.status == JobStatus.Started {
-            acceptButton.setTitle(JobStatus.Finished.rawValue, forState: .Normal)
-        }
-        else if jobSelected?.status == JobStatus.Assigned || jobSelected?.status == JobStatus.Accepted {
+        else if jobSelected?.status == JobStatus.EnRoute {
             acceptButton.setTitle("Start", forState: .Normal)
+        }
+        else if jobSelected?.status == JobStatus.Started {
+            acceptButton.setTitle(JobStatus.Finished.rawValue, forState: .Normal)
         }
         else if jobSelected?.status == JobStatus.Finished {
             acceptButton.hidden = true
@@ -286,7 +289,6 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 self.personalTimeSlots = timeslots
             }
         }
-//        Profile.get()!.registerForJobsAdded()
     }
     
     func loadJobInfo() {
@@ -355,9 +357,11 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         imageScroll.hidden = false
         uploadPicturesButton.hidden = false
         uploadPicturesButton.enabled = false
-        for index in 0...jobSelected!.pictureCount {
+        for index in 0...(jobSelected!.pictureCount - 1) {
             let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id)").child("\(index).png")
+            Utility.showIndicatorForView(imageScroll)
             jobPicturesRef.dataWithMaxSize(20 * 1024 * 1024, completion: { (data, error) in
+                Utility.removeIndicatorForView(self.imageScroll)
                 if let error = error {
                     print(error.description)
                 }
