@@ -120,7 +120,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate  {
     }
     
     func initialize() {
-        if let profile = kUserDefault.objectForKey(kUserProfile) as? Profile {
+        if let profile = Profile.get() {
             rememberSwitch.on = profile.isRemember
             if rememberSwitch.on {
                 emailTextField.text = profile.email

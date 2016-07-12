@@ -347,7 +347,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             if job.isRegional {
                 job.isRegional = false
                 job.getTheRegionalJob(Profile.get()!.authenID, jobID: job.jobID)
-                job.setRegionalJobStatus(.Assigned, companyID: Profile.get()!.companyID)
+                job.setRegionalJobStatus(.Accepted, companyID: Profile.get()!.companyID)
             }
             job.setJobStatus(.Accepted)
             self.getAdminJobs()
