@@ -27,7 +27,7 @@ class Job: NSObject, NSCoding {
     var status = JobStatus.New
     var latitude: Double?
     var longtitude: Double?
-    var ticketNumber: Int?
+    var ticketNumber: Int = 1
     var dispatchTime = NSDate()
     var jobStartTime = NSDate()
     var jobSchedultedEndTime = NSDate()
@@ -59,9 +59,7 @@ class Job: NSObject, NSCoding {
         if let longtitude = self.longtitude {
             coder.encodeDouble(longtitude, forKey: "longtitude")
         }
-        if let ticketNumber = self.ticketNumber {
-            coder.encodeInteger(ticketNumber, forKey: "ticketNumber")
-        }
+        coder.encodeInteger(self.ticketNumber, forKey: "ticketNumber")
         coder.encodeInteger(self.id, forKey: "id")
         if let businessID = self.businessID {
             coder.encodeInteger(businessID, forKey: "businessID")

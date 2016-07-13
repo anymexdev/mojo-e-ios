@@ -135,7 +135,6 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             jobSelected!.setJobStatus(JobStatus.Finished)
             self.jobSelected!.setJobSubmitTime()
-            self.jobHeaderLabel.text = "Job was completed"
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
@@ -281,7 +280,6 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             jobEndLabel.hidden = false
             loadImagesFromJob()
             loadSignatureFromJob()
-            self.jobHeaderLabel.text = "Job was completed"
         }
         loadJobInfo()
         TimeSlot.allPersonalTimeslots { (timeslots) in
@@ -315,6 +313,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             endTimeLabel.text = kDateJobTime.stringFromDate(jobEndTime)
         }
         workscopeView.text = jobSelected?.workScope
+        self.jobHeaderLabel.text = "Job ticket #\(jobSelected!.ticketNumber)"
     }
     
     private func drawPinsOfRequest() {
