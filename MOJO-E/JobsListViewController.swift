@@ -118,7 +118,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     // MARK: Functions
     func getJobTypeAction(actionType: Int) {
-        if let profile = Profile.get() where profile.isAdmin {
+        if let profile = Profile.get() where profile.isAdmin == true {
             if actionType == 0 {
                 self.getAdminJobs()
             }
@@ -156,7 +156,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                 self.personalTimeSlots = timeslots
             }
         }
-        if let profile = Profile.get() where profile.isAdmin {
+        if let profile = Profile.get() where profile.isAdmin == true {
             self.getAdminJobs()
         }
         else {
@@ -219,7 +219,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     private func getRegionalJobs(arrayIDs: [String]?) {
-        if let profile = Profile.get() where profile.isAdmin {
+        if let profile = Profile.get() where profile.isAdmin == true {
             print(arrayIDs)
             profile.getRegionalJobs(arrayIDs, completionBlock: { (arrIDs) in
                 print(arrIDs)
@@ -256,11 +256,12 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     private func getAdminJobs() {
-        if let profile = Profile.get() where profile.isAdmin {
+        self.jobs.removeAll()
+        self.tableView.reloadData()
+        if let profile = Profile.get() where profile.isAdmin == true {
             profile.getJobsAsAdmin({ (arrIDs) in
                 print(arrIDs)
                 if arrIDs.count > 0 {
-                    self.jobs.removeAll()
                     let max = arrIDs.count
                     var run = 0
                     for id in arrIDs {
