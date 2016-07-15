@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainVC: UIViewController?
     var isRegisterNotiFirstTime = true
+    var jobsFirstLoad = [Job]()
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         JLToastView.setDefaultValue(
             UIColor.blackColor(),
@@ -27,6 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let profile = Profile.get() {
             if profile.isLogged {
                 profile.registerForJobsAdded()
+//                if let profile = Profile.get() where profile.isAdmin == true {
+//                    self.getAdminJobs()
+//                }
+//                else {
+//                    self.syncJobsWithType(.Assigned)
+//                }
                 Utility.openAuthenticatedFlow()
             }
 //            if let email = kUserDefault.objectForKey(kUsernameRemember) as? String, let password = kUserDefault.objectForKey(kPasswordRemember) as? String {
@@ -64,7 +71,81 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    private func getAdminJobs() {
+        Profile.get()!.getJobsAsAdmin({ (arrIDs) in
+            print(arrIDs)
+            if arrIDs.count > 0 {
+                let max = arrIDs.count
+                var run = 0
+                for id in arrIDs {
+                    myRootRef.child("jobs").child(id).observeEventType(.Value, withBlock: {
+                        snapshot in
+                        run = run + 1
+                        if let value = snapshot.value as? NSDictionary {
+                            let job = Job.createJobFromDict(value)
+                            job.isRegional = true
+                            job.jobID = id
+                            self.jobsFirstLoad.append(job)
+                        }
+                        if run == max {
+                            if self.jobsFirstLoad.count > 0 {
+                                Utility.openAuthenticatedFlow()
+                            }
+                            else {
+                                Utility.openAuthenticatedFlow()
+                            }
+                        }
+                    })
+                }
+            }
+            else {
+                Utility.openAuthenticatedFlow()
+            }
+        })
+    }
+    
+    func syncJobsWithType(type: JobStatus)
+    {
+        let profile = Profile.get()
+        profile?.jobsFromFirebase({ (arrayIDs) in
+            if let arrayIDs = arrayIDs where arrayIDs.count > 0 {
+                let max = arrayIDs.count
+                var run = 0
+                for id in arrayIDs {
+                    myRootRef.child("jobs").child(id).observeEventType(.Value, withBlock: {
+                        snapshot in
+                        run = run + 1
+                        if let value = snapshot.value as? NSDictionary {
+                            let job = Job.createJobFromDict(value)
+                            if job.status == type {
+                                self.jobsFirstLoad.append(Job.createJobFromDict(value))
+                            }
+                            else if type == .Accepted && (job.status == .EnRoute || job.status == .Started) {
+                                self.jobsFirstLoad.append(Job.createJobFromDict(value))
+                            }
+                            else if type == .New && job.status == .Assigned {
+                                self.jobsFirstLoad.append(Job.createJobFromDict(value))
+                            }
+                        }
+                        if run == max {
+                            if self.jobsFirstLoad.count > 0 {
+                                Utility.openAuthenticatedFlow()
+                            }
+                            else {
+                                Utility.openAuthenticatedFlow()
+                            }
+                        }
+                    })
+                }
+            }
+            else {
+                Utility.openAuthenticatedFlow()
+            }
+            self.isRegisterNotiFirstTime = false
+        })
+    }
+    
 
 }
 

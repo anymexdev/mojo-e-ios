@@ -313,7 +313,7 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             endTimeLabel.text = kDateJobTime.stringFromDate(jobEndTime)
         }
         workscopeView.text = jobSelected?.workScope
-        self.jobHeaderLabel.text = "Job SR Number \(jobSelected!.srNumber)"
+        self.jobHeaderLabel.text = "SR Number \(jobSelected!.srNumber)"
     }
     
     private func drawPinsOfRequest() {

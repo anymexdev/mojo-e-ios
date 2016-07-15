@@ -194,15 +194,15 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             if self.jobs.count > 0 {
                                 self.tableView.reloadData()
                                 self.renderJobInDate(NSDate())
-                                let firstJ = self.jobs.first
-                                let caComponentMonthF = NSCalendar.currentCalendar().components(.Month, fromDate: (firstJ?.jobStartTime)!).month
-                                let caComponentMonthT = NSCalendar.currentCalendar().components(.Month, fromDate: (self.dateSelectedOfMonth)).month
-                                if caComponentMonthF < caComponentMonthT {
-                                    self.cvMonthCalendarView.loadPreviousView()
-                                }
-                                else if caComponentMonthF > caComponentMonthT {
-                                    self.cvMonthCalendarView.loadNextView()
-                                }
+//                                let firstJ = self.jobs.first
+//                                let caComponentMonthF = NSCalendar.currentCalendar().components(.Month, fromDate: (firstJ?.jobStartTime)!).month
+//                                let caComponentMonthT = NSCalendar.currentCalendar().components(.Month, fromDate: (self.dateSelectedOfMonth)).month
+//                                if caComponentMonthF < caComponentMonthT {
+//                                    self.cvMonthCalendarView.loadPreviousView()
+//                                }
+//                                else if caComponentMonthF > caComponentMonthT {
+//                                    self.cvMonthCalendarView.loadNextView()
+//                                }
                             }
                             else {
                                 self.tableView.reloadData()
