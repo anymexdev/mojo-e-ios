@@ -28,6 +28,7 @@ class Job: NSObject, NSCoding {
     var latitude: Double?
     var longtitude: Double?
     var ticketNumber: Int = 1
+    var srNumber = ""
     var dispatchTime = NSDate()
     var jobStartTime = NSDate()
     var jobSchedultedEndTime = NSDate()
@@ -40,6 +41,7 @@ class Job: NSObject, NSCoding {
     // MARK: NSCoding
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.businessName, forKey: "businessName")
+        coder.encodeObject(self.srNumber, forKey: "srNumber")
         coder.encodeObject(self.workScope, forKey: "workScope")
         coder.encodeObject(self.jobID, forKey: "jobID")
         coder.encodeObject(self.dispatchTime, forKey: "dispatchTime")
@@ -71,6 +73,7 @@ class Job: NSObject, NSCoding {
     
     required convenience init?(coder decoder: NSCoder) {
         guard let businessName = decoder.decodeObjectForKey("businessName") as? String,
+            let srNumber = decoder.decodeObjectForKey("srNumber") as? String,
             let address1 = decoder.decodeObjectForKey("address1") as? String,
             let workScope = decoder.decodeObjectForKey("workScope") as? String,
             let jobID = decoder.decodeObjectForKey("jobID") as? String,
@@ -91,6 +94,7 @@ class Job: NSObject, NSCoding {
         self.workScope = workScope
         self.zip = zip
         self.state = state
+        self.srNumber = srNumber
         self.address1 = address1
         self.dispatchTime = dispatchTime
         self.jobStartTime = jobStartTime
@@ -115,6 +119,9 @@ class Job: NSObject, NSCoding {
     
     class func createJobFromDict(dict: NSDictionary) -> Job {
         let job = Job()
+        if let srNumber = dict.objectForKey("sr_number") as? String {
+            job.srNumber = srNumber
+        }
         if let zip = dict.objectForKey("zip") as? String {
             job.zip = zip
         }
