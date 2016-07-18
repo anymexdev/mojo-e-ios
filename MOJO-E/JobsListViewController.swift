@@ -73,6 +73,16 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         super.viewDidLayoutSubviews()
         self.menuView.commitMenuViewUpdate()
         self.cvMonthCalendarView.commitCalendarViewUpdate()
+        if self.view.frame.size.width > 500 {
+        var frame = cvMonthCalendarView.frame
+            frame.size.width = 414
+            frame.origin.x = (self.view.frame.size.width - 414) / 2
+            cvMonthCalendarView.frame = frame
+            var frameM = menuView.frame
+            frameM.size.width = 414
+            frameM.origin.x = (self.view.frame.size.width - 414) / 2
+            menuView.frame = frameM
+        }
     }
     
     //MARK: UI Action

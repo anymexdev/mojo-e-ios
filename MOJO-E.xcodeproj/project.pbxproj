@@ -872,8 +872,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9014ea67-56db-4553-b6c8-5efb1432c2f8";
+				PROVISIONING_PROFILE = "643f64d4-8fdc-427e-b873-33ba6dde37a3";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -888,8 +889,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9014ea67-56db-4553-b6c8-5efb1432c2f8";
+				PROVISIONING_PROFILE = "643f64d4-8fdc-427e-b873-33ba6dde37a3";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
