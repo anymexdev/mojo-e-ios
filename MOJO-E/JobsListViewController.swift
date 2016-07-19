@@ -72,17 +72,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.menuView.commitMenuViewUpdate()
-        self.cvMonthCalendarView.commitCalendarViewUpdate()
-        if self.view.frame.size.width > 500 {
-        var frame = cvMonthCalendarView.frame
-            frame.size.width = 414
-            frame.origin.x = (self.view.frame.size.width - 414) / 2
-            cvMonthCalendarView.frame = frame
-            var frameM = menuView.frame
-            frameM.size.width = 414
-            frameM.origin.x = (self.view.frame.size.width - 414) / 2
-            menuView.frame = frameM
-        }
+        cvMonthCalendarView.commitCalendarViewUpdate()
     }
     
     //MARK: UI Action
@@ -204,25 +194,16 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             if self.jobs.count > 0 {
                                 self.tableView.reloadData()
                                 self.renderJobInDate(NSDate())
-//                                let firstJ = self.jobs.first
-//                                let caComponentMonthF = NSCalendar.currentCalendar().components(.Month, fromDate: (firstJ?.jobStartTime)!).month
-//                                let caComponentMonthT = NSCalendar.currentCalendar().components(.Month, fromDate: (self.dateSelectedOfMonth)).month
-//                                if caComponentMonthF < caComponentMonthT {
-//                                    self.cvMonthCalendarView.loadPreviousView()
-//                                }
-//                                else if caComponentMonthF > caComponentMonthT {
-//                                    self.cvMonthCalendarView.loadNextView()
-//                                }
                             }
-                            else {
-                                self.tableView.reloadData()
-                            }
+                            self.tableView.reloadData()
+                            self.addNewCVCalendar()
                         }
                     })
                 }
             }
             else {
                 self.tableView.reloadData()
+                self.addNewCVCalendar()
             }
             appDelegate.isRegisterNotiFirstTime = false
         })
@@ -265,6 +246,22 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
         }
     }
     
+    private func addNewCVCalendar() {
+        for view in self.calendarContainerView.subviews {
+            if view.tag == 105 {
+                view.removeFromSuperview()
+            }
+        }
+        let calendar = CVCalendarView(frame: cvMonthCalendarView.frame)
+        calendar.tag = 105
+        calendar.calendarAppearanceDelegate = self
+        calendar.backgroundColor = cvMonthCalendarView.backgroundColor
+        calendar.calendarDelegate = self
+        self.calendarContainerView.addSubview(calendar)
+        calendar.commitCalendarViewUpdate()
+        cvMonthCalendarView.hidden = true
+    }
+    
     private func getAdminJobs() {
         self.jobs.removeAll()
         self.tableView.reloadData()
@@ -286,18 +283,17 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             }
                             if run == max {
                                 if self.jobs.count > 0 {
-                                    self.tableView.reloadData()
                                     self.renderJobInDate(NSDate())
                                 }
-                                else {
-                                    self.tableView.reloadData()
-                                }
+                                self.tableView.reloadData()
+                                self.addNewCVCalendar()
                             }
                         })
                     }
                 }
                 else {
                     self.tableView.reloadData()
+                    self.addNewCVCalendar()
                 }
             })
         }
@@ -527,6 +523,9 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     
     func preliminaryView(viewOnDayView dayView: DayView) -> UIView {
         let dot = UIView(frame: CGRectMake(5, 10, 8, 8))
+        if self.view.frame.size.width > 500 {
+            dot.frame = CGRectMake(25, 10, 8, 8)
+        }
         dot.backgroundColor = UIColor.whiteColor()
         dot.layer.cornerRadius = 4
         return dot
@@ -538,6 +537,9 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             yCoor = 10.0
         }
         let dot = UIView(frame: CGRectMake(5, yCoor, 8, 8))
+        if self.view.frame.size.width > 500 {
+            dot.frame = CGRectMake(25, yCoor, 8, 8)
+        }
         dot.backgroundColor = UIColor.orangeColor()
         dot.layer.cornerRadius = 4
         return dot
