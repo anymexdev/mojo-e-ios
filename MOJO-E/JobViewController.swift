@@ -356,27 +356,29 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         imageScroll.hidden = false
         uploadPicturesButton.hidden = false
         uploadPicturesButton.enabled = false
-        for index in 0...(jobSelected!.pictureCount - 1) {
-            let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id)").child("\(index).png")
-            jobPicturesRef.dataWithMaxSize(20 * 1024 * 1024, completion: { (data, error) in
-                if let error = error {
-                    print(error.description)
-                }
-                else {
-                    if let data = data, let image = UIImage(data: data) {
-                        let imageV = UIImageView(frame: CGRectMake(CGFloat(index) * 105.0, 0, 100, 100))
-                        imageV.image = image
-                        imageV.contentMode = .ScaleAspectFit
-                        self.imageScroll.addSubview(imageV)
+        if jobSelected!.pictureCount >= 1 {
+            for index in 0...(jobSelected!.pictureCount - 1) {
+                let jobPicturesRef = storage.reference().child("job_finished").child("\(self.jobSelected!.id)").child("\(index).png")
+                jobPicturesRef.dataWithMaxSize(20 * 1024 * 1024, completion: { (data, error) in
+                    if let error = error {
+                        print(error.description)
                     }
-                }
-            })
+                    else {
+                        if let data = data, let image = UIImage(data: data) {
+                            let imageV = UIImageView(frame: CGRectMake(CGFloat(index) * 105.0, 0, 100, 100))
+                            imageV.image = image
+                            imageV.contentMode = .ScaleAspectFit
+                            self.imageScroll.addSubview(imageV)
+                        }
+                    }
+                })
+            }
+            
+            var contentSize = self.imageScroll.contentSize
+            contentSize.width = CGFloat(jobSelected!.pictureCount) * 105
+            contentSize.height = self.imageScroll.frame.size.height
+            self.imageScroll.contentSize = contentSize
         }
-        
-        var contentSize = self.imageScroll.contentSize
-        contentSize.width = CGFloat(jobSelected!.pictureCount) * 105
-        contentSize.height = self.imageScroll.frame.size.height
-        self.imageScroll.contentSize = contentSize
     }
     
     private func loadSignatureFromJob() {
