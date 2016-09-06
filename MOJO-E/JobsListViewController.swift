@@ -12,7 +12,7 @@ import CVCalendar
 import EventKit
 import EventKitUI
 
-class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource, CVCalendarViewDelegate, CVCalendarMenuViewDelegate, CVCalendarViewAppearanceDelegate, DDCalendarViewDelegate, DDCalendarViewDataSource {
+class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCellDelegate, UITableViewDelegate, UITableViewDataSource, CVCalendarViewDelegate, CVCalendarMenuViewDelegate, CVCalendarViewAppearanceDelegate, DDCalendarViewDelegate, DDCalendarViewDataSource, CLLocationManagerDelegate {
     
     //MARK: UI Element
     @IBOutlet weak var tableView: UITableView!
@@ -38,6 +38,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     var calendarViewType = CalendarMode.MonthView
     var dateSelectedOfMonth = NSDate()
     var personalTimeSlots = [TimeSlot]()
+    var locationManager = CLLocationManager()
     
     //MARK: View did load
     override func viewDidLoad() {
@@ -164,6 +165,29 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             mainSegment.selectedSegmentIndex = 0
             self.syncJobsWithType(.Assigned)
         }
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        var data = Dictionary<String, Double>()
+        data["latitude"] = locValue.latitude
+        data["longitude"] = locValue.longitude
+        data["updated_at"] = round(NSDate().timeIntervalSince1970)
+        if let profile = Profile.get() {
+            myRootRef.child("users").child(profile.authenID).child("location").setValue(data)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print(error.description)
+    }
+    
+    func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+        print(error.description)
     }
     
     func syncJobsWithType(type: JobStatus)

@@ -9,6 +9,7 @@
 import UIKit
 import JLToast
 import Firebase
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainVC: UIViewController?
     var isRegisterNotiFirstTime = true
     var jobsFirstLoad = [Job]()
+    var currentPlace: GMSPlace?
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         JLToastView.setDefaultValue(
             UIColor.blackColor(),
@@ -66,6 +69,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        application.applicationIconBadgeNumber = 0
+//        AFNetworkReachabilityManager.sharedManager().setReachabilityStatusChangeBlock { (status: AFNetworkReachabilityStatus) -> Void in
+//            switch status {
+//            case .NotReachable:
+//                print("Not reachable")
+//                Utility.showToastWithMessage("The internet connection was down. Please check.")
+//            case .ReachableViaWiFi, .ReachableViaWWAN:
+//                print("Reachable")
+//            case .Unknown:
+//                print("Unknown")
+//            }
+//            
+//        }
+//        AFNetworkReachabilityManager.sharedManager().startMonitoring()
+//        Utility.getCurrentLocation { (place) in
+//            if let place = place {
+//                self.currentPlace = place
+//                var data = Dictionary<String, Double>()
+//                data["latitude"] = place.coordinate.latitude
+//                data["longitude"] = place.coordinate.longitude
+//                data["updated_at"] = round(NSDate().timeIntervalSince1970)
+//                if let profile = Profile.get() {
+//                    myRootRef.child("users").child(profile.authenID).child("location").setValue(data)
+//                }
+//            }
+//        }
     }
 
     func applicationWillTerminate(application: UIApplication) {

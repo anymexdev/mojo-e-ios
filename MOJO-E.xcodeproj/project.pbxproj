@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AD349546D42216E3C8E090D /* Pods_MOJO_ETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DBABE4389F5FF0AC83BC1A6 /* Pods_MOJO_ETests.framework */; };
 		6B8054D81CE2E50600E3B039 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8054D71CE2E50600E3B039 /* AppDelegate.swift */; };
 		6B8054DD1CE2E50600E3B039 /* Authenticated.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B8054DB1CE2E50600E3B039 /* Authenticated.storyboard */; };
 		6B8054DF1CE2E50600E3B039 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B8054DE1CE2E50600E3B039 /* Assets.xcassets */; };
 		6B8054E21CE2E50600E3B039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B8054E01CE2E50600E3B039 /* LaunchScreen.storyboard */; };
-		6B8054ED1CE2E50600E3B039 /* MOJO_ETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8054EC1CE2E50600E3B039 /* MOJO_ETests.swift */; };
-		6B8054F81CE2E50600E3B039 /* MOJO_EUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8054F71CE2E50600E3B039 /* MOJO_EUITests.swift */; };
 		821CD8101CEC43A6004EC52E /* DDCalendarView_objc in Resources */ = {isa = PBXBuildFile; fileRef = 821CD80F1CEC43A6004EC52E /* DDCalendarView_objc */; };
 		821CD8341CEC4EC6004EC52E /* DDCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CD8181CEC4EC6004EC52E /* DDCalendarEvent.m */; };
 		821CD8351CEC4EC6004EC52E /* DDCalendarEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CD81A1CEC4EC6004EC52E /* DDCalendarEventView.m */; };
@@ -55,26 +52,8 @@
 		829CE1331CE3305400030E47 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1321CE3305400030E47 /* Job.swift */; };
 		829CE1351CE478D500030E47 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE1341CE478D500030E47 /* JobViewController.swift */; };
 		82F882711D34A9CF00BEFED0 /* AnimationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F882701D34A9CF00BEFED0 /* AnimationButton.swift */; };
-		EE1853824B281CEBDD0ED2F2 /* Pods_MOJO_EUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F395020595592585FC63EE /* Pods_MOJO_EUITests.framework */; };
 		F41415A6BC818C5C41E42FA1 /* Pods_MOJO_E.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FF7DB87811EA313F827CD6E /* Pods_MOJO_E.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6B8054E91CE2E50600E3B039 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6B8054CC1CE2E50600E3B039 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6B8054D31CE2E50600E3B039;
-			remoteInfo = "MOJO-E";
-		};
-		6B8054F41CE2E50600E3B039 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6B8054CC1CE2E50600E3B039 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6B8054D31CE2E50600E3B039;
-			remoteInfo = "MOJO-E";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1FC285EC55730D6912C7C69A /* Pods-MOJO-E.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOJO-E.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MOJO-E/Pods-MOJO-E.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,10 +64,8 @@
 		6B8054DE1CE2E50600E3B039 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B8054E11CE2E50600E3B039 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B8054E31CE2E50600E3B039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6B8054E81CE2E50600E3B039 /* MOJO-ETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MOJO-ETests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8054EC1CE2E50600E3B039 /* MOJO_ETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOJO_ETests.swift; sourceTree = "<group>"; };
 		6B8054EE1CE2E50600E3B039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6B8054F31CE2E50600E3B039 /* MOJO-EUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MOJO-EUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8054F71CE2E50600E3B039 /* MOJO_EUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOJO_EUITests.swift; sourceTree = "<group>"; };
 		6B8054F91CE2E50600E3B039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF7DB87811EA313F827CD6E /* Pods_MOJO_E.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MOJO_E.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,22 +143,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B8054E51CE2E50600E3B039 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0AD349546D42216E3C8E090D /* Pods_MOJO_ETests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6B8054F01CE2E50600E3B039 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EE1853824B281CEBDD0ED2F2 /* Pods_MOJO_EUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -201,8 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				6B8054D41CE2E50600E3B039 /* MOJO-E.app */,
-				6B8054E81CE2E50600E3B039 /* MOJO-ETests.xctest */,
-				6B8054F31CE2E50600E3B039 /* MOJO-EUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -435,47 +394,6 @@
 			productReference = 6B8054D41CE2E50600E3B039 /* MOJO-E.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6B8054E71CE2E50600E3B039 /* MOJO-ETests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6B8054FF1CE2E50600E3B039 /* Build configuration list for PBXNativeTarget "MOJO-ETests" */;
-			buildPhases = (
-				8F6C1A7761735E44FCBC2ACC /* Check Pods Manifest.lock */,
-				6B8054E41CE2E50600E3B039 /* Sources */,
-				6B8054E51CE2E50600E3B039 /* Frameworks */,
-				6B8054E61CE2E50600E3B039 /* Resources */,
-				CB07A654FEC3F8D7C351E230 /* Embed Pods Frameworks */,
-				586EC087938F4D2E3DDE5282 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6B8054EA1CE2E50600E3B039 /* PBXTargetDependency */,
-			);
-			name = "MOJO-ETests";
-			productName = "MOJO-ETests";
-			productReference = 6B8054E81CE2E50600E3B039 /* MOJO-ETests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		6B8054F21CE2E50600E3B039 /* MOJO-EUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6B8055021CE2E50600E3B039 /* Build configuration list for PBXNativeTarget "MOJO-EUITests" */;
-			buildPhases = (
-				989585222F54BA9063836E32 /* Check Pods Manifest.lock */,
-				6B8054EF1CE2E50600E3B039 /* Sources */,
-				6B8054F01CE2E50600E3B039 /* Frameworks */,
-				6B8054F11CE2E50600E3B039 /* Resources */,
-				C4708BC360A34DD320FC6678 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6B8054F51CE2E50600E3B039 /* PBXTargetDependency */,
-			);
-			name = "MOJO-EUITests";
-			productName = "MOJO-EUITests";
-			productReference = 6B8054F31CE2E50600E3B039 /* MOJO-EUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -488,14 +406,6 @@
 				TargetAttributes = {
 					6B8054D31CE2E50600E3B039 = {
 						CreatedOnToolsVersion = 7.3.1;
-					};
-					6B8054E71CE2E50600E3B039 = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 6B8054D31CE2E50600E3B039;
-					};
-					6B8054F21CE2E50600E3B039 = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 6B8054D31CE2E50600E3B039;
 					};
 				};
 			};
@@ -513,8 +423,6 @@
 			projectRoot = "";
 			targets = (
 				6B8054D31CE2E50600E3B039 /* MOJO-E */,
-				6B8054E71CE2E50600E3B039 /* MOJO-ETests */,
-				6B8054F21CE2E50600E3B039 /* MOJO-EUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -530,20 +438,6 @@
 				6B8054DF1CE2E50600E3B039 /* Assets.xcassets in Resources */,
 				6B8054DD1CE2E50600E3B039 /* Authenticated.storyboard in Resources */,
 				821CD84A1CFD7D8C004EC52E /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6B8054E61CE2E50600E3B039 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6B8054F11CE2E50600E3B039 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,51 +474,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOJO-E/Pods-MOJO-E-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		586EC087938F4D2E3DDE5282 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOJO-ETests/Pods-MOJO-ETests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8F6C1A7761735E44FCBC2ACC /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		989585222F54BA9063836E32 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		B12F2454371F9774253A80C1 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -638,36 +487,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOJO-E/Pods-MOJO-E-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C4708BC360A34DD320FC6678 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOJO-EUITests/Pods-MOJO-EUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CB07A654FEC3F8D7C351E230 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOJO-ETests/Pods-MOJO-ETests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -719,36 +538,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B8054E41CE2E50600E3B039 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6B8054ED1CE2E50600E3B039 /* MOJO_ETests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6B8054EF1CE2E50600E3B039 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6B8054F81CE2E50600E3B039 /* MOJO_EUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6B8054EA1CE2E50600E3B039 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6B8054D31CE2E50600E3B039 /* MOJO-E */;
-			targetProxy = 6B8054E91CE2E50600E3B039 /* PBXContainerItemProxy */;
-		};
-		6B8054F51CE2E50600E3B039 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6B8054D31CE2E50600E3B039 /* MOJO-E */;
-			targetProxy = 6B8054F41CE2E50600E3B039 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6B8054DB1CE2E50600E3B039 /* Authenticated.storyboard */ = {
@@ -872,7 +662,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "643f64d4-8fdc-427e-b873-33ba6dde37a3";
+				PROVISIONING_PROFILE = "6af22b25-8a16-4219-bbf0-13584c6f6475";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -889,59 +679,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-E";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "643f64d4-8fdc-427e-b873-33ba6dde37a3";
+				PROVISIONING_PROFILE = "6af22b25-8a16-4219-bbf0-13584c6f6475";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		6B8055001CE2E50600E3B039 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F49B51BC0877A192B5DF9A6D /* Pods-MOJO-ETests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "MOJO-ETests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-ETests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MOJO-E.app/MOJO-E";
-			};
-			name = Debug;
-		};
-		6B8055011CE2E50600E3B039 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F013EB59C034643E19D4F19 /* Pods-MOJO-ETests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "MOJO-ETests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-ETests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MOJO-E.app/MOJO-E";
-			};
-			name = Release;
-		};
-		6B8055031CE2E50600E3B039 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5637034915E03A942F1B520 /* Pods-MOJO-EUITests.debug.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "MOJO-EUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-EUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "MOJO-E";
-			};
-			name = Debug;
-		};
-		6B8055041CE2E50600E3B039 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C2DCFCC3384893AC9AB9DAD3 /* Pods-MOJO-EUITests.release.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "MOJO-EUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mojo-e.MOJO-EUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "MOJO-E";
 			};
 			name = Release;
 		};
@@ -962,24 +702,6 @@
 			buildConfigurations = (
 				6B8054FD1CE2E50600E3B039 /* Debug */,
 				6B8054FE1CE2E50600E3B039 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6B8054FF1CE2E50600E3B039 /* Build configuration list for PBXNativeTarget "MOJO-ETests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6B8055001CE2E50600E3B039 /* Debug */,
-				6B8055011CE2E50600E3B039 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6B8055021CE2E50600E3B039 /* Build configuration list for PBXNativeTarget "MOJO-EUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6B8055031CE2E50600E3B039 /* Debug */,
-				6B8055041CE2E50600E3B039 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

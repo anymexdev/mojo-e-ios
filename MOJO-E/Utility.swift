@@ -10,6 +10,7 @@ import UIKit
 import SystemConfiguration
 import JLToast
 import SideMenu
+import GoogleMaps
 
 class Utility {
     
@@ -154,6 +155,72 @@ class Utility {
                     // do nothing
             })
             
+        })
+    }
+    
+    class func getPlaceWithoutCurrentLocation(buttonAction: UIButton, completionBlock: (place: GMSPlace?) -> Void) {
+        buttonAction.enabled = false
+        var center = CLLocationCoordinate2DMake(37.788204, -122.411937)
+        if let place = appDelegate.currentPlace {
+            center = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
+        }
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        GMSPlacePicker(config: config).pickPlaceWithCallback({ (place: GMSPlace?, error: NSError?) -> Void in
+            buttonAction.enabled = true
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                completionBlock(place: nil)
+                return
+            }
+            completionBlock(place: place)
+        })
+    }
+    
+    class func getCurrentLocation(completionBlock: (place: GMSPlace?) -> Void) {
+        let placesClient = GMSPlacesClient()
+        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+            if error != nil
+            {
+                print("Current Place error: \(error!.localizedDescription)")
+            } else {
+                if let placeLikelihoods = placeLikelihoods {
+                    if let place = placeLikelihoods.likelihoods.first?.place {
+                        completionBlock(place: place)
+                    }
+                    else {
+                        completionBlock(place: nil)
+                    }
+                }
+                else {
+                    completionBlock(place: nil)
+                }
+            }
+        })
+    }
+    
+    class func getCurrentLocationCordinate(completionBlock: (location: CLLocation?) -> Void) {
+        let placesClient = GMSPlacesClient()
+        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+            if error != nil
+            {
+                print("Current Place error: \(error!.localizedDescription)")
+            } else {
+                if let placeLikelihoods = placeLikelihoods {
+                    if let place = placeLikelihoods.likelihoods.first?.place {
+                        let location = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+                        completionBlock(location: location)
+                    }
+                    else {
+                        completionBlock(location: nil)
+                    }
+                }
+                else {
+                    completionBlock(location: nil)
+                }
+            }
         })
     }
     
