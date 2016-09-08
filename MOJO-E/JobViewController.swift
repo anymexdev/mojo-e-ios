@@ -10,6 +10,7 @@ import MapKit
 import JPSThumbnailAnnotation
 import DKImagePickerController
 import EPSignature
+import CoreGraphics
 
 class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, EPSignatureDelegate {
     
@@ -155,10 +156,11 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     asset.fetchOriginalImage(true, completeBlock: {
                         image, info in
                             if let image = image {
+                                let imageCorrect = image.correctlyOrientedImage().resizeImage(0.1)
                                 let imageV = UIImageView(frame: CGRectMake(CGFloat(index) * 105.0, 0, 100, 100))
-                                imageV.image = image
+                                imageV.image = imageCorrect
                                 imageV.contentMode = .ScaleAspectFit
-                                self.imagesList.append(image)
+                                self.imagesList.append(imageCorrect)
                                 self.imageScroll.addSubview(imageV)
                             }
                         }

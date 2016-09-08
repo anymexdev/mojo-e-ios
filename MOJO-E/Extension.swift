@@ -173,6 +173,28 @@ extension NSDate
 }
 
 extension UIImage {
+    public func correctlyOrientedImage() -> UIImage {
+        if self.imageOrientation == UIImageOrientation.Up {
+            return self
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        self.drawInRect(CGRectMake(0, 0, self.size.width, self.size.height))
+        let normalizedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return normalizedImage;
+    }
+    
+    public func resizeImage(scale: CGFloat) -> UIImage {
+        let newSize = CGSizeMake(size.width * scale, size.height * scale)
+        let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.drawInRect(rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool) -> UIImage {
 //        let radiansToDegrees: (CGFloat) -> CGFloat = {
 //            return $0 * (180.0 / CGFloat(M_PI))
