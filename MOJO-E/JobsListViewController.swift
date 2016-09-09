@@ -124,7 +124,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                 self.getAdminJobs()
             }
             else if actionType == 1 {
-                self.syncJobsWithType(.Assigned)
+                self.syncJobsWithType(.Accepted)
             }
             else if actionType == 2 {
                 self.syncJobsWithType(.Finished)
@@ -204,14 +204,17 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                         run = run + 1
                         if let value = snapshot.value as? NSDictionary {
                             let job = Job.createJobFromDict(value)
-                            if job.status == type {
-                                self.jobs.append(Job.createJobFromDict(value))
-                            }
-                            else if type == .Accepted && (job.status == .EnRoute || job.status == .Started) {
-                                self.jobs.append(Job.createJobFromDict(value))
-                            }
-                            else if type == .New && job.status == .Assigned {
-                                self.jobs.append(Job.createJobFromDict(value))
+                            if !self.jobs.contains({$0.jobID == id}) {
+                                print("**** syncJobsWithType job.id \(job.id) and status \(job.status)")
+                                if job.status == type {
+                                    self.jobs.append(Job.createJobFromDict(value))
+                                }
+                                else if type == .Accepted && (job.status == .EnRoute || job.status == .Started) {
+                                    self.jobs.append(Job.createJobFromDict(value))
+                                }
+                                else if type == .New && job.status == .Assigned {
+                                    self.jobs.append(Job.createJobFromDict(value))
+                                }
                             }
                         }
                         if run == max {
@@ -231,43 +234,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             }
             appDelegate.isRegisterNotiFirstTime = false
         })
-    }
-    
-    private func getRegionalJobs(arrayIDs: [String]?) {
-        if let profile = Profile.get() where profile.isAdmin == true {
-            print(arrayIDs)
-            profile.getRegionalJobs(arrayIDs, completionBlock: { (arrIDs) in
-                print(arrIDs)
-                if arrIDs.count > 0 {
-                    let max = arrIDs.count
-                    var run = 0
-                    for id in arrIDs {
-                        myRootRef.child("jobs").child(id).observeEventType(.Value, withBlock: {
-                            snapshot in
-                            run = run + 1
-                            if let value = snapshot.value as? NSDictionary {
-                                let job = Job.createJobFromDict(value)
-                                job.isRegional = true
-                                job.jobID = id
-                                self.jobs.append(job)
-                            }
-                            if run == max {
-                                if self.jobs.count > 0 {
-                                    self.tableView.reloadData()
-                                    self.renderJobInDate(NSDate())
-                                }
-                                else {
-                                    self.tableView.reloadData()
-                                }
-                            }
-                        })
-                    }
-                }
-                else {
-                    self.tableView.reloadData()
-                }
-            })
-        }
     }
     
     private func addNewCVCalendar() {
@@ -301,9 +267,12 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             run = run + 1
                             if let value = snapshot.value as? NSDictionary {
                                 let job = Job.createJobFromDict(value)
-                                job.isRegional = true
-                                job.jobID = id
-                                self.jobs.append(job)
+                                if job.status == .Assigned && !self.jobs.contains({$0.jobID == id}) {
+                                    job.isRegional = true
+                                    job.jobID = id
+                                    print("**** getAdminJobs job.id \(job.id) and status \(job.status)")
+                                    self.jobs.append(job)
+                                }
                             }
                             if run == max {
                                 if self.jobs.count > 0 {

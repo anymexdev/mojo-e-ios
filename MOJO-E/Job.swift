@@ -147,6 +147,7 @@ class Job: NSObject, NSCoding {
         }
         if let id = dict.objectForKey("id") as? Int {
             job.id = id
+            job.jobID = "\(id)"
         }
         if let businessID = dict.objectForKey("business_id") as? Int {
             job.businessID = businessID
