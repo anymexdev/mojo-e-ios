@@ -267,7 +267,10 @@ class JobViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 //        if jobSelected?.status == JobStatus.New || jobSelected?.status == JobStatus.Assigned {
 //            rejectButton.hidden = false
 //        }
-        if jobSelected?.status == JobStatus.Assigned {
+        if jobSelected!.isRegional {
+            acceptButton.hidden = true
+        }
+        else if jobSelected?.status == JobStatus.Assigned {
             acceptButton.setTitle(JobStatus.EnRoute.rawValue, forState: .Normal)
         }
         else if jobSelected?.status == JobStatus.EnRoute {
