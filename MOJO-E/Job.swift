@@ -187,8 +187,32 @@ class Job: NSObject, NSCoding {
         }
     }
     
-    func setRegionalJobStatus(status: JobStatus, companyID: String) {
-        myRootRef.child("companies").child(companyID).child("jobs").child("\(id)").child("status").setValue(status.rawValue)
+    func adminAcceptJob() {
+        let jobRef = myRootRef.child("jobs").child("\(id)")
+        jobRef.child("status").setValue("Assigned")
+        if let profile = Profile.get() {
+            self.status = .Assigned
+            jobRef.child("assigned_company_id").setValue(Int(profile.companyID))
+            jobRef.child("assigned_user_uuid").setValue(profile.authenID)
+            jobRef.child("job_scheduled_start_time").setValue(round(self.dispatchTime.timeIntervalSince1970))
+            jobRef.child("job_scheduled_end_time").setValue(round(self.dispatchTime.timeIntervalSince1970.advancedBy(4 * 60 * 60)))
+        }
+        // remove job at other company
+        myRootRef.child("companies").observeEventType(.Value, withBlock: {
+            snapshot in
+            myRootRef.child("companies").removeAllObservers()
+            if let companies = snapshot.value as? NSArray {
+                for company in companies {
+                    if let company = company as? NSDictionary, info = company["info"] as? NSDictionary, id = info["id"] as? Int {
+                        myRootRef.child("companies").child("\(id)").child("jobs").child("\(self.id)").removeValue()
+                    }
+                }
+            }
+        })
+    }
+    
+    func setRegionalJobStatus(status: String, companyID: String) {
+        myRootRef.child("companies").child(companyID).child("jobs").child("\(id)").child("status").setValue(status)
     }
     
     func setJobSubmitTime() {

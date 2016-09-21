@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                }
 //            }
         }
+        // delete job from other company
         return true
     }
 

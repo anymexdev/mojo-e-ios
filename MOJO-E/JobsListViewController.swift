@@ -124,7 +124,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                 self.getAdminJobs()
             }
             else if actionType == 1 {
-                self.syncJobsWithType(.Accepted)
+                self.syncJobsWithType(.Assigned)
             }
             else if actionType == 2 {
                 self.syncJobsWithType(.Finished)
@@ -267,7 +267,7 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
                             run = run + 1
                             if let value = snapshot.value as? NSDictionary {
                                 let job = Job.createJobFromDict(value)
-                                if job.status == .Assigned && !self.jobs.contains({$0.jobID == id}) {
+                                if job.status == .New && !self.jobs.contains({$0.jobID == id}) {
                                     job.isRegional = true
                                     job.jobID = id
                                     print("**** getAdminJobs job.id \(job.id) and status \(job.status)")
@@ -347,9 +347,9 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
             if job.isRegional {
                 job.isRegional = false
                 job.getTheRegionalJob(Profile.get()!.authenID, jobID: job.jobID)
-                job.setRegionalJobStatus(.Accepted, companyID: Profile.get()!.companyID)
+                job.setRegionalJobStatus("accepted", companyID: Profile.get()!.companyID)
             }
-            job.setJobStatus(.Accepted)
+            job.adminAcceptJob()
             self.getAdminJobs()
         }
     }
@@ -369,10 +369,6 @@ class JobsListViewController: UIViewController, MGSwipeTableCellDelegate, JobCel
     }
     
     func goToDetails(job: Job?) {
-//        if let job = job where job.isRegional {
-//            Utility.showAlertWithMessage(kJobFromRegional)
-//            return
-//        }
         jobSelected = job
         self.performSegueWithIdentifier("JobDetailsSegue", sender: nil)
     }

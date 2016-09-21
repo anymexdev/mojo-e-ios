@@ -125,6 +125,7 @@ class Profile: NSObject, NSCoding {
     func syncFromFirebase(completionBlock: (profile: Profile?) -> Void) {
         myRootRef.child("users").child(self.authenID).observeEventType(.Value, withBlock: {
             snapshot in
+            myRootRef.child("users").child(self.authenID).removeAllObservers()
             if let data = snapshot.value as? NSDictionary {
                 if let phone = data.objectForKey("phone") as? String {
                     self.phone = phone
